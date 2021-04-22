@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<p id="p1"></p>
+		<input type="text">
+		<input type="text">
+		<button onclick="getInputV()">按钮</button>
+		<img src="" />
+		<script type="text/javascript">
+			/*
+			 * 我们平时对DOM元素的操作：
+			 * 1.操作dom元素的内容  html()  text()   val()
+			 * 2.操作dom元素的样式   css()  addClass()  removeClass()  toggleClass()
+			 * 3.操作dom元素的属性 
+			 * 4.添加，删除，插入DOM元素
+			 *
+			 */
+
+			//一、JQ操作元素内容
+
+			//1.jq对象.html()   相当于innerHTML;读写属性
+			//2.jq对象.text()   相当于innerText
+			//html()方法在设置jq对象的内容时，如果jq对象里有多个dom元素，则全部设置上内容；但是如果是获取内容，只获取jq对象里第一个dom元素的内容！！！
+			//text()不管是获取还是设置jq对象里的内容是，都是全部设置上或者是全部获取到！！！
+			//3.jq对象.val()    相当于value属性
+			//val()方法在设置jq对象的内容时，如果jq对象里有多个控件，则全部设置上内容；但是如果是获取内容，只获取jq对象里第一个控件的内容！！！
+
+			//			$("#p1").html("这是一个段落标签p1");
+			//			console.log($("#p1").html());
+
+			//			$("#p1").html("<span>这是一个span标签</span>"); 
+			//			$("#p1").text("<span>这是一个span标签</span>");
+			//          console.log($("#p1").html());//这是一个span标签
+			//			console.log($("#p1").text());//<span>这是一个span标签</span>
+			//			$("input:text").val("123");
+			//
+			//			function getInputV() {
+			//				console.log($("input:text").val());
+			//			}
+
+			//二、操作jq对象的属性
+			/*
+			 *  1.attr()  attribute的缩写，既可设置属性，也可获取属性  
+			 * 
+			 * 设置
+			 * jq对象.attr("属性名","属性值");引号包裹
+			 * jq对象.attr({
+			 * 	属性名1:属性值1,
+			 *  属性名2:属性值2,
+			 *  ...
+			 * })
+			 * 
+			 * 获取
+			 * jq对象.attr("属性名")
+			 * 返回值:属性值
+			 */
+			$("img").attr("src", "../day19/img/bg.jpg");
+			$("img").attr({
+				src: "../day19/img/bg.jpg", //用引号包裹
+				width: 200, //此时为width是图片的属性，不加px，当width作为样式时候，加px。
+				height: 200
+			});
+			console.log($("img").attr("src"));
+
+			/*
+			 * 2.prop()   property的缩写，既可设置属性，也可获取属性
+			 * 设置
+			 * jq对象.prop("属性名","属性值");引号包裹
+			 * jq对象.prop({
+			 * 	属性名1:属性值1,
+			 *  属性名2:属性值2,
+			 *  ...
+			 * })
+			 * 
+			 * 获取
+			 * jq对象.prop("属性名")
+			 * 返回值:属性值
+			 */
+
+			/*
+			 * attr和prop 的使用场景
+			 * 
+			 * attr  适用于操作自定义属性
+			 * prop  适用于操作系统自带属性 
+			 * 
+			 * 属性名和属性值相同的属性 ，用prop操作比较好
+			 * 
+			 * 
+			 */
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "node01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01-Node介绍.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.7.2",
+    "jquery": "^2.2.4"
+  }
+}

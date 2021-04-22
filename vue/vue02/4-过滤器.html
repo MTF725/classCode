@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4-过滤器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+       <h2>{{money|currency("£",1)}}</h2>
+   </div>
+   <div id="app1">
+       <input type="text" :value="msg|capitalize">
+   </div>
+   <script type="text/javascript">
+       /*
+          过滤器：用来对数据进行格式化
+          vue2.0  不再提供内置的过滤器，需要我们自定义实现
+          
+          全局过滤器  写在实例外边
+          局部过滤器  写在实例里边
+          过滤器可以用在两个地方：双花括号插值和v-bind 表达式
+        */
+       
+       /*
+           全局过滤器
+           语法：
+           Vue.filter("过滤器名字",function(value){});
+           回调函数的第一个参数：过滤器要格式化的数据
+           从第二个参数往后，全部都是过滤器调用时传入的实参
+           函数的返回值是最终处理完成并要显示的数据
+        */
+       //货币化数字
+       Vue.filter("currency",function (value,flag,count) {
+             console.log("自定义过滤器触发！",value);
+           // console.log( "$"+value.toFixed(2));
+           return flag+value.toFixed(count);
+       });
+       let app=new Vue({
+           el:"#app",
+           data:{
+               money:100.256
+           }
+       });
+       let app1=new Vue({
+           el:"#app1",
+           data:{
+              msg:"hello,world"
+           },
+           //自定义局部过滤器
+           filters:{
+               capitalize(value){
+                  return value[0].toUpperCase()+value.substr(1);
+                  // substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符。stringObject.substr(start,length)
+                    console.log(value.substr(1))
+               }
+           }
+       });
+   </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            height: 500px;
+            padding: 10px;
+            border: 5px solid red;
+            background-color: aqua;
+            margin: 30px;
+            position: relative;
+        }
+
+        .big {
+            height: 400px;
+            width: 300px;
+            margin: 30px;
+            background-color: yellow;
+            padding: 15px;
+            border: 0px solid black;
+            border-width: 1px 2px 3px 4px;
+            /* overflow: auto; */
+        }
+
+        .small {
+            width: 200px;
+            height: 600px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="big">
+            <div class="small">
+                <div class="one"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var bigDiv = document.querySelector(".big");
+        console.log("内尺寸宽" + bigDiv.clientWidth + "，内尺寸高" + bigDiv.clientHeight)
+
+        console.log(bigDiv.offsetLeft, bigDiv.offsetTop);
+
+
+        console.log(-true);
+
+        var gettype = Object.prototype.toString
+        console.log(gettype.call([]));
+    </script>
+</body>
+
+</html>

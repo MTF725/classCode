@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#div1 {
+				width: 300px;
+				height: 300px;
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1"></div>
+		<script type="text/javascript">
+			/*
+			 * 移动端常用事件
+			 * 1.ontouchstart  触摸开始事件
+			 * 2.ontouchmove  触摸移动事件
+			 * 3.ontouchend  触摸结束事件
+			 * 4.ontouchcancle 触摸取消事件
+			 */
+			div1.ontouchstart = function(e) {
+				//alert("开始摸!");
+				var even = e || event;
+				even.preventDefault();
+				this.innerHTML = "开始摸"
+			}
+
+			function randomNumber(x, y) {
+				return Math.floor(Math.random() * (y - x + 1) + x);
+			}
+
+			function randomColor() {
+				var r = randomNumber(0, 255);
+				var g = randomNumber(0, 255);
+				var b = randomNumber(0, 255);
+				return "rgb(" + r + "," + g + "," + b + ")";
+			}
+			div1.ontouchmove = function() {
+				this.style.background = randomColor();
+			}
+			div1.ontouchend = function(){
+				this.innerHTML = "摸完了";
+			}
+			
+			//touchcancel事件，当有优先级更高的事件被触发时（如来电提醒，闹钟等），系统会丢弃正在执行的异动时间，进而触发cancel事件，我们可以在cancel事件里处理一些数据的保存，进度的暂停等操作；
+		</script>
+	</body>
+
+</html>

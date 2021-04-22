@@ -1,0 +1,125 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#wrap {
+	width: 343px;
+	height: 480px;
+	background: url(../img/bg.jpg) no-repeat;
+	margin: 30px auto;
+	position: relative;
+	overflow: hidden;
+}
+
+#head {
+	width: 236px;
+	height: 77px;
+	background: url(../img/head.jpg) no-repeat;
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	margin-left: -118px;
+}
+
+#head img {
+	position: absolute;
+	right: 10px;
+	top: 0;
+	animation: fly 1s infinite linear;
+}
+
+@keyframes fly {
+	from {
+		top: 0;
+	}
+	50% {
+		top: 50px;
+	}
+	to {
+		top: 0;
+	}
+}
+
+#menu {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 300px;
+}
+
+#end {
+	width: 269px;
+	height: 135px;
+	background: url(../img/message.jpg);
+	position: absolute;
+	left: 50%;
+	margin-left: -134.5px;
+	top: 150px;
+	display: none;
+}
+
+#end span {
+	font-size: 30px;
+	position: absolute;
+	left: 215px;
+}
+
+#currentS {
+	top: 32px;
+}
+
+#bestS {
+	top: 82px;
+}
+
+#score {
+	width: 100%;
+	text-align: center;
+	display: none;
+	position: absolute;
+	top: 0;
+	z-index: 10;
+}
+
+#bird {
+	position: absolute;
+	top: 230px;
+	left: 65px;
+	display: none;
+	z-index: 10;
+}
+
+ul {
+	width: 100%;
+	height: 425px;
+	position: relative;
+	list-style: none;
+	display: none;
+}
+
+li {
+	width: 62px;
+	height: 425px;
+	position: absolute;
+}
+
+
+/* 上管道样式*/
+
+.upPipe {
+	width: 62px;
+	position: absolute;
+	top: 0;
+	background: url(../img/up_pipe.png) no-repeat center bottom, url(../img/up_mod.png);
+}
+
+
+/*下管道样式*/
+
+.downPipe {
+	width: 62px;
+	position: absolute;
+	bottom: 0;
+	background: url(../img/down_pipe.png) no-repeat center top,url(../img/down_mod.png);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02-express</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" id="i1">
+<input type="text" id="i2">
+    <button>get请求</button>
+    <button>post请求</button>
+    <button>jsonp请求</button>
+<script>
+    $("button").eq(0).on("click",function () {
+        $.ajax({
+            url:"http://127.0.0.1:9222/get",
+            type:"get",
+            data:{
+                name:$("#i1").val(),
+                age:$("#i2").val()
+            },
+            success:function (data) {
+                console.log(data);
+            }
+        });
+    });
+    $("button").eq(1).on("click",function () {
+        $.ajax({
+            url:"http://127.0.0.1:9222/post",
+            type:"post",
+            data:{
+                name:$("#i1").val(),
+                age:$("#i2").val()
+            },
+            success:function (data) {
+                console.log(data);
+            }
+        });
+    });
+    $("button").eq(2).on("click",function () {
+        $.ajax({
+            url:"http://127.0.0.1:9222/jsonp",
+            type:"get",
+            data:{
+                name:$("#i1").val(),
+                age:$("#i2").val()
+            },
+            dataType:"jsonp",
+            success:function (data) {
+                console.log(data);
+            }
+        });
+    });
+</script>
+</body>
+</html>

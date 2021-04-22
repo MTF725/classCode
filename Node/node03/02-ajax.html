@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02-ajax</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" id="i1">
+<input type="text" id="i2">
+   <button>ajax_get</button>
+   <button>ajax_post</button>
+   <button>ajax_jsonp</button>
+   <script>
+       $("button").eq(0).on("click",function () {
+            $.ajax({
+                url:"http://127.0.0.1:6901/get",
+                type:"get",
+                data:{
+                    name:$("#i1").val(),
+                    age:$("#i2").val()
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            })
+       })
+       $("button").eq(1).on("click",function () {
+            $.ajax({
+               url:"http://127.0.0.1:6901/post",
+               type: "post",
+               data: {
+                   name:$("#i1").val(),
+                   age: $("#i2").val()
+               },
+               success:function (data) {
+                   console.log(data);
+               }
+           })
+       })
+       $("button").eq(2).on("click",function () {
+           $.ajax({
+               url:"http://127.0.0.1:6901/jsonp",
+               type: "get",
+               data: {
+                   name:$("#i1").val(),
+                   age: $("#i2").val()
+               },
+               success:function (data) {
+                   getData(data);
+               },
+               jsonp: "cb",
+               jsonpCallback: "getData",
+               dataType:"jsonp",
+           });
+           function getData(d) {
+               console.log(d);
+           }
+       })
+   </script>
+</body>
+</html>

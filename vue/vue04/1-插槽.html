@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1-插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1>
+        今天是星期三
+        <p>段落标签</p>
+        <button>按钮</button>
+    </child1>
+    <child2>
+        <!--v-slot指令的标准写法-->
+        <template v-slot:header>
+            <p>这是第一个段落</p>
+            <p>这是第二个段落</p>
+        </template>
+        <!--v-slot指令的简写-->
+        <template #footer>
+            <button>按钮1</button>
+            <button>按钮2</button>
+        </template>
+        <input type="text" placeholder="用户名">
+        <p>pppp{{msg}}</p>
+    </child2>
+    <child3>
+        <!--v-slot后边可以任意取名字-->
+        <template v-slot="data">
+            <p>pppp{{msg}}</p>
+            <!--sl-data已经成为v-slot的属性，即data的属性-->
+            <p>{{data.s1Data}}</p>
+        </template>
+        <template v-slot:footer="info">
+            <p>{{info.fData.firstName}}</p>
+            <p>{{info.fData.lastName}}</p>
+        </template>
+
+    </child3>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend>这是child1组件</legend>
+        <slot></slot>
+    </fieldset>
+</template>
+<template id="child2">
+    <!--具名插槽-->
+    <fieldset>
+        <legend>这是child2组件</legend>
+        <slot name="header"></slot>
+        <hr>
+        <slot name="footer"></slot>
+        <hr>
+        <slot></slot>
+    </fieldset>
+</template>
+<template id="child3">
+    <fieldset>
+        <legend>这是child3组件</legend>
+        <!--这里自定义的s1-data是插槽的属性,插槽里所有属性都会成为v-slot的属性-->
+        <slot :s1-data="msg"></slot>
+        <slot name="footer" :f-data="user"></slot>
+    </fieldset>
+</template>
+<script type="text/javascript">
+    /*
+        插槽：
+        我们可以在组件里写内容，这种内容可以是多种形式，文本，             变量，html标签，然后在组件的模板里使用插槽接收组件里写             的内容，将内容安排到合适的位置显示。插槽的使用可以让内容展         示变得更加灵活
+
+        位置：插槽的位置在组建的模板里
+
+        具名插槽:给slot用name属性起名字，组件里的内容需要包裹在template标签内，并使用v-slot指令指定要放置的插槽，没有设置名字的内容会进入到没有name属性的slot组件内
+        页面的展示顺序，有插槽的排列顺序决定，不由内容的排列顺序决定
+
+        在组件里写的内容如果填变量,注意该位置属于组件父级的作用域范围,而不是组件自身的作用域范围
+
+        作用域插槽:可以将组建立的内容由默认的父级作用域,调整到当前组件自己的作用域
+        给slot组件,添加自定义属性并赋值组件的data数据源的数据,该绑定在<slot>元素上的特性被称为插槽prop,使用v-slot可以获取到存储了这些属性值得对象,对象的名字可以自定义.
+        如果组件里的内容既需要指定插槽名字,又需要获取属性对象,语法:
+        v-slot:具名="对象名"
+
+     */
+    let child1 = {
+        template: "#child1"
+    };
+    let child2 = {
+        template: "#child2"
+    };
+    let child3 = {
+        template: "#child3",
+        data() {
+            return {
+                msg: "这是child3的msg数据！",
+                user: {
+                    firstName: "赵四",
+                    lastName: "尼古拉斯"
+                }
+            }
+        }
+    };
+    new Vue({
+        components: {
+            child1, child2, child3
+        },
+        data: {
+            msg: "这是app的msg"
+        }
+    }).$mount("#app");//$mount挂载，将vue实例app挂载到("#app")这个id上，不再写let app =和el:"#app"
+    // app.$mount("#app")  用这种写法时，vue实例后不再加.$mount("#app")，这种写法的好处数，可以人为改变vue实例挂载的dom元素
+</script>
+</body>
+</html>

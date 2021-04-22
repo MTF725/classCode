@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象01</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*
+			 * JS是一门脚本语言
+			 * 
+			 * 面向过程编程(OPP): 以事件为中心, 侧重于完成整个需求所需的步骤, 代表语言: C语言
+			 * 面向对象编程(OOP): 以事物为中心, 侧重于完成整个需求所需的事物的特征和行为, 代表语言: OC, JAVA, C++
+			 * 
+			 * 
+			 * 类和对象
+			 * 类: 具有相同特征和行为的事物的抽象
+			 * 对象: 类的实例
+			 * 
+			 * 如何判断类和对象?
+			 * 根据描述指向同一个事物, 描述的就是对象, 否则是类.
+			 * 
+			 * 在JS里, 只有对象, 没有类的概念(ES6引入了class)
+			 * 
+			 * 	
+			 * 问题: 既然JS里没有类, 如何创建对象???
+			 */
+
+			/*
+			 * JS里如何创建对象??
+			 * 1. 字面量(语法糖)创建
+			 * 2. 构造函数创建
+			 */
+			/*
+			 * 1. 字面量创建对象, JS里对象的标志是{}
+			 * var obj = {
+			 * 	属性名1:属性值1,
+			 *  属性名2:属性值2,
+			 *  ...
+			 * 	方法名1:function(){},
+			 * 	方法名2:function(){}
+			 * };
+			 * 
+			 * 特征  === 属性   行为  === 方法
+			 */
+			//练习1: 创建一个学生对象, 属性: 姓名, 年龄, 性别, 好友, 学校, 专业; 方法: 写作业, 上课, 考试
+			var student = {
+				// 属性
+				name: "small potato",
+				age: 30,
+				sex: "不详",
+				bestFriend: {
+					name: "王开放",
+					age: 17,
+					sex: "男"
+				},
+				school: "哈尔滨佛学院",
+				zy: "念经, 化缘",
+				// 方法
+				doHomework: function() {
+					console.log("不会写!");
+				},
+				goToClass: function() {
+					console.log("不想去!");
+				},
+				test: function() {
+					console.log("补考!");
+				},
+				instruction: function() {
+					console.log("你好, 我叫" + this.name + ", 今年" + this.age + "岁");
+				}
+			};
+			console.log(student);
+
+			// 使用对象??  点语法   对象.属性名 或者 对象.方法名
+			//			console.log(student.name);
+			//			console.log(student.doHomework);
+			//			student.doHomework();
+			//			console.log(student.bestFriend.name);
+			//
+			//			student.goToClass();
+			//			student.instruction();
+
+			var stu1 = {
+				name: "张三",
+				age: 20
+			};
+			var stu2 = {
+				name: "李四",
+				age: 21
+			};
+
+			//声明一个函数, 作用, 创建student对象
+
+			function createStu(name, age) {
+				return {
+					name: name,
+					age: age
+				};
+			}
+
+			var stu1 = createStu("张三", 20);
+			var stu2 = createStu("李四", 30);
+			console.log(stu1, stu2);
+		</script>
+	</body>
+
+</html>

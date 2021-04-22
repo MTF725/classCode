@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作业-商品</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1></child1>
+    <child2></child2>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h3>信息输入区域</h3></legend>
+        <input type="text" placeholder="名称" v-model="name">
+        <input type="text" placeholder="单价" v-model="price">
+        <input type="text" placeholder="数量" v-model="number">
+        <button @click="sendMsgToChild2">添加</button>
+    </fieldset>
+</template>
+<template id="child2">
+    <fieldset>
+        <legend><h3>商品列表区域</h3></legend>
+        <div v-for="(a,b) in msgFromChild1">
+            <div><span>商品:{{a.name}}；</span><span>价格:{{a.price}}；</span><span>数量:{{a.number}}</span><button @click="deleteArr(b)">删除</button></div>
+        </div>
+    </fieldset>
+</template>
+
+<script type="text/javascript">
+    let totalVue = new Vue();
+    let child1 = {
+        template: "#child1",
+        data() {
+            return {
+                name: "",
+                price: "",
+                number: ""
+            }
+        },
+        methods: {
+            sendMsgToChild2() {
+                //发送对应事件
+                totalVue.$emit("msg-event", [this.name,this.price,this.number]);
+            }
+        }
+    };
+    let child2 = {
+        template: "#child2",
+        data(){
+          return {
+              msgFromChild1:[]
+          }
+        },
+        created() {
+            //设置监听
+            totalVue.$on("msg-event", this.getChild1Msg)
+        },
+        methods: {
+            getChild1Msg(v) {
+                this.msgFromChild1.push({name:v[0],price:v[1],number:v[2]})
+             console.log(this.msgFromChild1)
+            },
+            deleteArr(i){
+                this.msgFromChild1.splice(i,1);
+            }
+        },
+    };
+    let app = new Vue({
+        el: "#app",
+        components: {
+            child1, child2
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2-动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        .fade-enter-active,.fade-leave-active{
+            transition: opacity .5s;
+        }
+        /*此处，元素的初始样式为opacity=1，即fade-enter-to的opacity=1和fade-leave的opacity=1，可以不用写*/
+        .fade-enter,.fade-leave-to{
+            /*点击按钮之后，添加元素<p>hello,vue</p>，即其opacity=1，但是要实现标签由无到有的过程，所以将fade-enter的opacity设置为0*/
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+   <div id="app">
+       <button @click="show=!show">点击</button>
+       <transition name="fade">
+           <p v-if="show">hello,vue</p>
+       </transition>
+   </div>
+   <script type="text/javascript">
+       /*
+           Vue里的动画，需要借助transition组件，将需要做动画效果的内容用该组件包裹起来
+           进入离开动画所需的6个class:
+           1.v-enter 定义进入动画的初始状态,动画开始下一帧后被移除
+           2.v-enter-active 定义进入动画的整个运行状态,该类里可以填写动画的样式,动画的时长,延迟事件,运动速率等,该类在整个动画执行过程中都存在.
+           3.v-enter-to 定义动画的结束状态,动画开始下一帧后被加上,整个动画的执行过程中都存在,动画执行结束被移除
+           4.v-leave 定义离开动画的初始状态,动画开始下一帧后被移除
+           5.v-leave-active 定义离开动画的整个运行状态,该类里可以填写动画的样式,动画的时长,延迟事件,运动速率等,该类在整个动画执行过程中都存在.
+           6.v-leave-to 定义动画的结束状态,动画开始下一帧后被加上,整个动画的执行过程中都存在,动画执行结束被移除
+           以上6个class，如果transition添加了name值，把v-替换成name的值
+
+           如果元素的初始样式已经符合动画的初始值或者结束值，某些类可以不写
+        */
+       new Vue({
+           data:{
+               show:true
+           }
+       }).$mount("#app");
+   </script>
+</body>
+</html>

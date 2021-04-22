@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				height: 43px;
+				width: 480px;
+				margin: 30px auto;
+				position: relative;
+			}
+			
+			#news {
+				width: 480px;
+				font-size: 16px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			
+			p {
+				text-align: center;
+				width: 80px;
+				height: 40px;
+				line-height: 40px;
+				background: rgba(0, 0, 0, 0.2);
+			}
+			
+			#line {
+				width: 80px;
+				height: 3px;
+				background: red;
+				position: absolute;
+				left: 0;
+				top: 40;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="news">
+				<p>军事</p>
+				<p>娱乐</p>
+				<p>音乐</p>
+				<p>游戏</p>
+				<p>电影</p>
+				<p>推荐</p>
+			</div>
+			<div id="line"></div>
+		</div>
+		<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var ps = document.querySelectorAll("p");
+			for(var i = 0; i < ps.length; i++) {
+				ps[i].onmousemove = (function(index) {
+					return function() {
+						var t = 0;
+						var b = line.offsetLeft;
+						var c = line.offsetWidth * index - b;
+						var d = 20;
+						var timer = setInterval(function() {
+							t++;
+							line.style.left = Tween.Linear(t, b, c, d) + "px";
+							if(t == d) {
+								clearInterval(timer);
+							}
+						}, 20);
+					}
+				})(i);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07_组件里的生命函数</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+</head>
+<body>
+<div id="box"></div>
+<script type="text/babel">
+    let box = document.getElementById("box")
+    let Child1 = React.createClass({
+        //初始化默认props对象
+        getDefaultProps() {
+            //无法访问到state
+            console.log("getDefaultProps方法触发");
+            return {
+                name: "无名",
+                age: 18
+            }
+        },
+        //初始化state对象
+        getInitialState() {
+            //此时可以访问到props
+            console.log("getInitialState方法触发！", this.props.name);
+            return {
+                sex: "男"
+            }
+        },
+        //组件将要被挂载
+        componentWillMount() {
+            //组件初始化时调用，整个生命周期值触发一次，组件更新也不会触发，此时可以修改state
+            console.log("componentWillMount方法触发！")
+            this.setState({
+                sex:"不详"
+            });
+        },
+        //渲染组件
+        render() {
+            //react里最重要的方法，创建虚拟dom，进行diff算法，更新dom都在此进行，此处就无法修改state了
+            console.log("render方法触发");
+            //render里不能修改state，因为state修改后会重新渲染组件，渲染组件时又会修改state，这样会陷入死循环
+            // this.setState({
+            //     sex:"女"
+            // })
+            return <div>
+                <p>姓名：{this.props.name}</p>
+                <p>年龄：{this.props.age}</p>
+                <p>性别：{this.state.sex}</p>
+                <button>点击修改state的值</button>
+            </div>
+        },
+        //组件挂载完成，渲染完成之后只走一次
+        componentDidMount() {
+            console.log("组件挂载完成");
+        },
+        //组件将要接收到props
+        componentWillReceiveProps() {
+            //该方法组件初始化时不调用，当接收到新的props时会调用
+            console.log("componentWillReceiveProps方法触发");
+        },
+        //是否允许组件更新
+        shouldComponentUpdate(nextProps,nextState ) {
+            //react里性能优化非常重要的一环，该方法在接收新的props和state时会被重新调用，如果返回值为true，允许react更新，值为false，阻止react进行更新
+            console.log("shouldComponentUpdate方法触发！");
+            console.log(nextProps,nextState);//更新后的props和state
+            console.log(this.props,this.state)//更新前的props和state
+            return true
+        },
+        //组件将要更新
+        componentWillUpdate() {
+            //组件初始化时不调用，只有在组件将要更新时（前提是已允许更新）
+            console.log("componentWillUpdate方法触发了！");
+        },
+        //组件更新完毕
+        componentDidUpdate() {
+            //组件初始化时不调用，只在组件完成更新时调用（前提是已允许更新）
+            console.log("componentDidUpdate方法触发了！");
+        },
+        //组件将要被卸载
+        componentWillUnmount() {
+            //组件将要卸载时调用，在该方法里可以清除事件监听，计时器，保存重要数据
+            console.log("componentWillUnmount这个方法被触发了！");
+        }
+    });
+    ReactDOM.render(
+        <Child1 name="高富帅（土豆）"/>, box
+    );
+    ReactDOM.render(
+        <Child1 name="abc"/>, box
+    )
+   setTimeout(function () {
+       //卸载某个节点的组件
+       ReactDOM.unmountComponentAtNode(box)
+   },3000)
+</script>
+</body>
+</html>

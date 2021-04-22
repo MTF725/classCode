@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				display: block;
+				margin: 30px auto;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">
+			//获取canvas的dom元素
+			var CanvasE = document.getElementById("Canvas");
+			//获取画笔
+			var pen = CanvasE.getContext("2d");
+			//设置小球父级对象
+			function Bolls() {
+				this.pen = pen;
+				//随机大小
+				this.r = randomNumber(20, 50);
+				this.x = randomNumber(this.r, CanvasE.width - this.r);
+				this.y = randomNumber(this.r, CanvasE.height - this.r);
+				//随机颜色
+				this.colorR = randomNumber(0, 255);
+				this.colorG = randomNumber(0, 255);
+				this.colorB = randomNumber(0, 255);
+				//随机速度
+				this.speedX = Math.random() > 0.5 ? -randomNumber(1, 2) : randomNumber(1, 2);
+				this.speedY = Math.random() > 0.5 ? -randomNumber(1, 2) : randomNumber(1, 2);
+			}
+			//小球移动属性
+			Bolls.prototype.move = function() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+				//检测是否碰撞到四周
+				if(this.x <= this.r || this.x + this.r >= CanvasE.width) {
+					this.speedX = -this.speedX;
+				}
+				if(this.y <= this.r || this.y + this.r >= CanvasE.height) {
+					this.speedY = -this.speedY;
+				}
+			}
+			//绘出小球
+			Bolls.prototype.draw = function() {
+				pen.beginPath();
+				pen.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+				pen.closePath();
+				pen.fillStyle = "rgb(" + this.colorR + "," + this.colorG + "," + this.colorB + ")";
+				pen.fill();
+				pen.stroke();
+			}
+
+			//创建随机颜色，随机个数，随机大小的小球
+			var bolls = [];
+			for(var i = 0; i < randomNumber(3, 12); i++) {
+				var boll = new Bolls();
+				boll.draw();
+				bolls.push(boll);
+			}
+
+			/*			//创建不重叠的小球
+						var bolls = [];
+						var bolls1 = [];
+						bollNumber = randomNumber(20,30);
+						console.log(bollNumber);
+						while(bolls.length< bollNumber) {
+							var boll = new Bolls();
+							boll.draw();
+							bolls1.push(boll);
+							//检测小球与小球是否重叠
+							for(var a = 0; a < bolls1.length; a++) {
+								for(var b = 0; b < bolls1.length; b++) {
+									if(a != b) {
+										if(Math.sqrt(Math.pow(bolls1[a].x - bolls1[b].x, 2) + Math.pow(bolls1[a].y - bolls1[b].y, 2)) <= bolls1[a].r + bolls1[b].r) {
+											break;
+										} else {
+											bolls.push(bolls1[a]);
+										bolls.push(bolls1[b]);
+											
+										}
+									} else {
+										break;
+									}
+								}
+
+							}
+						}
+			*/
+			//设置计时器不断刷新画布
+			function updateCanvasE() {
+				setInterval(function() {
+					pen.clearRect(0, 0, CanvasE.width, CanvasE.height);
+					//刷新每个小球
+					for(var i = 0; i < bolls.length; i++) {
+						bolls[i].move();
+						bolls[i].draw();
+						//检测小球与小球是否碰撞
+						for(var j = 0; j < bolls.length; j++) {
+							if(i != j) {
+								if(Math.sqrt(Math.pow(bolls[i].x - bolls[j].x, 2) + Math.pow(bolls[i].y - bolls[j].y, 2)) <= bolls[i].r + bolls[j].r) {
+									bolls[i].speedX *= -1;
+									bolls[i].speedY *= -1;
+									bolls[j].speedX *= -1;
+									bolls[j].speedY *= -1;
+
+								}
+							} else {
+								break;
+							}
+						}
+
+					}
+				}, 15);
+			}
+			updateCanvasE();
+
+			//设置随机数函数
+			function randomNumber(a, b) {
+				return Math.floor(Math.random() * (b - a + 1) + a);
+			}
+		</script>
+	</body>
+
+</html>

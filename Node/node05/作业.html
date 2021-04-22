@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01-node网络请求</title>
+    <style type="text/css">
+        .div-right {
+            width: 400px;
+            float: left;
+            margin-left: 10px;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .div-left {
+            font-size: 14px;
+            float: left;
+        }
+
+        .div-empty {
+            clear: both;
+        }
+
+        .div-btn {
+            font-size: 14px;
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+    </style>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<button>请求网易数据</button>
+<fieldset style="width: 700px;height:510px">
+    <legend>显示界面</legend>
+    <div id="fieldset" style="width: 700px;height:500px;overflow: auto"></div>
+</fieldset>
+
+<fieldset style="width: 700px;height:510px">
+    <legend>收藏界面</legend>
+    <div id="fieldset2" style="width: 700px;height:500px;overflow: auto"></div>
+</fieldset>
+
+<script>
+    $("button").eq(0).on("click", function () {
+        $.ajax({
+            url: "http://127.0.0.1:7898/neteasy",
+            type: "get",
+            dataType: "jsonp",
+            success: function (data) {//success和jsonpCallback写一个就行，用来接收后台传过来的数据
+                show(data);
+                console.log(data);
+            }
+        })
+    });
+
+    function show(data) {
+        var data1 = data.T1348647853363;
+        for (var i = 0; i < 20; i++) {
+            var div0 = $("<div/>").attr({"class": "div-both"}).appendTo("#fieldset");
+            var div1 = $("<div/>").attr({"class": "div-left"}).appendTo(div0);
+            $("<img/>").attr({src: data1[i].imgsrc, width: 250, height: 160}).appendTo(div1);
+            var div2 = $("<div/>").attr({"class": "div-right"}).appendTo(div0);
+            $("<p/>").html(data1[i].title).appendTo(div2);
+            $("<p/>").html(data1[i].digest).appendTo(div2);
+            $("<div/>").attr({"class": "div-empty"}).appendTo(div0);
+            $("<button/>").attr("class", "div-btn").html("收藏").on("click",function () {
+                $.ajax({
+                    url: "http://127.0.0.1:7898/news",
+                    type: "get",
+                    data:{
+                        src: $(this).parent().parent().children($("#div-left")).children($("img")).attr("src"),
+                        title:$(this).parent().children().eq(0).html(),
+                        des:$(this).parent().children().eq(1).html()
+                    },
+                    dataType: "jsonp",
+                    success: function (data) {//success和jsonpCallback写一个就行，用来接收后台传过来的数据
+                        news(data);
+                        console.log(data);
+                    }
+                })
+            }).appendTo(div2);
+        }
+    }
+   function news() {
+       
+   }
+
+</script>
+</body>
+</html>

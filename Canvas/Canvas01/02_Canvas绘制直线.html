@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">		
+			//1.获取Canvas DOM元素
+			var CanvasE=document.getElementById("Canvas");
+			
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+			
+			//3.绘制直线
+//			context.beginPath();//开始路径
+//			context.moveTo(100,200);//设置起始点
+//			context.lineTo(500,300);//设置下一个点
+//		    context.closePath();//结束路径
+//		
+//		    context.stroke();//绘制路径
+		    
+		    //再绘制一个正方形
+//		    context.beginPath();
+//		    context.moveTo(50,50);
+//		    context.lineTo(300,50);
+//		    context.lineTo(300,300);
+//		    context.lineTo(50,300);		  
+//		    context.closePath();
+//		    context.stroke();
+
+            //绘制一个五角星
+            context.beginPath();
+		    context.moveTo(220,20);
+		    context.lineTo(350,200);
+		    context.lineTo(50,100);
+		    context.lineTo(400,100);
+		    context.lineTo(100,200);
+		    context.closePath();
+		    context.stroke();
+		</script>
+	</body>
+
+</html>

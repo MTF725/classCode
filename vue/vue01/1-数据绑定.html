@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1-数据绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .bgc {
+            background-color: blue;
+        }
+
+        .setB {
+            border: 10px solid red;
+        }
+
+        .changeColor {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            background-color: red;
+        }
+
+        .divBgc {
+            background-color: blue;
+        }
+
+        .hideH2 {
+            display: none;
+        }
+
+        #parent {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        #child {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <fieldset>
+        <legend><h2>值绑定</h2></legend>
+        <p v-cloak>{{msg}}</p>
+        <p v-cloak>{{a+b}}</p>
+        <hr>
+        <p v-text="v"></p>
+        <p v-html="v"></p>
+    </fieldset>
+    <fieldset>
+        <legend><h2>属性绑定</h2></legend>
+        <img v-bind:src="imgSrc" :title="imgTitle">
+        <hr>
+        <div :style="divStyle"></div>
+        <hr>
+        <div :style="divStyle2"></div>
+        <hr>
+        <div :class="{bgc:isAdd,setB:isAdd}">这是class属性绑定的例子</div>
+    </fieldset>
+    <fieldset>
+        <legend><h2>事件绑定</h2></legend>
+        <!--vue中，事件没有参数时可以省略小括号-->
+        <button v-on:click="btnClick1">无参点击事件</button>
+        <!--小括号里填实参，可以是数字，字符串，变量，字符串用单引号包起来-->
+        <button v-on:click="btnClick2(1,'abc',msg)">有参点击事件</button>
+        <!--如果需要事件对象，可以在调用时传$event参数-->
+        <button v-on:click="getEvents($event)">点击获取事件对象</button>
+        <!--简写方式，不写($event)，默认为事件对象-->
+        <button v-on:click="getEvents1">对获取点击事件的简写</button>
+        <!--要传递参数并且要获得点击事件，需要写出$event-->
+        <button v-on:click="getEvents2(1,'abc',msg,$event)">要传递参数并且要获得点击事件</button>
+    </fieldset>
+    <fieldset>
+        <legend><h2>点击改变div的背景色</h2></legend>
+        <div :class="{changeColor:true,divBgc:isDivAdd}" v-on:click="Color"></div>
+        <div :style="divStyle" v-on:click="changeColor"></div>
+    </fieldset>
+    <fieldset>
+        <legend><h2>点击隐藏元素</h2></legend>
+        <h2 :class="{hideH2:isHide}">这是h2标签</h2>
+        <button @click="isHide=!isHide" v-text="isHide? '显示':'隐藏'"></button>
+    </fieldset>
+    <fieldset>
+        <legend><h2>模拟冒泡</h2></legend>
+        <div id="parent" @click="parentClick">
+            <div id="child" @click.stop="childClick"></div>
+            <a href="http://www.baidu.com" @click.prevent.stop>点击去百度</a>
+        </div>
+        <button @click.once="onceClick">一次性点击按钮</button>
+        <input type="text" @keydown.left.right.up.down="keyDownAction">
+    </fieldset>
+    <fieldset>
+        <legend><h2>双向数据绑定</h2></legend>
+        <p>{{inputV}}</p>
+        <input type="text" v-model="inputV">
+    </fieldset>
+</div>
+<script type="text/javascript">
+    /*
+       Vue是一个MVVM的JavaScript框架
+       M表示model层，即数据层
+       V表示view层，即视图层
+       VM表示逻辑层
+       view和model的数据传递只能依赖VM，两者不能直接通信！
+     */
+    /*
+       1.数据绑定
+         1.1  值绑定
+            1.1.1  {{}} 插值表达式，大括号里可以填变量，表达式，不能填语句，{{}}里面是vue的编译环境，外面不识别vue的数据源数据。表达式：由变量、常量组成的，有结果的式子。
+            1.1.2   使用v-text或者v-html指令
+                     v-text和v-html的区别：
+                     v-html如果数据里有标签，直接解析
+                     v-text只会原样输出文本
+                注意：{{}}里面和vue的指令的双引号里面，都是vue的编译环境，所以可以直接识别变量！！！
+
+            文本闪烁问题：
+            当我们加载在线的vue文件时，如果因为某些问题导致vue文件没有及时加载，系统就无法识别vue语法，就会导致我们书写的vue语法原样输出，用户体验较差
+            解决办法：
+            1.在head里引入vue.js，让其尽可能先加载
+            2.vue里提供v-cloak指令解决文本闪烁问题.原理：当vue文件没有加载时，系统会把v-cloak当做普通的属性，我们凡是添加了该属性的标签全部隐藏；但是vue文件一旦加载，vue就会识别v-cloak指令，内部把之前的display：none全部去掉
+         1.2  属性绑定
+            1.2.1  语法:
+             v-bind:属性名="属性值"
+             简写：
+             :属性名="属性值"
+            1.2.2  动态绑定元素样式  style/class
+                a. style属性绑定
+                    语法：  :style="对象/数组"
+                b.  class属性绑定
+                    语法   :class="对象/数组"
+         1.3  事件绑定   语法
+              v-on:事件名="简单语句"
+            简写：
+               @事件名="简单语句"
+              特点：
+              1.vue事件里如果不需要传参数，小括号可以不写
+              2.vue事件如果需要事件对象，可以在调用时传$event参数
+              3.如果不传参数，vue会默认把函数的第一个形参当做事件对象
+              4.如果有参数要传递且还需要事件对象，需要写出$event
+              methods里的函数里访问data数据源里的数据，直接用this调用即可
+              vue事件修饰符
+              1.普通事件
+                阻止冒泡的传播  stop
+                阻止默认事件执行  prevent
+                一次性事件  once
+              2.键盘事件
+                left,right,up,down,enter,tab.ctrl.meta,shift,alt
+         1.4  双向数据绑定（内部实现原理）
+         vue里的数据绑定默认是单向的  即Model-->View
+         使用v-model指令实现双向数据绑定效果，即数据可以影响视图，视图也可以影响数据。
+     */
+    //创建vue实例
+    let app = new Vue({
+        //el字段，指定vue实例的作用范围
+        el: "#app",
+        //data字段，指定vue实例的数据源
+        data: {
+            msg: "hello,vue",
+            a: 10,
+            b: 20,
+            v: "这是一个div标签<div>div1</div>",
+            imgSrc: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2161903125,1069602209&fm=26&gp=0.jpg",
+            imgTitle: "这是一张图",
+            divStyle: {width: "120px", height: "120px", background: "red"},
+            divStyle2: [{width: "200px", height: "200px"}, {background: "pink"}],
+            isAdd: true,
+            isDivAdd: false,
+            isHide: false,
+            inputV: "默认值"
+        },
+        //method字段，存放vue实例里的所有事件函数
+        methods: {
+            btnClick1: function () {
+                alert("btnClick1函数出发")
+            },
+            btnClick2: function (a, b, c) {//此处a,b,c是形参
+                console.log(a, b, c);
+            },
+            getEvents: function (e) {
+                console.log(e);
+            },
+            getEvents1: function (a) {
+                console.log(a);
+            },
+            //es6的函数简写形式，省去了冒号和function
+            getEvents2(a, b, c, e) {
+                console.log(a, b, c, e);
+            },
+            Color() {
+                this.isDivAdd = !this.isDivAdd;
+            },
+            changeColor() {
+                this.divStyle.background = "blue";
+            },
+            parentClick() {
+                alert("父元素点击事件触发");
+            },
+            childClick(e) {
+                //e.stopPropagation();
+                alert("子元素点击事件触发");
+            },
+            onceClick() {
+                alert("点一次失效");
+            },
+            keyDownAction() {
+                console.log("键盘事件触发了！")
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

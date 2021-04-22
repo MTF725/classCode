@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4-组件间通信_兄弟传值（中间人）</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1 @child1-event="appGetMsg" ref="c1"></child1>
+    <child2 :childmsg="appMsg"></child2>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h3>这是child1组件</h3></legend>
+        <button @click="sendMsgToChild2">点击按钮向child2传递数据</button>
+    </fieldset>
+</template>
+<template id="child2">
+    <fieldset>
+        <legend><h3>这是child2组件</h3></legend>
+        <p>接收从child1传来的数据{{childmsg}}</p>
+    </fieldset>
+</template>
+<script type="text/javascript">
+    let child1 = {
+        template: "#child1",
+        data() {
+            return {child1Msg: "child1数据"}
+        },
+        methods: {
+            sendMsgToChild2() {
+                //给child1自定义一个事件
+                this.$emit("child1-event", this.child1Msg);
+            }
+        }
+    };
+    let child2 = {
+        template: "#child2",
+        props:{
+            childmsg:{
+                //对本输入属性做配置
+                type:String,
+                //当组件里什么都不写的时候<child1></child1>,<p></p>就会出现“childMsg默认值”
+                default:'childMsg默认值'
+            }
+        },
+    }
+    let app = new Vue({
+        el: "#app",
+        components: {
+            child1,
+            child2
+        },
+        data: {
+            appMsg: ""
+        },
+        methods: {
+            appGetMsg(v) {//这里的形参v，是子的自定义事件触发时，发送的是子的数据child1Msg
+                console.log("接收到的数据是：", v);
+                this.appMsg = v;
+            }
+        }
+    })
+</script>
+</body>
+</html>

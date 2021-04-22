@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02_Hello_React</title>
+    <!-- 支持jsx语法需要的模块-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <!--<script src="js/browser.min.js"></script>-->
+    <!--react的核心模型，支持允许我们书写react相关的语法-->
+    <script src="js/react.min.js"></script>
+    <!--react支持操作dom有关的模块-->
+    <script src="js/react-dom.min.js"></script>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/babel">
+    /*
+        1.使用React创建标签并将其插入到文档中（diff算法）
+          React.creatElement()
+          参数1:节点名
+          参数2：{}标签的属性
+          参数3：节点的内容
+          返回值：新建的节点
+
+          ReactDom.render(创建的节点，要插入到的节点);
+     */
+    // let box = document.getElementById("box");
+    // //创建标签
+    // let h2E = React.createElement("h2", {id: "title1"}, "HelloReact")
+    // //将标签渲染到box标签里
+    // ReactDOM.render(h2E, box)
+
+    // //创建p标签，p标签里嵌套span
+    //  let pE = React.createElement("p", {},React.createElement("span",{},"HelloReact") );
+    // ReactDOM.render(pE,box)
+
+    /*
+       JSX:JavaScript XML  允许我们在JS语法里直接书写html标签
+     */
+    // ReactDOM.render(<h2 id="title1">HelloReact</h2>, box);
+    ReactDOM.render(<p><span>helloreact</span></p>,box)
+</script>
+</body>
+</html>

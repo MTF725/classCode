@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*
+			 * this关键字，一般代指DOM元素或者对象
+			 * 1.如果this写在一个JS事件函数内，那么谁触发该函数，this指向的就是谁
+			 * 2.如果this写在一个普通函数内，this指向window。
+			 * 3.直接全局打印this，指向window
+			 * 
+			 * JS在每种情况下，this都有其默认的指向。但是this的指向是可以被修改的！
+			 * 改变this的指向
+			 * 1.call()
+			 * 2.apply()
+			 * 3.bind()
+			 * 
+			 */
+			console.log(this)
+
+			function f1(a, b) {
+				console.log(this, a, b);
+			}
+		f1(100, 200);
+
+			var bodyE = document.querySelector("body");
+
+			/*
+			 * 1.call(要改变成的this指代的元素/对象，原函数的实参...);若函数有形参，那么这里第二个参数要填上实参。
+			 */
+			f1.call(bodyE,300,400);//改变this的指向，并且立刻调用
+			
+			/*
+			 * 2.apply(要改变的this指代的元素/对象，[原函数的实参...])
+			 */
+			f1.apply(bodyE,[111,222]);//改变this的指向，并且立刻调用
+			
+			/*
+			 * 3.bind(要改变成的this指代的元素/对象，原函数的实参...)
+			 * 
+			 * 注意：bind不会改变this的指向的同时立刻调用函数，而是把改变this指向过后的新函数返回出来。如果要执行函数，需要先接受，然后手动调用新函数！
+			 */
+			var newF=f1.bind(bodyE,333,444);
+			newF();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象03_继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*
+			 * 继承: 面向对象的三大特性之一
+			 * 
+			 * 继承的原理: 子类继承父类的所有的属性和方法
+			 * 
+			 * 
+			 * 僵尸类
+			 * 属性: 血量, 道具, 攻击力, 速度, 位置  
+			 * 方法: 攻击, 移动, 扑街
+			 * 
+			 * 普通僵尸类: 血量, 攻击力, 速度, 位置  / 攻击, 移动, 扑街
+			 * 路障僵尸: 血量, 攻击力, 速度, 位置, 道具  / 攻击, 移动, 扑街, 道具跌落
+			 * 铁桶僵尸:血量, 攻击力, 速度, 位置, 道具  / 攻击, 移动, 扑街, 道具跌落
+			 * 
+			 * 
+			 * 公共僵尸类（父类）： 血量, 攻击力, 速度, 位置  / 攻击, 移动, 扑街
+			 * 普通僵尸类 继承 公共僵尸类 ： null
+			 * 路障僵尸类 继承 公共僵尸类： 道具/道具跌落
+			 * 铁桶僵尸类 继承 公共僵尸类： 道具/道具跌落
+			 * 
+			 * class A extends B {
+			 * 	
+			 * }
+			 */
+			
+			/*
+			 * 1. 通过改变this的指向实现继承
+			 * 实现思路： 通过call或者apply改变this的指向， 将Student对象， 传入到Person构造函数里， 让Person构造函数给Student对象赋值。
+			 * 缺点： 这种方法只能让子类继承父类构造函数里的属性和方法， 没办法让子类继承父类原型对象的属性和方法
+			 */
+			/*
+			// 人类  （父类）
+			function Person(name) {
+				this.name = name;
+				this.friends = ["李雷", "韩梅梅"];
+				this.getName = function(){
+					return "你好， 我是" + this.name;
+				}
+			}	
+			// 设置父类的原型对象属性
+			Person.prototype.getFriends = function(){
+				return this.friends;
+			}
+			
+			// 学生类 （子类）
+			function Student(name, schoolNum) {
+				// 设法通过继承，去继承Person的属性和方法
+				Person.call(this, name); // 这一行非常重要！！！！这里的this指的是Student里new第一步创建的空对象 ，空对象赋值后返回到stu1，即this指的是stu1
+				//设置独有的属性或者方法
+				this.schoolNum = schoolNum;
+				console.log(this);
+				//这里的this都是在Student的函数里，所以指的都是Student的空对象
+			}
+			
+			// 创建学生对象
+			var stu1 = new Student("张三", 666);//这里的张三和666是实参，传入Student里代替其形参name和schoolNum;因为Student要从父类Person继承，并要将name改为张三，所以设置Person.call(this, name);
+			console.log(stu1);
+			console.log(stu1.name);
+			console.log(stu1.friends);
+			console.log(stu1.schoolNum);
+			console.log(stu1.getName());
+			console.log(stu1.getFriends());
+			*/
+			
+			/*
+			 * 2. 原型链继承
+			 * 思路： 让父类的实例对象 覆盖子类构造函数的原型对象， 人为改变子类原型链的指向实现继承
+			 * 缺点： 因为让子类的原型对象指向了父类的实例， 那么父类只要添加新的属性或者方法， 子类的对象统统受影响！
+			 */
+	/*	
+			// 父类
+			function Person(name) {
+				this.name = name;
+			}
+			
+			Person.prototype.getName = function(){
+				return this.name;
+			}
+			
+			// 子类
+			function Student(age) {
+				this.age = age;
+			}
+			Student.prototype.nation="中国";
+			// 让父类的实例对象覆盖子类的原型对象
+			Student.prototype = new Person("张三");  // 这一句非常重要！！！
+			var stu1 = new Student(20);
+			
+			console.log(stu1.name);//name在当前实例对象里没有，去父级构造函数里找并且找到了
+			console.log(stu1.getName());//getName在当前实例对象里没有，父级构造函数里也没有，在父级构造函数的原型对象里找到了Person.prototype.getName = function(){return this.name;}
+			console.log(stu1.age);//age在当前实例对象里有
+			
+			Student.prototype.abc = "哈哈哈";
+			
+			var per1 = new Person("蔡徐坤");
+			console.log(per1.abc);
+			
+			
+//			function f1(n){
+//				n = 100;
+//				console.log("里面", n);
+//			}
+//			var a = 10;
+//			f1(a);
+//			console.log("外面", a);
+			
+			
+//			function f1(n){
+//				n[0] = 666;
+//				console.log("里面", n);
+//			}
+//			var a = [100, 200, 300];
+//			f1(a);
+//			console.log("外面", a);
+*/
+
+			/*
+			 * 3. 组合继承 最常用的继承方式
+			 * 思路: 通过调用父类的构造函数 继承父类构造函数里的属性和方法; 然后再通过将父类的实例对象设置成子类的原型对象, 实现继承父类原型的属性和方法
+			 * 
+			 * 缺点:调用两次父类的构造函数, 生成了两份实例
+			 */
+			// 父类
+			
+			function Person(name){
+				this.name = name;
+			}
+			
+			Person.prototype.getName = function(){
+				return this.name;
+			}
+			
+			//子类
+			function Student(name, age) {
+				// 通过调用父类的构造函数 继承父类构造函数里的属性和方法;
+				Person.call(this, name);
+				this.age = age;
+			}
+			
+			//通过将父类的实例对象设置成子类的原型, 实现继承父类原型的属性和方法
+			Student.prototype = new Person();
+			// 修复constructor问题
+			Student.prototype.constructor = Student;//本来Student的原型对象的constructor属性指向的是Student的构造函数，但是因为Student.prototype = new Person();使得现在constructor属性指向了Person的实例对象，所以需要修复。
+			Student.prototype.getAge = function() {
+				return this.age;
+			}
+			var stu1 = new Student("李四", 20);
+			console.log(stu1.name);
+			console.log(stu1.age);
+			console.log(stu1.getName());
+			console.log(stu1.getAge());
+			
+			
+			
+			/*
+			 * 4. 寄生组合继承
+			 * 
+			 */
+			// 父类
+			/*function Person(name) {
+				this.name = name;
+				this.friends = ["小蔡蔡", "NBA小蔡蔡"];
+			}
+			
+			Person.prototype.getName = function(){
+				console.log("你好, 我是", this.name);
+			}
+			
+			//子类
+			function Student(name, age) {
+				// 通过调用父类的构造函数 继承父类构造函数里的属性和方法;
+				Person.call(this, name);
+				this.age = age;
+			};
+			
+//			Student.prototype.sing= function(){
+//				console.log("222");
+//			};
+			// 寄生
+			(function(){
+				// 新建一个空的构造函数
+				var NewFun = function(){};
+				NewFun.prototype = Person.prototype;
+				Student.prototype = new NewFun();
+			})();
+			
+			Student.prototype.sing= function(){
+				console.log("222");
+			};
+			//此处创建匿名函数并且立刻调用，声明的变量NewFun仅在匿名函数内可用，让NewFun作为中间者，转换Person.prototype以及Student.prototype的值
+			var stu1 = new Student("张三", 30);
+			console.log(stu1.name);
+			console.log(stu1.age);
+			console.log(stu1.friends);
+			stu1.getName();
+			stu1.sing();
+		console.log(stu1);
+		*/
+		</script>
+	</body>
+</html>

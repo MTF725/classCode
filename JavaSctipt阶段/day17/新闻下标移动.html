@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			
+			#box {
+				margin: 30px;
+				width: 300px;
+				position: relative;
+				background: red;
+			}
+			
+			#news {
+				height: 50px;
+				box-sizing: border-box;
+				background-color: pink;
+				display: flex;
+				width: 300px;
+				align-items: center;
+				justify-content: space-around;
+			}
+			
+			span {
+				box-sizing: border-box;
+				display: inline-block;
+				padding: 10px;
+				font-size: 20px;
+				text-align: center;
+			}
+			
+			#line {
+				width: 60px;
+				height: 2px;
+				background: red;
+				position: absolute;
+				left: 0;
+				top: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="news">
+				<span>新闻</span> <span>娱乐</span> <span>体育</span> <span>热门</span> <span>历史</span>
+			</div>
+			<div id="line"></div>
+		</div>
+		<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var spans = document.querySelectorAll("span");
+			var lineDiv = document.getElementById("line");
+
+			for(var i = 0; i < spans.length; i++) {
+				spans[i].onclick = (function(index1) {
+					return function () {
+						var t = 0;
+						var b = lineDiv.offsetLeft;
+						var c = index1 * 60 - b;
+						var d = 50;
+						var timer = setInterval(function() {
+							t++;
+							lineDiv.style.left = Tween.Linear(t, b, c, d) + "px";
+							if(t == d) {
+								clearInterval(timer);
+							}
+						}, 10)
+					}
+				})(i);
+			}
+		</script>
+	</body>
+
+</html>

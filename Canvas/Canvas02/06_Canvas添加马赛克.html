@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!DOCTYPE html>
+		<html>
+
+		<head>
+			<meta charset="UTF-8">
+			<title></title>
+			<style type="text/css">
+				#Canvas {
+					border: 1px solid red;
+					display: block;
+					margin: 50px auto;
+				}
+			</style>
+		</head>
+
+		<body>
+			<canvas id="Canvas" width="1000" height="600"></canvas>
+			<script type="text/javascript">
+				//1.获取Canvas DOM元素
+				var CanvasE = document.getElementById("Canvas");
+				console.log(CanvasE);
+
+				//2.获取画笔对象(核心)
+				var context = CanvasE.getContext("2d");
+
+				//3.获取图像像素信息
+				var img = new Image();
+				img.src = "img/325695.jpg";
+
+				img.onload = function() {
+					context.drawImage(img, 0, 0, CanvasE.width, CanvasE.height);
+					//获取到当前图像的像素信息数组
+					var pixelArr = context.getImageData(0, 0, CanvasE.width, CanvasE.height).data;
+
+					//分块
+					var row = 60;
+					var col = 100;
+
+					//计算每个小格子的大小
+					var itemW = CanvasE.width / col;//小格子的宽度
+					var itemH = CanvasE.height / row;//小格子的高度
+
+					//遍历每个格子，找到每个格子的中心点位置
+					for(var i = 0; i < row; i++) {
+						for(var j = 0; j < col; j++) {
+							//得到每个格子的中心点位置  indexX表示列，indexY表示行
+							var indexX = itemW * j + Math.ceil(itemW / 2);//中心点x坐标
+							var indexY = itemH * i + Math.ceil(itemH / 2);//中心点y坐标 
+							//通过每个中心点的下标，计算中心点像素的red值在数组中的下标
+							var redIndex = (indexY - 1) * CanvasE.width * 4 + indexX * 4;
+							//获取像素点的rgba值
+							var redV = pixelArr[redIndex];
+							var greenV = pixelArr[redIndex + 1];
+							var blueV = pixelArr[redIndex + 2];
+							var aplhaV = pixelArr[redIndex + 3];
+
+							//绘制矩形
+							var color = "rgba(" + redV + "," + greenV + "," + blueV + "," + aplhaV + ")";
+							context.fillStyle = color;
+							context.fillRect(indexX - Math.ceil(itemW / 2), indexY - Math.ceil(itemH / 2), itemW, itemH);
+						}
+					}
+				}
+
+				/*
+				 * 马赛克实现原理：
+				 * 我们将图像分割成若干个片段（小块），逐一设置小块的颜色
+				 * 
+				 * 将每个小块的颜色设置成小块区域里中心位置上像素点的颜色值，人为放大像素点，让图片变模糊
+				 */
+			</script>
+		</body>
+
+		</html>
+	</body>
+
+</html>

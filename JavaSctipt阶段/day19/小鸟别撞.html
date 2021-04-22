@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/FlappyBird.css" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	</head>
+
+	<body>
+		<!--游戏区域-->
+		<div id="wrap">
+			<!--开始游戏头部-->
+			<div id="head">
+				<!--动画移动小鸟-->
+				<img src="img/bird.png" />
+			</div>
+			<!--开始游戏按钮-->
+			<div id="menu">
+				<img src="img/start.jpg" id="startBtn" />
+			</div>
+			<!--分数板-->
+			<div id="end" style="z-index: 10;">
+				<!--当前分数-->
+				<span id="currentS">0</span>
+				<!--最高分-->
+				<span id="bestS">0</span>
+			</div>
+			<!--当前分数-->
+			<div id="score">
+				<img src="img/0.jpg" alt="" / id="scoreImg">
+			</div>
+			<!--游戏小鸟-->
+			<img src="img/bird.png" id="bird" />
+			<!--管道-->
+			<ul id="pipes"></ul>
+		</div>
+		<!--音频-->
+		<audio src="music/bullet.mp3" id="m1"></audio>
+		<audio src="music/game_music.mp3" id="m2"></audio>
+		<audio src="music/game_over.mp3" id="m3"></audio>
+		<script src="js/FlappyBird.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

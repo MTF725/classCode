@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6-组件详解</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1></child1>
+    <p>{{appMsg}}</p>
+    <button @click="appBtnClick">这是app的按钮</button>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h2>这是child1组件</h2></legend>
+        <button @click="child1BtnClick">这是child1的按钮</button>
+        <p></p>
+    </fieldset>
+</template>
+<script type="text/javascript">
+    let child1 = {
+        //组件里的data数据源 要是一个函数，返回值是一个对象(面试题！！！)。
+        //组件里的data数据源写成函数而不是对象，因为对象是址传递，一个改变就会引起多个改变，但是组件是要复用的，这样会造成改变一个组件，其他组件也发生改变
+        template: "#child1",
+        data(){
+           return{
+               child1Msg:"这是child1里的p标签"
+           }
+        },
+        methods:{
+            child1BtnClick(){
+                alert("child1里的button按钮点击事件触发了！"+this.child1Msg);
+            }
+        }
+
+    };
+    let app = new Vue({
+        el: "#app",
+        data: {
+            appMsg: "这是app里的p标签"
+        },
+        methods:{
+            appBtnClick(){
+                alert("app里的button按钮点击事件触发了！")
+            }
+        },
+        components: {
+            // child1:{
+            //     template:"#child1"
+            // }
+            //child1:child1
+            child1
+        }
+    })
+</script>
+</body>
+</html>

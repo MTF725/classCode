@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            font-size: 0;
+        }
+
+        #box {
+            margin: 20px;
+            width: 200px;
+            height: 350px;
+            border: 1px solid black;
+        }
+
+        #time {
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 14px;
+            display: inline-block;
+            border: 1px solid blue;
+            width: 100px;
+        }
+
+        #number {
+            box-sizing: border-box;
+            font-size: 14px;
+            text-align: right;
+            display: inline-block;
+            border: 1px solid blue;
+            width: 100px;
+        }
+
+        #word {
+            box-sizing: border-box;
+            border: 1px solid red;
+            height: 280px;
+            width: 200px;
+            text-align: center;
+            line-height: 280px;
+            font-size: 100px;
+        }
+
+        #n1,
+        #n2,
+        #n3,
+        #n4,
+        #n5 {
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            box-sizing: border-box;
+            display: inline-block;
+            width: 40px;
+            font-size: 20px;
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <span id="time">剩余时间</span>
+        <span id="number">答对个数</span>
+        <div id="word"></div>
+        <span id="n1">黄</span><span id="n1">黄</span><span id="n1">黄</span><span id="n1">黄</span><span id="n1">黄</span>
+    </div>
+    <script>
+        var wordDiv = document.getElementById("word");
+        var spans = document.querySelectorAll("span");
+        var arrNum = [];
+        var arrColor = [];
+        //创建随机数函数：
+        var randomNumber = function () {
+            var num = Math.floor(Math.random() * 5 + 1);
+            return num;
+        }
+        //设置不重复的五个数代表随机字：
+        while (arrNum.length < 5) {
+            var numNew = randomNumber();
+            if (arrNum.indexOf(numNew) == -1) {
+                arrNum.push(numNew);
+            }
+        }
+        //设置不重复的五个数代表随机颜色：
+        while (arrColor.length < 5) {
+            var numNew = randomNumber();
+            if (arrColor.indexOf(numNew) == -1) {
+                arrColor.push(numNew);
+            }
+        }
+        //设置大字的随机字
+        var bigWordNum = function () {
+            switch (randomNumber()) {
+                case 1:
+                    wordDiv.innerHTML = "黄";
+                    break;
+                case 2:
+                    wordDiv.innerHTML = "红";
+                    break;
+                case 3:
+                    wordDiv.innerHTML = "紫";
+                    break;
+                case 4:
+                    wordDiv.innerHTML = "绿";
+                    break;
+                case 5:
+                    wordDiv.innerHTML = "蓝";
+                    break;
+            }
+        }
+        bigWordNum();
+        //设置大字的颜色：
+        var bigWordColor = function () {
+            switch (randomNumber()) {
+                case 1:
+                    wordDiv.style.color = "blue";
+                    break;
+                case 2:
+                    wordDiv.style.color = "yellow";
+                    break;
+                case 3:
+                    wordDiv.style.color = "green";
+                    break;
+                case 4:
+                    wordDiv.style.color = "red";
+                    break;
+                case 5:
+                    wordDiv.style.color = "purple";
+                    break;
+            }
+        }
+
+        //设置小字的随机字
+        var smallWordNum = function () {
+            //设置不重复的五个数代表随机字：
+            while (arrNum.length < 5) {
+                var numNew = randomNumber();
+                if (arrNum.indexOf(numNew) == -1) {
+                    arrNum.push(numNew);
+                }
+            }
+            for (var i = 0; i < 5; i++) {
+                switch (arrNum[i]) {
+                    case 1:
+                        spans[i + 2].innerHTML = "黄";
+                        break;
+                    case 2:
+                        spans[i + 2].innerHTML = "红";
+                        break;
+                    case 3:
+                        spans[i + 2].innerHTML = "紫";
+                        break;
+                    case 4:
+                        spans[i + 2].innerHTML = "绿";
+                        break;
+                    case 5:
+                        spans[i + 2].innerHTML = "蓝";
+                        break;
+                }
+            }
+        }
+
+        //设置小字的颜色
+        var smallWordColor = function () {
+            for (var i = 0; i < 5; i++) {
+                switch (arrColor[i]) {
+                    case 1:
+                        spans[i + 2].style.color = "blue";
+                        break;
+                    case 2:
+                        spans[i + 2].style.color = "yellow";
+                        break;
+                    case 3:
+                        spans[i + 2].style.color = "red";
+                        break;
+                    case 4:
+                        spans[i + 2].style.color = "purple";
+                        break;
+                    case 5:
+                        spans[i + 2].style.color = "green";
+                        break;
+                }
+            }
+        }
+
+        //设置时间函数
+        setInterval(function () {
+            bigWordNum();
+            bigWordColor();
+            smallWordNum();
+            smallWordColor();
+        }, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#div1 {
+				margin: 0 auto;
+				width: 300px;
+				height: 300px;
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1"></div>
+		<script type="text/javascript">
+			var chang1 = 0;
+			var chang2 = 0;
+
+			div1.ontouchstart = function(e) {
+
+				var even = e || event;
+				even.preventDefault();
+				var fojb1 = even.targetTouches[0];
+				var fojb2 = even.targetTouches[1];
+				var fojbx1 = fojb1.pageX;
+				var fojby1 = fojb1.pageY;
+				var fojbx2 = fojb2.pageX;
+				var fojby2 = fojb2.pageY;
+				chang1 = Math.sqrt(Math.pow((fojbx1 - fojbx2), 2) + Math.pow((fojby1 - fojby2), 2));
+
+				window.ontouchmove = function(e) {
+					var even = e || event;
+					even.preventDefault();
+					var fojb3 = even.targetTouches[0];
+					var fojb4 = even.targetTouches[1];
+					var fojbx3 = fojb3.pageX;
+					var fojby3 = fojb3.pageY;
+					var fojbx4 = fojb4.pageX;
+					var fojby4 = fojb4.pageY;
+					chang2 = Math.sqrt(Math.pow((fojbx3 - fojbx4), 2) + Math.pow((fojby3 - fojby4), 2));
+					//										var bl = chang2 / chang1
+					div1.style.width = chang2 / chang1 * div1.offsetWidth + "px";
+					div1.style.height = chang2 / chang1 * div1.offsetHeight + "px";
+
+					//一次旧比例结束后，当前的距离就会成为下一次的初始距离
+					chang1 = chang2;
+
+				}
+			}
+		</script>
+	</body>
+
+</html>

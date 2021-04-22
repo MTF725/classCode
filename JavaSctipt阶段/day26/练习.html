@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+		<ul>
+			<li>这是一个li标签</li>
+			<li>这是一个li标签</li>
+			<li>这是一个li标签</li>
+		</ul>
+		<script type="text/javascript">
+			$("li").each(function(i, v) {
+				console.log(i, v); //i和v是key和value
+			})
+		</script>
+	</body>
+
+</html>

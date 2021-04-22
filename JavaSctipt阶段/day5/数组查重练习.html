@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 编写一个数组去重的方法, 把var arr1 = [10, 20, 3, 20, 10, 99, 88] 去重后变为[10, 20, 3, 99, 88]
+
+        // 方法一：
+        var arr1 = [10, 20, 3, 20, 10, 99, 88];
+        var arr2 = [];
+        for (var i = 0; i < arr1.length; i++) {
+            if (arr2.indexOf(arr1[i]) == -1) {
+                arr2.push(arr1[i]);
+            }
+        }
+        document.write(arr2);
+        document.write("<hr>");
+
+        //方法二：封装函数方法
+        var numbers = [10, 20, 3, 20, 10, 99, 88];
+        console.log(numbers);
+
+        //调用函数，并且传递实参：
+        var uniNumbers = uniqueArr(numbers);
+        console.log(uniNumbers);
+
+        //封装数组去重的功能函数：
+        function uniqueArr(arr) { //这里的arr是形参
+            var emptyArr = [];
+            for (var i = 0; i < arr.length; i++) {
+                //判断emptyArr是否存在
+                if (emptyArr.indexOf(arr[i]) == -1) {
+                    //不存在
+                    emptyArr.push(arr[i]);
+                }
+            }
+            return emptyArr;
+        }
+
+
+        /* 方法三：(未完成。。。。)
+         var arr1 = [10, 20, 3, 20, 10, 99, 88];
+         var arr2 = [];
+         for (var i = 0; i < arr1.length; i++) {
+             for (var x = i + 1; x < arr1.length; x++)
+                 if (arr1[i] != arr1[x]) {
+                     arr2.push(arr1[i]);
+                 } else {
+                     break;
+                 }
+         }
+         document.write(arr2);
+         document.write("<hr>");
+          alert(typeof foo);
+          var foo = "11" + 2 - "1";*/
+    </script>
+</body>
+
+</html>

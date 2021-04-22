@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #message {
+            box-sizing: border-box;
+            margin: 30px;
+            padding: 20px;
+            width: 400px;
+
+            background: pink;
+        }
+
+        #message input:nth-of-type(1) {
+            width: 360px;
+            height: 30px;
+            padding-left: 5px;
+        }
+
+        #message textarea {
+            width: 360px;
+            height: 100px;
+            padding: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="message">
+        <p>QQ</p>
+        <input type="text">
+        <p>留言</p>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <br>
+        <button>提交</button>
+        <p>显示留言</p>
+    </div>
+    <script>
+        var qq = document.querySelector("input");
+        var texts = document.querySelector("textarea");
+        var btn = document.querySelector("button");
+        var tijiao = btn.onclick = function () {
+            if (qq.value == "" || texts.value == "") {
+                alert("请输入文字");
+                return;
+            }
+            var text1 = document.createElement("textarea");
+            text1.style.width = "360px";
+            text1.style.height = "18px";
+            text1.setAttribute("id", "kuang1");
+            text1.innerHTML = qq.value;
+            message.appendChild(text1);
+            var text2 = document.createElement("textarea");
+            text2.style.width = "360px";
+            text2.style.height = "18px";
+            text2.setAttribute("id", "kuang1");
+            text2.innerHTML = texts.value;
+            message.appendChild(text2);
+            var butt = document.createElement("button");
+            butt.setAttribute("id", "b1");
+            butt.innerHTML = "删除";
+            message.appendChild(butt);
+            butt.onclick = function () {
+                message.removeChild(text1);
+                message.removeChild(text2);
+                message.removeChild(butt);
+            }
+            qq.value = "";
+            texts.value = "";
+        }
+    </script>
+</body>
+
+</html>

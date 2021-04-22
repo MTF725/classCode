@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+			list-style: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+	<input type="text" id="box" value="" placeholder="请输入身份证号"/>
+	<button onclick="check1()">提交</button><br />
+	<input type="text" id="box_" value="" placeholder="请输入邮箱"/>
+	<button onclick="check2()">提交</button><br />
+	<input type="text" id="box1" value="" placeholder="请输入手机号"/>
+	<button onclick="check3()">提交</button><br />
+	<input type="text" id="box2" value=""  placeholder="请输入密码"/>
+	<button onclick="check4()">提交</button><br />
+	<script>
+		/*
+  	 * 1.判断身份证的正则
+  	 * 2.判断邮箱的正则
+  	 * 3.判断手机号的正则
+  	 * 4.判断密码要求有大小写字母,有数字,不少于八位
+  	 */
+  	
+  	var isIDCard1=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/; 
+  	var isIDCard1 = /^[1-9][0-7]\d{4}((19\d{2}(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(19\d{2}(0[13578]|1[02])31)|(19\d{2}02(0[1-9]|1\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\d{3}(\d|X|x)?$/;
+  	function check1(){
+  		var sfid=box.value;
+  		if(isIDCard1.test(sfid)){
+  			console.log("成功");
+  		}else{
+  			box.value="";
+  			alert("请重新输入");
+  		}
+  	}
+  	var yxid=box_.value;
+  	var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+  	function check2(){
+  		var yxid=box_.value;
+  		if(re.test(yxid)){
+  			console.log("成功");
+  		}else{
+  			box_.value="";
+  			alert("请重新输入");
+  		}
+  	}
+	
+	var TEL_REGEXP = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+	function check3(){
+		var phoneid=box1.value;
+		if(TEL_REGEXP.test(phoneid)){
+			console.log("成功");
+		}else{
+			box1.value="";
+			alert("请重新输入");
+		}
+	}
+	
+	/*
+	 * ?=零宽度断言 断言自身出现的位置的后面能匹配表达式exp
+	 * 
+	 */
+	var ispassword = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)^.{8,16}$/;
+	var ispassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;  
+
+	function check4(){
+		var powid=box2.value;
+		if(ispassword.test(powid)){
+			console.log("成功");
+		}else{
+			box2.value="";
+			alert("请重新输入");
+		}
+	}
+	</script>
+</body>
+
+</html>

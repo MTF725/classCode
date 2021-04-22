@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//判断邮箱的正则
+			var str = "www.123a456v7@qq.com";
+			var reg = /^w{3}\.\w{5,9}\@\w{2,3}\.com$/g;
+			console.log(reg.test(str));
+
+			//判断密码, 包含大写, 小写字母和数字, 不能少于8位
+			function test() {
+				var text = document.getElementById("test1").value;
+				var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+				var result = re.test(text);
+				if(result) {
+					alert("输入正确");
+				} else {
+					alert("密码至少包含大写字母，小写字母，数字，且不少于8位");
+				}
+			}
+
+			// 判断手机号的正则
+			var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+
+			
+		</script>
+	</body>
+
+</html>

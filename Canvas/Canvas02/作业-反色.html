@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				display: block;
+				margin: 10px auto;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<button onclick="fanser()">反色</button>
+		<canvas id="Canvas" width="1000" height="600"></canvas>
+		<script type="text/javascript">
+			//获取Canvas Dom元素
+			var CanvasE = document.getElementById("Canvas");
+			//获取画笔
+			var pen = CanvasE.getContext("2d");
+			//添加图片
+			var img = new Image();
+			img.src = "img/325695.jpg";
+
+			img.onload = function() {
+				pen.drawImage(img, 0, 0, CanvasE.width, CanvasE.height);
+				var pixel = pen.getImageData(0, 0, CanvasE.width, CanvasE.height)
+				//var pixelArr = pen.getImageData(0, 0, CanvasE.width, CanvasE.height).data;
+				var pixelArr = pixel.data;
+				console.log(pixelArr);
+
+				fanser = function() {
+
+					for(var i = 1; i < CanvasE.height; i++) {
+						for(var j = 0; j < CanvasE.width; j++) {
+							var redIndex = (i - 1) * CanvasE.width * 4 + j * 4;
+
+							//							var red = pixelArr[redIndex];
+							//							var green = pixelArr[redIndex + 1];
+							//							var blue = pixelArr[redIndex + 2];
+							//							var alpha = pixelArr[redIndex + 3];
+
+							//							var color = "rgb(" + (255 - red) + "," + (255 - green) + "," + (255 - blue) + "," + alpha + ")";
+							//							pen.fillStyle = color;
+							//							pen.fillRect(j, i, 1, 1);
+
+							pixelArr[redIndex] = 255 - pixelArr[redIndex];
+							pixelArr[redIndex + 1] = 255 - pixelArr[redIndex + 1];
+							pixelArr[redIndex + 2] = 255 - pixelArr[redIndex + 2];
+
+						}
+					}
+					pen.putImageData(pixel, 0, 0)
+					//					 console.log("sddsasda")
+					console.log(pixelArr);
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			
+			#min {
+				margin-left: 30px;
+				width: 300px;
+				height: 300px;
+				border: 4px solid red;
+				float: left;
+				position: relative;
+			}
+			
+			#min>img {
+				width: 300px;
+				height: 300px;
+			}
+			
+			#max {
+				position: relative;
+				margin-left: 30px;
+				width: 300px;
+				height: 300px;
+				border: 4px solid red;
+				float: left;
+				overflow: hidden;
+				display: none;
+			}
+			
+			#max>img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 900px;
+				height: 900px;
+			}
+			
+			#kuang {
+				width: 100px;
+				height: 100px;
+				background: rgba(255, 255, 0, 0.5);
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			
+			#empty {
+				clear: both;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="min">
+			<img src="img/min.jpg" />
+			<div id="kuang"></div>
+		</div>
+		<div id="max">
+			<img src="img/max.jpg" id="big" />
+		</div>
+		<div id="empty"></div>
+		<script type="text/javascript">
+			//鼠标移入显示放大镜
+			min.onmouseenter = function() {
+				kuang.style.display = "block";
+				max.style.display = "block";
+			}
+			//鼠标移出隐藏放大镜
+			min.onmouseleave = function() {
+				kuang.style.display = "none";
+				max.style.display = "none";
+			}
+			//给kuang添加鼠标移动事件
+			min.onmousemove = function(e) {
+				even = e || event;
+				var mousex = even.clientX - min.offsetLeft - min.clientLeft - kuang.offsetWidth / 2;
+				var mousey = even.clientY - min.offsetTop - min.clientTop - kuang.offsetHeight / 2;
+				//判断边界
+				if(mousex < 0) {
+					mousex = 0;
+				}
+				if(mousex > min.clientWidth - kuang.offsetWidth) {
+					mousex = min.clientWidth - kuang.offsetWidth
+				}
+				if(mousey < 0) {
+					mousey = 0;
+				}
+				if(mousey > min.clientHeight - kuang.offsetHeight) {
+					mousey = min.clientHeight - kuang.offsetHeight
+				}
+				//定位kuang的位置
+				kuang.style.left = mousex + "px";
+				kuang.style.top = mousey + "px";
+				//设定big跟随kuang移动的比例
+				var scollLeft = kuang.offsetLeft / (min.clientWidth - kuang.offsetWidth) * (big.offsetWidth - max.clientWidth);
+				var scollTop = kuang.offsetTop / (min.offsetHeight - kuang.offsetHeight) * (big.offsetHeight - max.clientHeight);
+				max.scrollLeft = scollLeft;
+				max.scrollTop = scollTop;
+			}
+		</script>
+	</body>
+
+</html>

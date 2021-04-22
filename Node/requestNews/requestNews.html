@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #f1, #f2 {
+            width: 500px;
+            height: 500px;
+            float: left;
+        }
+
+        #wrap, #collection {
+            width: 600px;
+            height: 440px;
+            overflow: auto;
+        }
+
+        .div-both {
+            height: 190px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .div-left {
+            width: 250px;
+            height: 190px;
+        }
+
+        .div-left > img {
+            display: inline-block;
+            width: 100%;
+
+        }
+
+        .div-right {
+            font-size: 14px;
+            width: 280px;
+            height: 190px;
+        }
+    </style>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<fieldset id="f1">
+    <legend><h2>展示页面</h2></legend>
+    <div id="wrap"></div>
+</fieldset>
+<fieldset id="f2">
+    <legend><h2>收藏页面</h2></legend>
+    <div id="collection"></div>
+</fieldset>
+<script type="text/javascript">
+    //jq的文档加载事件，保证在文档加载之后再执行里面的函数
+    $(function () {
+        //向后台请求网易接口数据
+        $.ajax({
+            url: "http://127.0.0.1:9898/info",//路由
+            type: "get",
+            success: function (data) {
+                // 展示网易数据
+                successOne(JSON.parse(data));//将传过来的json串转换成js数据
+
+            }
+        });
+    });
+
+    function successOne(data) {
+        let infoArr = data.T1348647853363;
+        for (let i = 1; i < 20; i++) {
+            //获取到需要展示的信息
+            let imgUrl = infoArr[i].imgsrc;
+            let title = infoArr[i].title;
+            let content = infoArr[i].digest;
+            let docID = infoArr[i].postid;
+            //动态创建html结构
+            let div = $("<div/>").attr("class", "div-both").appendTo($("#wrap"));
+            let div1 = $("<div/>").attr("class", "div-left").appendTo(div);
+            let div2 = $("<div/>").attr("class", "div-right").appendTo(div);
+            $("<img/>").attr("src", imgUrl).appendTo(div1);
+            let divBtn = $("<div/>").appendTo(div2);
+            $("<button/>").html("收藏").attr("myID", docID).on("click", clickBtn).appendTo(divBtn);
+            $("<p/>").html(title).appendTo(divBtn);
+            $("<p/>").html(content).appendTo(div2);
+        }
+
+        function clickBtn() {
+            //获取id值，图片链接，标题，内容
+            let id = $(this).attr("myID");
+            let title = $(this).siblings().html();
+            let content = $(this).parent().siblings().html();
+            let imgUrl = $(this).parent().parent().siblings().children().attr("src");
+
+            //发起网络请求
+            $.ajax({
+                url: "http://127.0.0.1:9898/collect",
+                type: "get",
+                data: {id: id, title: title, content: content, imgUrl: imgUrl},
+                success: function (data) {
+                    console.log(data);
+                    if (data.msg == 1) {
+
+                        //在收藏页面显示
+                        displayCollect(title, content, imgUrl);
+                    }
+                }
+            });
+        }
+        function displayCollect(t,c,img) {
+            let div = $("<div/>").attr("class", "div-both").appendTo($("#collection"));
+            let div1 = $("<div/>").attr("class", "div-left").appendTo(div);
+            let div2 = $("<div/>").attr("class", "div-right").appendTo(div);
+            $("<img/>").attr("src", img).appendTo(div1);
+            let divBtn = $("<div/>").appendTo(div2);
+            $("<p/>").html(t).appendTo(divBtn);
+            $("<p/>").html(c).appendTo(div2);
+        }
+    }
+
+</script>
+</body>
+</html>

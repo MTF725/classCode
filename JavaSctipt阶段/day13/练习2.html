@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 1100px;
+            border: 2px solid red;
+            margin: 20px;
+            padding-right: 10px;
+            overflow: hidden;
+        }
+
+        ul {
+            width: 200px;
+            margin-left: 10px;
+            float: left;
+
+        }
+
+        li {
+            font-size: 50px;
+            color: white;
+            text-align: center;
+        }
+
+        .empty {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
+    <script>
+        var boxDiv = document.getElementById("box");
+        var uls = document.querySelectorAll("ul");
+
+        function randomNumber(min, max) {
+            var num = Math.floor(Math.random() * (max - min + 1) + min);
+            return num;
+        }
+
+        function randomColor() {
+            var r = randomNumber(0, 255);
+            var g = randomNumber(0, 255);
+            var b = randomNumber(0, 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        for (var i = 1; i <= 1000; i++) {
+            var lis = document.createElement("li");
+            lis.style.backgroundColor = randomColor();
+            lis.style.height = randomNumber(100, 200) + "px";
+            lis.style.lineHeight = lis.style.height;
+            lis.innerHTML = i;
+            minUl().appendChild(lis);
+
+            function minUl() {
+                var min = uls[0];
+                for (var i = 1; i < uls.length; i++) {
+                    min = min.offsetHeight <= uls[i].offsetHeight ? min : uls[i];
+                }
+                return min;
+            }
+        }
+    </script>
+</body>
+
+</html>

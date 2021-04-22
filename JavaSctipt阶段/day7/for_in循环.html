@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="ele1">样式修改</p>
+    <input type="text" placeholder="填写属性名" id="ele2">
+    <input type="text" placeholder="填写属性值" id="ele3">
+    <button id="ele4">点击</button>
+    <script>
+        // 预习 for in 对对象的循环， 封装一个函数，实现：判断一个对象是否存在某个属性 （ 例如：var person = {name:’zs’}; var res = has(person,'name’);
+        // 问参数1person对象是否含有参数2 name属性, 有的话res为true，否则返回false）
+
+
+        // for in 对对象的循环
+        person = {
+            name: "zs",
+            age: 18
+        };
+        //"name"属性
+
+        //遍历对象，依次把属性名保存到x上
+        for (var x in person) {
+            console.log(x);
+            // console.log(person.x); //点语法：对象必须要有x这个属性，否则不能识别变量，这里没有x这个属性，所以是undefined;
+            //通过变量取出属性，可以对比：arr[i]
+            console.log(person[x]); //zs 18;
+            // console.log(person.name); //zs;
+        }
+
+
+        // 题目：封装一个函数，实现：判断一个对象是否存在某个属性：
+        //封装函数：
+        function hasAttr(obj, attr) { //hasAttr是函数名，obj和attr是形参
+            for (var a in obj) {
+                //a是依次保存obj的属性名
+                if (a === attr) {
+                    return true; //找到了该属性名
+                }
+            }
+            //注意return flase添加位置，放在循环后边，能走到这，说明for in 中的if 条件没有成立！
+            return false;
+        }
+        //使用者：
+        var res = hasAttr(person, "age111"); //调用函数并赋值给res，person, "age111"是实参；
+        console.log(res);
+        //for 循环是用来循环数组；
+        //for in 循环是用来循环对象；
+
+        // 绑定事件方式一：
+        function fn() { //fn存储的是函数的地址！！
+            alert(1);
+        }
+        //btn.onclick = fn //这里把函数fn的地址交给onclick;点击事件触发后，通过地址找到函数再调用！！
+        //btn.onclick=fn();//直接调用fn函数，不用等到点击事件触发，把返回值给onclick属性！！
+
+        //绑定事件方式2；匿名函数：函数地址会被返回！！
+        var fn2 = function () {
+            console.log("fn2.....");
+        }
+        fn2();
+
+
+
+        //创建一个函数，把地址给btn的onclick属性
+        var btn = document.getElementById("ele4");
+        var a = document.getElementById("ele1");
+        var b = document.getElementById("ele2");
+        var c = document.getElementById("ele3");
+        btn.style.color = "red";
+        btn.onclick = function () { //点击按钮执行函数
+            console.log("函数执行。。。。");
+            a.style[b.value] = c.value;
+        };
+        //btn.onclick();//直接执行函数
+    </script>
+
+</body>
+
+</html>

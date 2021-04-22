@@ -1,0 +1,17 @@
+{
+  "name": "node05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MongoDB.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jQuery": "^1.7.4",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.7.1"
+  }
+}

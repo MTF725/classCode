@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>打灰太狼</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 320px;
+				height: 480px;
+				margin: 100px auto;
+				background: url(img/game_bg.jpg) no-repeat;
+				position: relative;
+			}
+			
+			#score {
+				position: absolute;
+				left: 57px;
+				top: 5px;
+				font-size: 25px;
+				color: white;
+			}
+			
+			#progress {
+				position: absolute;
+				height: 16px;
+				left: 63px;
+				top: 66px;
+			}
+			
+			#begin,
+			#end {
+				width: 250px;
+				height: 120px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+			
+			#begin p,
+			#end p {
+				text-align: center;
+				font-size: 40px;
+				color: orangered;
+				cursor: pointer;
+			}
+			
+			#end {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--分数-->
+			<div id="score">0</div>
+			<!--时间-->
+			<img src="img/progress.png" id="progress" />
+			<!--开始游戏区域-->
+			<div id="begin">
+				<p id="start">开始游戏</p>
+				<p>游戏说明</p>
+			</div>
+			<!--结束游戏区域-->
+			<div id="end">
+				<p>游戏结束</p>
+				<p id="oneMore">再来一局</p>
+			</div>
+		</div>
+		<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//分数
+			var scoreDiv = document.getElementById("score");
+			//进度条
+			var progressDiv = document.getElementById("progress");
+			//开始游戏按钮
+			var starBtn = document.getElementById("start");
+			//再来一局按钮
+			var oneMoreBtn = document.getElementById("oneMore");
+			//开始游戏区域
+			var beginDiv = document.getElementById("begin");
+			//结束游戏区域
+			var endDiv = document.getElementById("end");
+			var box = document.getElementById("box");
+
+			//给开始按钮添加点击事件：
+			starBtn.onclick = function() {
+				//隐藏开始区域
+				beginDiv.style.display = "none";
+				//开始倒计时
+				countDown();
+				//开始游戏
+				startGame();
+			}
+
+			//开始倒计时函数：
+			function countDown() {
+				var t = 0;
+				var b = progressDiv.offsetWidth;
+				var c = -b;
+				var d = 2000;
+				var timer = setInterval(function() {
+					t++;
+					progressDiv.style.width = Tween.Linear(t, b, c, d) + "px";
+					if(t >= d) {
+						clearInterval(timer)
+						//游戏结束
+						//显示结束区域：
+						endDiv.style.display = "block";
+						//清除创建狼的计时器：
+						clearInterval(wolfTimer);
+					}
+				}, 10)
+			}
+
+			//随机位置的数组
+			var locationArr = [
+				[110, 137],
+				[30, 182],
+				[30, 245],
+				[195, 166],
+				[114, 216],
+				[210, 236],
+				[41, 318],
+				[130, 298],
+				[219, 319]
+
+			]
+
+			//开始游戏函数：
+
+			//声明一个变量存储创建狼的计时器:
+			var wolfTimer;
+			//声明一个变量存储每次新创建狼对应的img标签：
+			var wolf;
+			//声明一个更换图片的计时器的变量
+			var changeImageTimer;
+			//声明一个变量储存狼的类型
+			var name;
+
+			function startGame() {
+				//每隔2s创建出新的狼：
+				wolfTimer = setInterval(function() {
+					wolf = creatWolf();
+					//设置出灰太狼/小灰灰的概率为70%/30%；
+					name = Math.random() < 0.7 ? "h" : "x";
+					//声明一个变量存储图片的下标，范围0-9；
+					var index = 0;
+					//切换图片
+					/*
+					 * 声明一个布尔值，记录index是否可以继续增加
+					 * true  index可以一直++
+					 * false   index开始--
+					 */
+					var isAdd = true;
+					changeImageTimer = setInterval(function() {
+						wolf.src = "img/" + name + index + ".png";
+						if(index == 5) {
+							isAdd = false;
+						}
+						//根据isAdd决定是增还是减
+						if(isAdd) {
+							index++;
+						} else {
+							index--;
+						}
+						//如果整个换图结束，清除换图的计时器，删除img标签
+						if(index == -1) {
+							clearInterval(changeImageTimer);
+							box.removeChild(wolf);
+						}
+					}, 100);
+				}, 2000);
+			}
+
+			//创建图片的函数：
+			function creatWolf() {
+				//创建图片：
+				var img = document.createElement("img");
+				//定位
+				img.style.position = "absolute";
+				//设置位置
+				var ranP = locationArr[Math.floor(Math.random() * 9)];
+				img.style.left = ranP[0] + "px";
+				img.style.top = ranP[1] + "px";
+				//重置大小：
+				img.style.width = "80px";
+				//添加点击事件：
+				img.onclick = hitWolf;
+				//添加到boxDiv里
+				box.appendChild(img);
+				//返回img
+				return img;
+			}
+			//声明变量储存得分：
+			var score = 0;
+			//声明打狼函数：
+			function hitWolf() {
+				//第一次点击之后，清除点击事件：
+				this.onclick = null;
+				//清除之前的换图计时器
+				clearInterval(changeImageTimer);
+				//开始更换被打过之后的图片
+				var hitIndex = 6;
+				//声明一个变量储存被打的狼的图片的下标
+				var hitImgTimer = setInterval(function() {
+					wolf.src = "img/" + name + hitIndex + ".png";
+					hitIndex++;
+					if(hitIndex > 9) {
+						//换图结束，清除计时器 ，并移除img标签
+						clearInterval(hitImgTimer);
+						box.removeChild(wolf);
+					}
+				}, 100);
+				//判断狼的类型，修改分数：
+				if(name == "h") {
+					score += 10;
+				} else {
+					score -= 10;
+				}
+				scoreDiv.innerHTML = score;
+			}
+			//再来一局点击事件
+			oneMoreBtn.onclick = function() {
+				//重置进度条
+				progressDiv.style.width = "180px";
+				//重置分数
+				score = 0;
+				scoreDiv.innerHTML = score;
+				//隐藏结束区域
+				endDiv.style.display = "none";
+				//开始倒计时
+				countDown();
+				//开始游戏
+				startGame();
+			}
+			
+			
+			//解决页面最小化（非激活）时，页面报错问题。
+		</script>
+	</body>
+
+</html>

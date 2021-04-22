@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!DOCTYPE html>
+		<html>
+
+		<head>
+			<meta charset="UTF-8">
+			<title></title>
+			<style type="text/css">
+				#Canvas {
+					border: 1px solid red;
+					display: block;
+					margin: 50px auto;
+				}
+			</style>
+		</head>
+
+		<body>
+			<canvas id="Canvas" width="1000" height="700"></canvas>
+			<script type="text/javascript">
+				//1.获取Canvas DOM元素
+				var CanvasE = document.getElementById("Canvas");
+				console.log(CanvasE);
+
+				//2.获取画笔对象(核心)
+				var context = CanvasE.getContext("2d");
+
+				//3.获取图像像素信息
+				var img = new Image();
+				img.src = "img/325695.jpg";
+
+				img.onload = function() {
+					context.drawImage(img, 0, 0, CanvasE.width, CanvasE.height);
+				}
+
+				//画布添加点击事件
+				CanvasE.onclick = function(e) {
+					var even = e || event;
+					var x = even.offsetX;
+					var y = even.offsetY;
+					//获取像素信息
+					var dataArr = context.getImageData(x, y, 1, 1).data;
+					var colorStr = "rgb(" + dataArr[0] + "," + dataArr[1] + "," + dataArr[2] + ")";
+					document.body.style.background = colorStr;
+				}
+			</script>
+		</body>
+
+		</html>
+	</body>
+
+</html>

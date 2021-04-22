@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box {
+				margin: 30px auto;
+				width: 167px;
+				height: 200px;
+				overflow: hidden;
+				font-size: 16px;
+				position: relative;
+			}
+			
+			#content {
+				width: 150px;
+				float: left;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			#lineArea {
+				width: 17px;
+				height: 200px;
+				float: left;
+				background: grey;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+			
+			#line {
+				width: 17px;
+				background: black;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--窗口-->
+		<div id="box">
+			<!--内容区域-->
+			<div id="content">
+				我老家是在赤塔的后贝加尔斯克，后来因为一些原因父亲才迁居到了莫斯科去。尽管我从小在中国长大，但是俄罗斯的风气我很了解。 我有黑色的头发，黄色偏白一些的皮肤，可以说是亚洲人长相了。（记得我小时候的头发是金褐色的，不知道为什么现在没了。估计我妈基因强大。）好几次都被当做是中国人、本子。（没有南北朝鲜因为我双眼皮。在很多人印象里，南北朝鲜的都是那种单眼皮的吊带眼。） 种族问题在俄罗斯一直是没有放在台面上的东西。打个比方，如果一个黑人和一个亚洲人一起到了那里，很多人会选择主动和亚洲人交流，常常冷落那些Nr们。而如果一个亚洲人和一个白人一起到了那里，很多钱会选择去和白人交流而冷落了亚洲人。 但有一个前提，你说“我是中国人”。那时候，你会看见无数的毛熊们用着发光的眼神看着你，没错，他们大多都是做生意的或者是一些小商店的老板。 当然，也会有俄罗斯人觉得中国和俄国是很好的兄弟关系（毕竟以前的渊源在），他们会比较稀罕你。 不过说句实在话，俄罗斯人对哪里人都差不多一个样子。爱来不来。我们过自己的小日子就好。（为了赚钱这是另外说的。） 可能有些人会特别想知道俄罗斯的女孩子们。那我就讲讲好了。俄罗斯女孩子不是你们想的那种亲中，很多女孩子甚至只喜欢欧洲国家的白人，不过一些小地方，比如我老家那里，有些女孩子就会觉得中国人很厉害。（毕竟新闻、国际上，中国都在不断进步成长。）但是俄罗斯人骨子里的傲气是不会被磨灭掉的，你不尊重她强求她或者仗着体格大欺负她们，她们一样抄着板凳或者随便什么家具过来跟你单挑，打不死就继续跟你打直到一方认输。俄罗斯的女孩子很多都是很独立的，这种独立性甚至会给人感觉她对于身边的亲人、任何事物都冷峻到了极点，而且，非常！非常！非常！爱干净！！！！！！！！（不管男女，比如我父亲，他就是个家务狂魔。我祖母也是，祖父也是。）她们崇尚自由比较自我，想干嘛就干嘛，很多时候给我的感觉就是情商低。（如果你是她男朋友，你叫她一起去和祖父祖母吃个饭，她如果拒绝那就是拒绝。怎么说都没用。其实也不是不尊重，她们就是自我，觉得去不去都一样无关紧要。）俄罗斯人在亲情方面并不是想象中的那样，如果一个男孩女孩常年都没有和自己的父母联络，那都是很正常的，俄罗斯人向来如此。 最后，我说的只是自己二十多年来的所见所闻所感，没有抬高也没有贬低（Nr除外，这些人真的不是好东西。），实话实说。我只是希望毛熊国和熊猫国永远都是好朋友，大家万事都能彼此依靠彼此信赖。 哪里都有好人坏人，千万不要因为我一个，而感觉所有的男人都这样喔！这是中国人给我感觉到的一个误区。可能是你们太过老实了。</div>
+			<!--滚动条区域-->
+			<div id="lineArea">
+				<!--滚动条-->
+				<div id="line"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//动态计算滚动条的高度  窗口高度/内容高度*滚动条区域高度
+			line.style.height = box.offsetHeight / content.offsetHeight * lineArea.offsetHeight + "px";
+console.log(line.style.height);
+			//给box绑定鼠标滚轮事件
+			box.onmousewheel = function(e) {
+				var even = e || event;
+				
+				//动态计算内容当前滚动的位置相对于总滚动距离的比例
+				//(内容当前/内容距离)=(滚动条当前位置/滚动条总距离)；
+				var xs = content.offsetTop / content.offsetHeight* lineArea.offsetHeight;
+				console.log(xs);
+				if(even.wheelDelta > 0) {
+					//滚轮向上，滚动条向上，top值变小；内容向下，top值变大
+					content.style.top = content.offsetTop + 20 + "px";
+					if(content.offsetTop >= 0) {
+						content.style.top = 0 + "px";
+					}
+
+					//设置滚动条的位置
+					line.style.top = -xs + "px";
+				} else {
+					//滚轮向下，滚动条向下，top值变大；内容向上，top值变小
+					content.style.top = content.offsetTop - 20 + "px";
+					//判断临界值
+					if(content.offsetTop <= -(content.offsetHeight - box.offsetHeight)) {
+
+						content.style.top = -(content.offsetHeight - box.offsetHeight) + "px";
+					}
+					//设置滚动条的位置
+					line.style.top = -xs+ "px";
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			
+			#box {
+				position: relative;
+				margin: 30px auto;
+				width: 300px;
+				height: 400px;
+				overflow: hidden;
+				border: 2px solid red;
+			}
+			
+			#pictures {
+				width: 2100px;
+				height: 400px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#pictures>img {
+				display: inline-block;
+				width: 300px;
+				height: 400px;
+			}
+			
+			#left {
+				border: 20px solid red;
+				border-left: 20px solid rgba(0, 0, 0, 0);
+				border-top: 30px solid rgba(0, 0, 0, 0);
+				border-bottom: 30px solid rgba(0, 0, 0, 0);
+				position: absolute;
+				left: -3px;
+				top: 185px;
+			}
+			
+			#right {
+				border: 20px solid red;
+				border-right: 20px solid rgba(0, 0, 0, 0);
+				border-top: 30px solid rgba(0, 0, 0, 0);
+				border-bottom: 30px solid rgba(0, 0, 0, 0);
+				position: absolute;
+				left: 270px;
+				top: 185px;
+			}
+			
+			#pages {
+				width: 300px;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+			}
+			
+			span {
+				font-size: 16px;
+				width: 20px;
+				height: 20px;
+				background: white;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 20px;
+			}
+			
+			span:nth-of-type(1) {
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="pictures">
+				<img src="img/1.png" />
+				<img src="img/2.jpeg" />
+				<img src="img/3.jpeg" />
+				<img src="img/4.png" />
+				<img src="img/5.jpeg" />
+				<img src="img/6.png" />
+				<img src="img/1.png" />
+			</div>
+			<div id="left"></div>
+			<div id="right"></div>
+			<div id="pages">
+				<span>1</span>
+				<span>2</span>
+				<span>3</span>
+				<span>4</span>
+				<span>5</span>
+				<span>6</span>
+			</div>
+		</div>
+		<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//声明变量代表这是第几张照片
+			var index = 0;
+			//给左键添加点击事件 
+			var leftBtn;
+			left.onclick = leftBtn;
+
+			function leftBtn() {
+				if(index == 0) {
+					index = 6;
+					pictures.style.left = -index * box.clientWidth + "px";
+				}
+				index--;
+				previous();
+			}
+
+			//给右键添加点击事件
+			var rightBtn;
+			right.onclick = rightBtn;
+
+			function rightBtn() {
+				if(index == 6) {
+					index = 0;
+					pictures.style.left = -index * box.clientWidth + "px";
+				}
+				index++;
+				next();
+			}
+
+			//封装跳转上一张照片的函数
+			function previous() {
+				var t = 0;
+				var b = pictures.offsetLeft;
+				var c = -box.clientWidth * index - b;
+				var d = 200;
+				var timePreivous = setInterval(function() {
+					t++
+					pictures.style.left = Tween.Linear(t, b, c, d) + "px";
+					if(t == d) {
+						clearInterval(timePreivous);
+					}
+				}, 2)
+			}
+
+			//封装跳转下一张照片的函数
+			function next() {
+				var t = 0;
+				var b = pictures.offsetLeft;
+				var c = -box.clientWidth * index - b;
+				var d = 200;
+				var timePreivous = setInterval(function() {
+					t++
+					pictures.style.left = Tween.Linear(t, b, c, d) + "px";
+					if(t == d) {
+						clearInterval(timePreivous);
+					}
+				}, 2)
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			font-size: 0;
+		}
+		
+		#box {
+			margin: 20px;
+			width: 200px;
+			height: 350px;
+			border: 1px solid black;
+		}
+		
+		<html lang="en">#time {
+			box-sizing: border-box;
+			font-size: 14px;
+			display: inline-block;
+			border: 1px solid blue;
+			width: 100px;
+		}
+		
+		#number {
+			box-sizing: border-box;
+			text-align: left;
+			font-size: 14px;
+			text-align: right;
+			display: inline-block;
+			border: 1px solid blue;
+			width: 100px;
+		}
+		
+		#word {
+			box-sizing: border-box;
+			border: 1px solid red;
+			height: 280px;
+			width: 200px;
+			text-align: center;
+			line-height: 280px;
+			font-size: 100px;
+		}
+		
+		#foot span {
+			text-align: center;
+			height: 50px;
+			line-height: 50px;
+			box-sizing: border-box;
+			display: inline-block;
+			width: 40px;
+			font-size: 20px;
+			border: 1px solid black;
+		}
+		
+		button {
+			font-size: 17px;
+			margin: 20px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="box">
+		<span id="time">剩余时间</span>
+		<span id="number">答对个数</span>
+		<div id="word">黄</div>
+		<div id="foot">
+			<span>黄</span><span>黄</span><span>黄</span><span>黄</span><span>黄</span>
+		</div>
+	</div>
+	<button>游戏开始</button>
+	<script>
+		var wordDiv = document.getElementById("word");
+		var btn = document.querySelector("button");
+		var spans = foot.children;
+		var words = [];
+		var colors = [];
+		var falseNum = 0;
+		var lastTime = 30;
+
+		//点击按键开始游戏：
+		var begin;
+		btn.onclick = begin;
+
+		function begin() {
+			btn.onclick = null;
+			//更换全部字体和颜色：
+			var changeAll = setTimeout(function() {
+				wordDiv.innerHTML = differentWord(); //将不同字函数中的字存入数组
+				wordDiv.style.color = differentColor(); //将不同色函数中的颜色存入数组
+				words = differentWordArr();
+				colors = differentColorArr();
+				number.innerHTML = "答对个数" + falseNum;
+				time.innerHTML = "剩余时间:" + lastTime + "s";
+				for(var d = 0; d < spans.length; d++) {
+					spans[d].innerHTML = words[d];
+					spans[d].style.color = colors[d];
+				}
+			}, 1);
+
+			//给小字添加点击事件：
+			for(var c = 0; c < spans.length; c++) {
+				spans[c].onclick = function() {
+					// console.log(this.innerHTML);
+					//给大字的颜色设置对应的汉字：
+					var x;
+					switch(wordDiv.style.color) {
+						case "yellow":
+							x = "黄";
+							break;
+						case "blue":
+							x = "蓝";
+							break;
+						case "purple":
+							x = "紫";
+							break;
+						case "red":
+							x = "红";
+							break;
+						case "green":
+							x = "绿";
+							break;
+					}
+					if(this.innerHTML == x) { //比较大字的颜色和点击的小字是否一样
+						falseNum++;
+						var changeAll = setTimeout(function() {
+							wordDiv.innerHTML = differentWord();
+							wordDiv.style.color = differentColor();
+							words = differentWordArr();
+							colors = differentColorArr();
+							number.innerHTML = "答对个数" + falseNum;
+							for(var d = 0; d < spans.length; d++) {
+								spans[d].innerHTML = words[d];
+								spans[d].style.color = colors[d];
+							}
+						}, 1);
+					}
+					//添加答错惩罚事件：
+					lastTime -= 2;
+				}
+			}
+
+			//设置倒计时：
+			var countDown = setInterval(function() {
+				lastTime--;
+				time.innerHTML = "剩余时间:" + lastTime + "s";
+				if(lastTime <= 0) {
+					alert("游戏结束！");
+					lastTime = 0;
+					clearInterval(countDown);
+					btn.onclick = begin;
+				}
+			}, 1000)
+		}
+
+		//创建随机数函数：
+		function randomNumber() {
+			var num = Math.floor(Math.random() * 5);
+			return num;
+		}
+
+		//设置五个随机字：
+		function differentWord() {
+			var word;
+			switch(randomNumber()) {
+				case 0:
+					word = "黄";
+					break;
+				case 1:
+					word = "蓝";
+					break;
+				case 2:
+					word = "绿";
+					break;
+				case 3:
+					word = "紫";
+					break;
+				case 4:
+					word = "红";
+					break;
+			}
+			return word;
+		}
+
+		//设置五个随机颜色：
+		function differentColor() {
+			var color;
+			switch(randomNumber()) {
+				case 0:
+					color = "yellow";
+					break;
+				case 1:
+					color = "blue";
+					break;
+				case 2:
+					color = "green";
+					break;
+				case 3:
+					color = "purple";
+					break;
+				case 4:
+					color = "red";
+					break;
+			}
+			return color;
+		}
+
+		//设置不重复的五个数代表随机字的数组：
+		function differentWordArr() {
+			var arrWord = [];
+			while(arrWord.length < 5) {
+				var numNew1 = randomNumber();
+				if(arrWord.indexOf(numNew1) == -1) {
+					arrWord.push(numNew1);
+				}
+			}
+			for(var a = 0; a < arrWord.length; a++) {
+				switch(arrWord[a]) {
+					case 0:
+						arrWord[a] = "黄";
+						break;
+					case 1:
+						arrWord[a] = "红";
+						break;
+					case 2:
+						arrWord[a] = "蓝";
+						break;
+					case 3:
+						arrWord[a] = "紫";
+						break;
+					case 4:
+						arrWord[a] = "绿";
+						break;
+				}
+			}
+			return arrWord;
+		}
+
+		//设置不重复的五个数代表随机颜色的数组：
+		function differentColorArr() {
+			var arrColor = [];
+			while(arrColor.length < 5) {
+				var numNew2 = randomNumber();
+				if(arrColor.indexOf(numNew2) == -1) {
+					arrColor.push(numNew2);
+				}
+			}
+			for(var b = 0; b < arrColor.length; b++) {
+				switch(arrColor[b]) {
+					case 0:
+						arrColor[b] = "blue";
+						break;
+					case 1:
+						arrColor[b] = "yellow";
+						break;
+					case 2:
+						arrColor[b] = "green";
+						break;
+					case 3:
+						arrColor[b] = "red";
+						break;
+					case 4:
+						arrColor[b] = "purple";
+						break;
+				}
+			}
+			return arrColor;
+		}
+	</script>
+</body>
+
+</html>

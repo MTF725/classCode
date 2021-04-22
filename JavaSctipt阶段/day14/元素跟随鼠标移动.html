@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #div1 {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: red;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <script>
+        //给body绑定鼠标移动事件：
+        document.body.onmousemove = function (e) {
+            //移动事件触发时，不断获取鼠标当前所在的位置（水平和竖直的值：
+            console.log("鼠标移动了")
+            //获取事件对象：
+            var even = e || event;
+            console.log(even);
+            /*
+            常用的鼠标事件属性
+            1.clientX/Y：鼠标距离浏览器内容区域左端和上端的距离;
+            2.screenX/Y：鼠标距离电脑屏幕左端和上端的距离;
+            3.pageX/Y：鼠标距离页面左端和上端的距离;
+            */
+            //直接把获取到的pageX赋值给div的left，pageY赋值给div的top。
+            div1.style.left = even.pageX - div1.clientWidth / 2 + "px";
+            div1.style.top = even.pageY - div1.clientHeight / 2 + "px";
+        }
+    </script>
+</body>
+
+</html>

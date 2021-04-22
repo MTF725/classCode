@@ -1,0 +1,46 @@
+.newaddress-part1 {
+    margin-top: 0.6rem;
+    padding: 0.3rem 0.5rem;
+    background-color: white;
+}
+.newaddress-part1>p{
+    font-size: 0.6rem;
+    color: #ea3106;
+    margin-bottom: 0.4rem;
+    display: none;
+}
+.newaddress-part1 li {
+    margin-bottom: 0.4rem;
+}
+
+.newaddress-part1 li:nth-of-type(5) {
+
+    margin: 0;
+}
+
+.newaddress-part1 li input {
+    padding: 0.5rem;
+    background-color: #f2f2f2;
+    font-size: .8rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    outline: none;
+    width: 93.5%;
+}
+.newaddress-part2{
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.newaddress-part2 p{
+    font-size: 0.7rem;
+    width: 90%;
+    background-color: #d8584a;
+    color: white;
+    text-align: center;
+    padding: 0.4rem 0;
+    border-radius: 5px;
+    background: #4cd964
+}

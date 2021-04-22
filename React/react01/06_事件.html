@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06_事件</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+   <div id="box"></div>
+   <script type="text/babel">
+       let box=document.getElementById("box");
+       /*
+         React绑定事件的一定是真正的dom元素，而不是虚拟组件
+        */
+       let Child1=React.createClass({
+           /*
+             事件函数触发之后的事件对象，直接通过给函数添加第一个形参即可
+             e.target获取事件源对象(dom元素)
+             事件函数里获取组件内的其他dom元素
+            */
+           clickBtn(e){
+               console.log(this.refs.i1);
+           },
+           render(){
+               return <div>
+                   <label htmlFor="user">用户名</label>
+                   <input type="text" id="user" ref="i1"/>
+                   <button onClick={this.clickBtn}>点击</button>
+               </div>
+           }
+       })
+       ReactDOM.render(
+           <Child1/>,box
+       )
+
+       //自定义一个组件，实现鼠标移入移出更换背景色
+         let Child2=React.createClass({
+             clickBtn1(e){
+                 e.target.style.backgroundColor="red"
+             },
+             clickBtn2(e){
+                 e.target.style.backgroundColor="blue"
+             },
+            render(){
+                return <div style={{width:'200px',height:'200px',border:'1px solid red'}} onMouseEnter={this.clickBtn1} onMouseLeave={this.clickBtn2}></div>
+            }
+         });
+       ReactDOM.render(
+           <Child2/>,box
+       )
+        /*
+          思路没问题，但是直接在组件对象里声明变量，变量的值改变不会触发react的页面渲染机制
+          每个React组件里都一个props对象和state对象
+          props对象时只读的，state对象时读写的
+          在state对象里声明的变量可以记录组件的状态，一旦state里的变量值发生改变，对应绑定了该值的视图会自动渲染（类似vue中的data）
+         */
+       let Check=React.createClass({
+           getDefaultProps(){},
+
+           //设置当前组件里state对象里初始值
+           getInitialState(){
+               return{
+                   isChecked:false
+               }
+           },
+           checkChange(){
+               //修改state里的变量的值，需要使用setState方法
+               // this.state.isChecked=!this.state.isChecked;
+               this.setState({
+                   isChecked:!this.state.isChecked
+               });
+               console.log(11)
+           },
+           // isChecked:false,//直接在组件对象里声明变量，变量的值改变不会触发react的页面渲染机制
+           render(){
+               return <div>
+                   <input type="checkbox" onChange={this.checkChange}/>
+                   <p>当前的状态是：{this.state.isChecked ? "已选中":"未选中"}</p>
+               </div>
+           }
+       });
+       ReactDOM.render(
+           <Check/>,box
+       )
+   </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="dangqian"></div>
+    <div id="haiyou"></div>
+    <script>
+        //获取当前时刻：
+        setInterval(function () {
+            var n = new Date();
+            var time = "当前时间是：" + n.getFullYear() + "年" + (n.getMonth() + 1) + "月" + n.getDate() + "日" + n
+                .getHours() + "时" + n.getMinutes() + "分" + n.getSeconds() + "秒";
+           now.innerHTML = time;
+        }, 1000);
+
+        //到某一天的倒计时：
+        var tomorrow = new Date(2019, 7, 18, 0, 0, 0);
+        var now =document.getElementById("dangqian");
+        var future = document.getElementById("haiyou");
+        setInterval(function timeLast() {
+            var today = new Date;
+            var time = (tomorrow.getTime() - today.getTime()) / 1000;
+            //剩余天数：
+            var fullDay = Math.floor(time / 3600 / 24);
+            //剩余小时：
+            var fullHours = Math.floor(time / 3600) % 24;
+            //剩余分钟：
+            var fullMin = Math.floor(time / 60) % 60;
+            //剩余秒数：
+            var seconds = Math.floor(time % 60);
+            // document.body.innerHTML = "距离8月18日还有：" + fullDay + "天" + fullHours + "时" + fullMin + "分" + seconds +
+            //     "秒";
+           future.innerHTML = "距离8月18日还有：" + fullDay + "天" + fullHours + "时" + fullMin + "分" + seconds +
+                "秒";
+        }, 1000)
+    </script>
+</body>
+
+</html>

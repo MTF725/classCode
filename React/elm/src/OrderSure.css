@@ -1,0 +1,214 @@
+.ordersure {
+    position: relative;
+}
+
+.ordersure-part1 {
+    overflow: auto;
+    margin-bottom: 0.6rem;
+    font-size: 0.8rem;
+    background-color: white;
+    padding: 1.2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ordersure-part1 > div {
+    display: flex;
+}
+
+.ordersure-address {
+    /*display: none;*/
+    position: absolute;
+    top: 2.3rem;
+    left: 0;
+    right: 0;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color: white;
+    padding: 1.2rem 1rem;
+    font-size: 0.8rem;
+}
+
+.ordersure-address p {
+    margin-right: 1.2rem;
+}
+
+.ordersure-address p:nth-of-type(6) {
+    white-space: nowrap;
+}
+
+.ordersure-part2 {
+    margin-bottom: 0.6rem;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-left: .2rem solid #3190e8;
+    padding-right: 0.4rem;
+
+}
+
+.ordersure-part2 > p {
+    margin: 0.8rem 0 0.8rem 1.2rem;
+    color: #333;
+    font-weight: 700;
+    padding-left: .3rem;
+}
+
+.ordersure-part2 > div {
+    text-align: right;
+    margin: 1.2rem 0;
+}
+
+.ordersure-part2 > div > p:nth-of-type(1) {
+    color: #3190e8;
+    margin-bottom: 0.6rem;
+}
+
+.ordersure-part2 > div > p:nth-of-type(2) span {
+    color: white;
+    background-color: #3190e8;
+    font-size: 0.6rem;
+    padding: 0.2rem;
+    border-radius: 0.1rem;
+}
+
+.ordersure-part3 {
+    padding: 0 0.6rem;
+    background-color: white;
+}
+
+.ordersure-part3 > div {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ordersure-part3 > div:nth-of-type(1) > p:nth-of-type(1) {
+    font-size: 0.82rem;
+    color: #666666;
+}
+
+.ordersure-part3 > div:nth-of-type(1) > p:nth-of-type(2) {
+    font-size: 0.7rem;
+    color: #aaaaaa;
+}
+
+.ordersure-part3 > div:nth-of-type(2) > p {
+    border-top: .025rem solid #f5f5f5;
+    font-size: 0.7rem;
+    color: #aaaaaa;
+}
+
+.ordersure-pros {
+    background-color: white;
+    margin-top: 0.7rem;
+}
+
+.ordersure-pros > div:nth-of-type(1) {
+    padding: 0.3rem 0.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.ordersure-pros > div:nth-of-type(1) > p {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.ordersure-pros > div:nth-of-type(1) > img {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.ordersure-pros > div:nth-of-type(2), .ordersure-pros > div:nth-of-type(3) {
+    font-size: 0.75rem;
+    color: #666666;
+    padding: 0.3rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ordersure-pros-v1 {
+    width: 100%;
+    padding: 0.3rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.ordersure-pros-v1 > div {
+    display: flex;
+    align-items: center;
+}
+.ordersure-pros-v1>div >p:nth-of-type(1){
+    margin-right: 1rem;
+    color: #ff6600;
+}
+.ordersure-part5 {
+    margin-top: 0.6rem;
+    background-color: white;
+    padding: 0 1rem;
+}
+
+.ordersure-part5 li {
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ordersure-part5 li p:nth-of-type(1) {
+    font-size: 0.82rem;
+    color: #666666;
+}
+
+.ordersure-part5 li:nth-of-type(1) >p{
+    white-space: nowrap;
+}
+.ordersure-part5 li:nth-of-type(1) >div{
+    display: flex;
+}
+.ordersure-part5 li:nth-of-type(1) >div>p{
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.ordersure-part5 li p:nth-of-type(2) {
+    font-size: 0.7rem;
+    color: #aaaaaa;
+}
+
+.ordersure-foot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: white;
+    width: 100%;
+    display: flex;
+}
+
+.ordersure-foot p:nth-of-type(1) {
+    padding: 0.8rem 0 0.8rem 1rem;
+    background-color: #3c3c3c;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.ordersure-foot p:nth-of-type(2) {
+    text-align: center;
+    padding: 0.8rem;
+    background-color: #56d176;
+    width: 30%;
+    box-sizing: border-box;
+}

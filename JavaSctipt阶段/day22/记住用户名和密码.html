@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<input type="text" placeholder="用户名" id="un" />
+		<input type="text" placeholder="密码" id="pw" />
+		<input type="checkbox" id="remember" />
+		<button onclick="login()">登录</button>
+		<script src="js/cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//文档加载时，获取cookie
+			if(haskey("username") && haskey("password")) {
+					un.value = getValueByKey("username");
+					pw.value = getValueByKey("password");
+					remember.checked = true;
+				}
+
+				function login() {
+					/*
+					 * 思路
+					 * 点击登录按钮首先判断选矿状态
+					 * 1.选中，将用户名和密码已键值对的形式存储cookie里并设置生命周期
+					 * 2.未选中，将cookie里用户名和密码的键值对删除
+					 * 
+					 * 要在文档加载时，从cookie里取用户名和密码的值，并赋值到各自的输入框中
+					 */
+
+					if(remember.checked) {
+						addCookie("username", un.value, 1000);
+						addCookie("password", pw.value, 1000);
+					} else {
+						deleteCookie("username");
+						deleteCookie("password");
+					}
+					console.log(document.cookie);
+				}
+		</script>
+	</body>
+
+</html>

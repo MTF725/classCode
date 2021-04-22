@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div1 {
+				width: 500px;
+				height: 500px;
+				background-color: red;
+				/*position: absolute;
+				left: 0;
+				top: 0;*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">
+		</div>
+		<button>变小</button>
+		<!--外部引入js文件-->
+		<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//			Tween.JS JS级别的动画插件
+			//
+			//			合理配置t, b, c, d四个参数， 就可以完成对应的动画效果
+			//
+			//			Tween提供了很多动画模式：
+			/*1. Linear 匀速
+			2. Quad 二次方缓动效果
+			3. Cubic 三次方缓动效果
+			4. Quart 四次方缓动效果
+			5. Quint 五次方缓动效果
+			6. Sine 正弦缓动效果
+			7.E xpo 指数缓动效果
+			8. Circ 圆形缓动效果
+			9.E lastic 指数衰减正弦曲线缓动效果
+			10. Back 超过范围的三次方的缓动
+			11. Bounce 指数衰减的反弹缓动
+
+			每个不同的动画模式里， 出了Linear之外， 都有三种运动方式：
+			easeIn： 从0开始加速的缓动， 先慢后快；
+			easeOut： 减速到0的缓动， 先快后慢；
+			easeInOut： 前半段从0开始加速， 后半段减速到0；*/
+
+			/*	t ---开始时间,一般都给0;
+				b ---初始值;
+				c ---改变量;(结束值-开始值)
+				d ---结束时间;
+				
+				Tween,.JS的动画执行过程，本质上是t不断追赶d的过程！
+				* */
+
+			//声明一个变量记录left的值：
+			//			var leftV = 0;
+			//			var timer = setInterval(function() {
+			//				leftV++;
+			//				div1.style.left = leftV + "px";
+			//				if(leftV == 500) {
+			//					clearInterval(timer);
+			//				}
+			//			}, 10);
+
+			/*
+			 元素的left值从0--->500
+			 
+			 TweenJS的动画运动的总时间有d，t的增量，计时器的间隔共同决定
+			 
+			 注意：要保证计时器最后能清楚，如果无法清除，动画不会停止；
+			 */
+			var t = 0;
+			var b = 500;
+			//			var end = 500;
+			var c = -200;
+			var d = 200;
+			//			var timer = setInterval(function() {
+			//				t++;
+			//				div1.style.left = Tween.Linear(t, b, c, d) + "px";
+			//				if(t == d) {
+			//					clearInterval(timer);
+			//				}
+			//			}, 10);
+			var btn = document.querySelector("button");
+			
+			btn.onclick = function() {
+			
+				var timer = setInterval(function() {
+					t++;
+					div1.style.width = Tween.Linear(t, b, c, d) + "px";
+					div1.style.height = Tween.Linear(t, b, c, d) + "px";
+					if(t == d) {
+						clearInterval(timer);
+					}
+				}, 10);
+			}
+		</script>
+	</body>
+
+</html>

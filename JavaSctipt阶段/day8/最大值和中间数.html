@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="数字1" id="num1">
+    <input type="text" placeholder="数字2" id="num2">
+    <input type="text" placeholder="数字3" id="num3">
+    <button id="btn1">计算</button>
+    <input type="text" placeholder="最大值" id="num4">
+    <input type="text" placeholder="中间值" id="num5">
+    <script>
+        var vNum1 = document.getElementById("num1");
+        var vNum2 = document.getElementById("num2");
+        var vNum3 = document.getElementById("num3");
+        var vMax = document.getElementById("num4");
+        var vMid = document.getElementById("num5");
+
+        btn1.onclick = function () {
+            //计算最大值：
+            var v1 = +vNum1.value;
+            var v2 = +vNum2.value;
+            var v3 = +vNum3.value;
+            //if语句
+            /*   if (v1 > v2) {
+                    if (v1 > v3) {
+                        vMax.value = v1;
+                    } else {
+                        vMax.value = v3;
+                    }
+                } else {
+                    if (v2 > v3) {
+                        vMax.value = v2;
+                    } else {
+                        vMax.value = v3;
+                    }
+                }*/
+            //三目运算
+            vMax.value = v1 > v2 ? (v1 > v3 ? (v1) : (v3)) : (v2 > v3 ? (v2) : (v3));
+
+            //计算中间值：
+            //if语句：
+            /*     if (v1 > v2) {
+                     if (v3 > v1) { //v1是中间值
+                         vMid.value = v1;
+                     } else { //v1不是中间值，不参与比较
+                         if (v2 > v3) {
+                             vMid.value = v2; //v2是中间值
+                         } else {
+                             vMid.value = v3; //v3是中间值
+                         }
+                     }
+                 } else {
+                     if (v2 < v3) { //v2是中间值
+                         vMid.value = v2;
+                     } else { //v2不是中间值，不参与比较
+                         if (v1 > v3) { //v1是中间值
+                             vMid.value = v1;
+                         } else { //v3是中间值
+                             vMid.value = v3;
+                         }
+                     }
+                 }*/
+            //三目运算
+            vMid.value = v1 > v2 ? (v1 > v3 ? (v2 > v3 ? (v2) : (v3)) : (v1)) : (v1 < v3 ? (v2 > v3 ? (v3) : (v2)) :
+                (v1))
+        }
+    </script>
+
+</body>
+
+</html>

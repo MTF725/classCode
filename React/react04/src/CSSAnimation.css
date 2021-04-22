@@ -1,0 +1,90 @@
+/*enter是指入场动画进入前的瞬间(点击按钮时),appear指的是页面第一次加载前的瞬间*/
+.fade-enter, .fade-appear {
+    opacity: 0;
+}
+
+/*enter-active指的是入场动画开始后一直到结束的过程  appear-active指的是页面第一次加载时调用*/
+.fade-enter-active, .fade-appear-active {
+    opacity: 1;
+    transition: all 1s linear;
+}
+
+/*入场动画执行完毕后需要保持的状态*/
+.fade-enter-done {
+    opacity: 1;
+}
+
+/*同理，出场动画执行前的瞬间*/
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: all 1s linear;
+}
+
+.fade-exit-done {
+    opacity: 0;
+}
+
+/*---------------------------------------------------------------------*/
+.slide-enter, .slide-appear {
+    height: 0;
+    opacity: 0;
+}
+
+.slide-enter-active, .slide-appear-active {
+    height: 126px;
+    opacity: 1;
+    transition: all 1s ease-in;
+}
+
+.slide-enter-done {
+    height: 126px;
+    opacity: 1;
+}
+
+.slide-exit {
+    height: 126px;
+    opacity: 1;
+}
+
+.slide-exit-active {
+    opacity: 0;
+    height: 0;
+    transition: all 1s ease-in;
+}
+.slide-exit-done {
+    height:0;
+    opacity: 0;
+}
+/*--------------------------------------------------------------------*/
+.comp-enter,.comp-appear{
+    opacity: 0;
+    transform: translateX(300px);
+}
+.comp-enter-active,.comp-appear-active{
+    opacity: 1;
+    transform: translateX(0px);
+    transition: all 1s linear;
+}
+.comp-enter-done{
+    opacity: 1;
+    transform: translateX(0px);
+}
+.comp-exit {
+    transform: translateX(0px);
+    opacity: 1;
+}
+
+.comp-exit-active {
+    opacity: 0;
+    transform: translateX(300px);
+    transition: all 1s ease-in-out;
+}
+.comp-exit-done {
+    display: none;
+    opacity: 0;
+    transform: translateX(300px);
+}

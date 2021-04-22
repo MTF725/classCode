@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2-数组和对象的监测</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="item in arr1">{{item}}</li>
+    </ul>
+    <button @click="filterArr">过滤</button>
+    <button @click="setArr">修改数组里的值</button>
+    <hr>
+    <ul>
+        <li v-for="item in arr2">
+            <span>{{item.name}}</span><span>{{item.age}}</span>
+        </li>
+    </ul>
+    <button @click="changeArr">修改值</button>
+    <hr>
+    <ul>
+        <!--v-for遍历对象时，只写一个变量标识value，写两个，第一个是value，第二个是key-->
+        <li v-for="(value,key) in person">
+            <span>{{key}}是{{value}}</span>
+        </li>
+    </ul>
+    <button @click="changeV">点击修改对象的value值</button>
+    <button @click="replaceObj">点击直接替换整个对象</button>
+    <button @click="addKV">点击新增对象键值对</button>
+</div>
+<script type="text/javascript">
+    /*
+       Vue里关于数组和对象的监测：
+          1.数组的监测
+          以下方法操作数组都可以引起视图的自动渲染，这些方法操作数组时，会影响数组里元素的个数，即会影响原数组
+          push,splice,pop,shift,unshift,sort,reverse
+
+          以下方法操作数组，不会引起视图的自动更新渲染，因为这些方法操作数组时，会返回一个新的数组，即不会影响原数组。除非把新值再付给原数组
+          filter（过滤数组），map（遍历数组），concat（拼接数组），slice（截取子数组）
+
+          修改数组里元素的值，也不会引起视图的自动更新渲染
+
+          解决办法：
+          写法1： Vue.set(数组，下标，新值)
+          写法2： vue实例.$set(数组，下标，新值),这里的$就是方法1的Vue
+
+          2.对象的监测：
+            修改对象已存在的属性值，页面会更新渲染
+            直接替换整个对象，页面会更新渲染
+
+            新增键值对，页面不会更新渲染
+            解决办法：
+            写法1：Vue.set(对象，新key，新value)
+            写法2：Vue实例.$set(对象，新key，新value)
+            写法3：一次添加多个键值对  Object.assign({},对象,{新增键值对})；
+     */
+    let app = new Vue({
+        el: "#app",
+        data: {
+            arr1: [1, 2, 3, 4, 5],
+            arr2: [{name: "aaa", age: 10}, {name: "bbb", age: 12}, {name: "ccc", age: 14}],
+            person: {name: "张长庆", job: "班长", age: 21}
+        },
+        methods: {
+            filterArr() {
+                //这里将修改后的返回值赋给了原数组，原数组发生改变，原视图渲染发生改变
+                this.arr1 = this.arr1.filter(function (v) {
+                    return v > 3;
+                });
+            },
+            setArr() {
+                //this.arr1[0]=1000;//修改数组里元素的值,不会引起视图的自动更新渲染
+                Vue.set(this.arr1, 0, 1000);
+                console.log(this.arr1);
+            },
+            changeArr() {
+                //arr2里有3个对象，此处修改的是第2个对象，也就是修改了数组arr2里元素的值，不会引起视图的自动更新渲染
+                //this.arr2[1]={name:"哈哈哈",age:100};//没有发生视图自动渲染
+                //此处修改的不是数组arr2里元素的值，而是数组arr2里第2个元素属性值，发生视图自动更新渲染
+                //this.arr2[1].name=""哈哈哈;//发生了视图自动渲染
+                Vue.set(this.arr2, 1, {name: "哈哈哈", age: 100})
+            },
+            changeV() {
+                //修改对象已存在的属性值，页面会更新渲染
+                this.person.age = 25;
+            },
+            replaceObj() {
+                // 直接替换整个对象，页面会更新渲染
+                this.person = {a: 111, b: 222, c: 333};
+            },
+            addKV() {
+                //新增键值对，页面不会更新渲染
+                // this.person.girlFirend = "乔碧萝殿下！";
+                //Vue.set(对象，新key，新value)
+                // Vue.set(this.person,"girlFirend","乔碧萝殿下");
+                //一次添加多个键值对  Object.assign({},对象,{新增键值对})；
+                this.person = Object.assign({}, this.person, {
+                    girlFirend1: "乔碧萝殿下",
+                    girlFirend2: "潘金莲",
+                    girlFirend3: "貂蝉",
+                });
+                console.log(this.person);
+            },
+
+        }
+    })
+</script>
+</body>
+</html>

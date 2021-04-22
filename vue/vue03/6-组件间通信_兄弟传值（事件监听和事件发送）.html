@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6-组件间通信_兄弟传值（事件监听和事件发送）</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1></child1>
+    <child2></child2>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h3>这是child1组件</h3></legend>
+        <button @click="sendMsgToChild2">点击按钮向child2传递数据</button>
+    </fieldset>
+</template>
+<template id="child2">
+    <fieldset>
+        <legend><h3>这是child2组件</h3></legend>
+        <p>接收从child1传来的数据</p>
+    </fieldset>
+</template>
+
+<script type="text/javascript">
+    /*
+        事件监听和事件发送方式传值，不需要依托组件的公共父级，任意已存在的两个组件都可以通过这种方式直接传值
+
+        需要创建一个全局vue实例对象，利用该实例对象实现监听事件和发送事件
+
+        child1负责触发事件（事件发送）
+        child2负责对对应的事件监听
+     */
+    let totalVue=new Vue();
+
+    let child1 = {
+        template: "#child1",
+        data() {
+            return {child1Msg: "child1数据"}
+        },
+        methods: {
+            sendMsgToChild2() {
+              //发送对应事件
+                totalVue.$emit("msg-event",this.child1Msg);
+            }
+        }
+    };
+    let child2 = {
+        template: "#child2",
+        created(){
+            //设置监听
+            totalVue.$on("msg-event",this.getChild1Msg)
+        },
+        methods: {
+            getChild1Msg(v){
+                console.log(v);
+            }
+        }
+    }
+    let app = new Vue({
+        el: "#app",
+        components: {
+            child1, child2
+        }
+    })
+</script>
+</body>
+</html>

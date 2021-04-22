@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5-组件(component)</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-header></my-header>
+    <my-footer></my-footer>
+</div>
+<div id="app1">
+    <my-news></my-news>
+</div>
+
+<template id="f1">
+    <div id="footer">
+        <h4>这是my-footer的标题</h4>
+        <button>按钮1</button>
+        <input type="text" placeholder="请输入邮箱">
+    </div>
+</template>
+<script type="text/javascript">
+    /*
+        组件：将部分的html结构封装起来，形成一个独立的结构，并给该结构命名，实现拆分，模块化html代码
+
+        vue的组件分两种
+        1.全局组件
+        2.局部组件
+     */
+
+    /*
+       全局组件
+       语法：
+       Vue.component("组件名",配置对象);
+
+       组件名命名规则：
+       1.不要与系统关键字重名
+       2.建议使用vue组建的命名方式：小写单词-小写单词 my-header
+       3.支持驼峰（myHeader），但是使用时候还要写成小写单词-小写单词 my-header
+     */
+    Vue.component("my-header", {
+        //指定组件的模板结构
+        // 组件整体用一个标签包裹起来 <div id="header"></div>
+        // template:` <div id="header">模板实例区</div> `
+        template: `
+              <div id="header">
+                  <h2>这是my-header组件的大标题</h2>
+                  <ul>
+                       <li><a href="###">链接1</a></li>
+                       <li><a href="###">链接2</a></li>
+                       <li><a href="###">链接3</a></li>
+                  </ul>
+              </div>
+              `
+    });
+
+    Vue.component("my-footer", {
+        template: "#f1"
+    });
+    let app = new Vue({
+        el: "#app"
+    });
+    let app1 = new Vue({
+        el: "#app1",
+        //注册局部组件
+        components: {
+            "my-news": {
+                template: ` <div id="news">
+                  <h2>这是my-news组件的大标题</h2>
+                  <h3>震惊！陈云飞竟然去做鸭！</h3>
+              </div>`
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 10px;
+        }
+
+        #color {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="color"></div>
+    <button id="change">点击换色</button>
+    <hr>
+    <input type="text" value="1" placeholder="数字一" id="num1">
+    <input type="text" value="2" placeholder="数字二" id="num2">
+    <button id="jisuan">点击计算</button>
+    <input type="text" placeholder="最大公约数" id="num3" disabled>
+    <script>
+        //题目一：编写产生随机色的函数
+        var vColor = document.getElementById("color");
+        var vChange = document.getElementById("change");
+        vChange.onclick = function () {
+            var suiji1 = Math.floor(Math.random() * 256);
+            var suiji2 = Math.floor(Math.random() * 256);
+            var suiji3 = Math.floor(Math.random() * 256);
+            // console.log(suiji)
+            vColor.style.background = "rgb(" + suiji1 + "," + suiji2 + "," + suiji3 + ")";
+
+        }
+
+        // 题目二：编写函数, 求两个整数的最大公约数
+        var nu1 = document.getElementById("num1");
+        // console.log(n1);
+        var nu2 = document.getElementById("num2");
+        var nu3 = document.getElementById("num3");
+
+        // var n1 = +nu1.value;
+        // var n2 = +nu2.value;
+        // var m1 = 0;
+        // var m2 = 0;
+        // console.log(n1, n2, m1, m2);
+
+        jisuan.onclick = function () {
+            var n1 = +nu1.value;
+            var n2 = +nu2.value;
+            // var n3 = +nu3.value;
+            var m1 = 0;
+            var m2 = 0;
+            if (n1 > n2) {
+                m1 = n1;
+                m2 = n2;
+            } else {
+                m1 = n2;
+                m2 = n1;
+            }
+            console.log(m1, m2);
+            for (var i = 0;; i++) {
+                var yu = m1 % m2;
+                if (yu == 0) {
+                    nu3.value = m2;
+                    // n3 = m2;
+                    break;
+                } else {
+                    m1 = m2;
+                    m2 = yu;
+                }
+            }
+        }
+
+        // function
+    </script>
+</body>
+
+</html>

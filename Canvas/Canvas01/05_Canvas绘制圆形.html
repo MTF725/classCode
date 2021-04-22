@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			console.log(CanvasE);
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			//3.绘制圆形
+			/*
+			 *context.arc(x,y,radius,sAngle,eAngle,counterclockwise);
+			 * 6个参数
+			 * x，y：圆心
+			 * radius：半径
+			 * startAngle：开始弧度
+			 * endAngle：结束弧度
+			 * counterclockwise：是否逆时针绘制，默认值false
+			 * 
+			 * 开始跟结束的单位是弧度，不是角度
+			 * 1弧度==180°/π
+			 * 
+			 * JS里的π   是Math.PI
+			 */
+			context.beginPath();
+			context.arc(500,250,100,0,1*Math.PI,true);
+			context.closePath();
+			context.stroke();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    #case {
+      width: 300px;
+      height: 500px;
+      border: 1px solid red;
+      margin: 100px auto;
+      font-weight: bold;
+    }
+
+
+    .a2 {
+      float: right;
+    }
+
+    #bigWord {
+      width: 100%;
+      height: 400px;
+      text-align: center;
+      line-height: 400px;
+      font-size: 300px;
+    }
+
+    #a4 {
+      font-size: 0;
+    }
+
+    #a4>span {
+      display: inline-block;
+      text-align: center;
+      width: 58px;
+      line-height: 71px;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .empty {
+      clear: both;
+    }
+
+    #aa {
+      color: red;
+      font-size: 20px;
+    }
+
+    #b {
+      color: red;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="case">
+    <div>
+      <span class="a1">剩余时间：<span id="aa">3</span></span>
+      <span class="a2">答对个数：<span id="bb">0</span></span>
+      <div id="bigWord">2</div>
+      <div id="a4">
+        <span id="redWord">红</span>
+        <span id="yellowWord">黄</span>
+        <span id="blueWord">蓝</span>
+        <span id="greenWord">绿</span>
+        <span id="cyanWord">青</span>
+      </div>
+      <div class="empty"></div>
+    </div>
+    <script>
+      var aa = document.getElementById("aa");
+      var bb = document.getElementById("bb");
+      var bigWord = document.getElementById("bigWord")
+      var span = a4.children;
+      var centerWord = randomColor(); //保存中间文字的颜色
+      var bottomWord = []; //保存每次刷新最下面的文字
+      var bottomColor = []; //保存每次刷新最下面的文字的颜色
+      var this1;
+      var e; //当前点击的最下面文字的下标
+      var countDown = 3; //倒计时变量
+      var countNumber = 0; //计数
+      //初始化全部的颜色
+      setTimeout(function () {
+        bigWord.innerHTML = randomWord();
+        centerWord = randomColor();
+        bigWord.style.color = centerWord;
+        bottomWord = randomNoRepeatWord();
+        bottomColor = randomNoRepeatColor();
+        for (var a = 0; a < span.length; a++) {
+          span[a].innerHTML = bottomWord[a];
+          span[a].style.color = bottomColor[a];
+        }
+      }, 1)
+      //点击事件
+      for (var c = 0; c < span.length; c++) {
+        span[c].onclick = function () {
+          // this1 = this;
+          for (var d = 0; d < span.length; d++) {
+            if (this == span[d]) {
+              e = d;
+              console.log("dijige" + e)
+              //点击后的随机颜色
+              setTimeout(function () {
+                bigWord.innerHTML = randomWord();
+                centerWord = randomColor();
+                bigWord.style.color = centerWord;
+                bottomWord = randomNoRepeatWord();
+                bottomColor = randomNoRepeatColor();
+                for (var a = 0; a < span.length; a++) {
+                  span[a].innerHTML = bottomWord[a];
+                  span[a].style.color = bottomColor[a];
+                }
+              }, 1)
+              //判断点击 的颜色和上次的颜色一样不
+              if (centerWord == bottomColor[e]) {
+                bigWord.innerHTML = randomWord();
+                bigWord.style.color = randomColor();
+                bottomWord = randomNoRepeatWord();
+                bottomColor = randomNoRepeatColor();
+                for (var a = 0; a < span.length; a++) {
+                  span[a].innerHTML = bottomWord[a];
+                  span[a].style.color = bottomColor[a];
+                }
+                countDown = 3;
+                countNumber++;
+                bb.innerHTML = countNumber;
+                console.log("dijige22222a" + e)
+              } else {
+                alert("游戏结束")
+              }
+
+            }
+          }
+        }
+      }
+      // //倒数计时
+      // setInterval(function () {
+      //   if (countDown == -1) {
+      //     alert("游戏结束")
+      //   } else {
+      //     aa.innerHTML = countDown;
+      //     countDown--;
+      //   }
+      // }, 1000)
+
+      //随机五个不重复的字 返回一个数组
+      function randomNoRepeatWord() {
+        var arr = [];
+        while (arr.length < 5) {
+          var t = Math.floor(Math.random() * 5);
+          if (arr.indexOf(t) == -1) {
+            arr.push(t);
+          }
+        }
+        34210
+        for (var c = 0; c < 5; c++) {
+          switch (arr[c]) {
+            case 0:
+              arr[c] = "红"
+              break;
+            case 1:
+              arr[c] = "黄"
+              break;
+            case 2:
+              arr[c] = "蓝"
+              break;
+            case 3:
+              arr[c] = "绿"
+              break;
+            case 4:
+              arr[c] = "青"
+              break;
+          }
+        }
+        return arr;
+      }
+     
+      //随机五个字中的一个
+      function randomWord() {
+        var a = Math.floor(Math.random() * 5);
+        var b;
+        switch (a) {
+          case 0:
+            b = "红"
+            break;
+          case 1:
+            b = "黄"
+            break;
+          case 2:
+            b = "蓝"
+            break;
+          case 3:
+            b = "绿"
+            break;
+          case 4:
+            b = "青"
+            break;
+        }
+        return b;
+      }
+      //随机五种颜色
+      function randomColor() {
+        var a = Math.floor(Math.random() * 5);
+        var b;
+        switch (a) {
+          //红
+          case 0:
+            b = "rgb(" + 255 + "," + 0 + "," + 0 + ")";
+            break;
+            //黄
+          case 1:
+            b = "rgb(" + 255 + "," + 255 + "," + 0 + ")";
+            break;
+            //蓝
+          case 2:
+            b = "rgb(" + 0 + "," + 0 + "," + 255 + ")";
+            break;
+            //绿
+          case 3:
+            b = "rgb(" + 0 + "," + 255 + "," + 0 + ")";
+            break;
+            //青
+          case 4:
+            b = "rgb(" + 0 + "," + 255 + "," + 255 + ")";
+            break;
+        }
+        return b;
+      }
+      //随机五个不重复的颜色 返回一个数组
+      function randomNoRepeatColor() {
+        var arr = [];
+        while (arr.length < 5) {
+          var t = Math.floor(Math.random() * 5);
+          if (arr.indexOf(t) == -1) {
+            arr.push(t);
+          }
+        }
+        for (var c = 0; c < 5; c++) {
+          switch (arr[c]) {
+            //红
+            case 0:
+              arr[c] = "rgb(" + 255 + "," + 0 + "," + 0 + ")";
+              break;
+              //黄
+            case 1:
+              arr[c] = "rgb(" + 255 + "," + 255 + "," + 0 + ")";
+              break;
+              //蓝
+            case 2:
+              arr[c] = "rgb(" + 0 + "," + 0 + "," + 255 + ")";
+              break;
+              //绿
+            case 3:
+              arr[c] = "rgb(" + 0 + "," + 255 + "," + 0 + ")";
+              break;
+              //青
+            case 4:
+              arr[c] = "rgb(" + 0 + "," + 255 + "," + 255 + ")";
+              break;
+          }
+        }
+        return arr;
+      }
+    </script>
+  </div>
+</body>
+
+</html>

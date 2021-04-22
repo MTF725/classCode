@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//创建父类
+			function Person(name, age, sex, height, weight) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.height = height;
+				this.weight = weight;
+				this.firends = ["阿猫", "阿狗"];
+				this.getName = function() {
+					console.log("你好，我是" + this.name + ",我今年" + this.age + "岁了！");
+				}
+			}
+			Person.prototype.getFirends = function() {
+				console.log("我有很多好朋友，其中有" + this.firends);
+			}
+			Person.prototype.move = function(){
+				console.log(222);
+			}
+			//创建子类
+			function Students(name, age, sex, height, weight, schoolNum, gradeNum) {
+				Person.call(this, name, age, sex, height, weight);
+				this.schoolNum = schoolNum;
+				this.gradeNum = gradeNum;
+				this.sing = function() {
+					console.log("我会唱我的中国心");
+				}
+			}		
+			//寄生
+			(function() {
+				var NullArr = function(){};
+				NullArr.prototype = Person.prototype;
+				Students.prototype = new NullArr();
+			})();
+			//给子类添加新的属性和方法
+			Students.prototype.nation = "中国";
+			Students.prototype.dance = function() {
+				console.log("我会跳最炫民族风");
+			};
+			//name, age, sex, height, weight, schoolNum, gradeNum
+			//创建学生
+			var stu = new Students("张三", 18, "男", 180, 140, "清华大学", "大四");
+			console.log(stu.name);
+			console.log(stu.schoolNum);
+			stu.getName();
+			console.log(stu.nation);
+			stu.dance();
+			stu.sing();
+			console.log(stu.firends);
+		</script>
+	</body>
+
+</html>

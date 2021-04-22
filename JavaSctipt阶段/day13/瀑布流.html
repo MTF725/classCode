@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 1100px;
+            border: 3px solid red;
+            margin: 20px auto 0;
+            /* 给ul的父级加上一个边界，避免浮动造成的父级高度塌陷 */
+            overflow: hidden;
+        }
+
+        ul {
+            width: 200px;
+            float: left;
+            margin: 0 10px;
+            list-style: none;
+        }
+
+        /* 预先设置li的样式： */
+        li {
+            text-align: center;
+            font-size: 50px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
+    <script>
+        /* 瀑布流的实现 思路 ：
+          瀑布流是一种多列，每列等宽但不等高的布局格式
+
+          难点：判断那一列最低，并每次把心创建的内容添加到最低列里
+    */
+        //获取所有的ul标签：
+        var uls = document.querySelectorAll("ul");
+        //产生随机数函数：
+        function randomNumber(min, max) {
+            var ranNUM = Math.floor(Math.random()*(max - min + 1) + min)
+            return ranNUM;
+        }
+        //产生随机色函数：
+        function randomColor() {
+            var r = randomNumber(0, 255);
+            var g = randomNumber(0, 255);
+            var b = randomNumber(0, 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+        //循环创建li
+        for (var i = 1; i <= 1000; i++) {
+            //创建li标签：
+            var li = document.createElement("li");
+            //随机高度：
+            li.style.height = randomNumber(100, 200) + "px";
+            //行高：
+            li.style.lineHeight = li.style.height;
+            //随机色：
+            li.style.backgroundColor = randomColor();
+            //赋值数字：
+            li.innerHTML = i;
+            //判断所有ul的高度，找出最低的ul：
+            lowUl().appendChild(li);
+        }
+
+        //封装函数，功能：查找所有的ul里高度最低的ul
+        function lowUl() {
+            //假设第一个ul是最低的：
+            var min = uls[0];
+            //遍历所有ul：
+            for (var i = 1; i < uls.length; i++) {
+                min = min.offsetHeight <= uls[i].offsetHeight ? min : uls[i]
+            }
+            return min;
+        }
+    </script>
+</body>
+
+</html>

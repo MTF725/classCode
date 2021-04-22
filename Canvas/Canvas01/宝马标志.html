@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				margin: 20px auto;
+				border: 1px solid red;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="600" height="600"></canvas>
+		<script type="text/javascript">
+			//获取DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			//获取画笔
+			var pen = CanvasE.getContext("2d");
+			//绘制最外层圆
+			pen.beginPath();
+			pen.arc(220, 220, 200, 0, 2 * Math.PI);
+			pen.fillStyle = "white";
+			pen.stroke();
+			pen.fill();
+			pen.closePath();
+			//绘制第二层圆：
+			pen.beginPath();
+			pen.arc(220, 220, 197, 0, 2 * Math.PI);
+			pen.fillStyle = "black";
+			pen.stroke();
+			pen.fill();
+			pen.closePath();
+			//绘制第三层圆
+			pen.beginPath();
+			pen.arc(220, 220, 113, 0, 2 * Math.PI);
+			pen.fillStyle = "white";
+			pen.stroke();
+			pen.fill();
+			pen.closePath();
+			//绘制第四层圆
+			pen.beginPath();
+			pen.arc(220, 220, 110, 0, 2 * Math.PI);
+			pen.fillStyle = "white";
+			pen.stroke();
+			pen.fill();
+			pen.closePath();
+			//绘制四个1/4圆
+			pen.beginPath();
+			pen.lineTo(220, 220);
+			pen.arc(220, 220, 110, 0, 1.5 * Math.PI);
+			pen.lineTo(220, 220);
+			pen.stroke();
+			pen.fillStyle = "skyblue";
+			pen.fill();
+			pen.closePath();
+
+			pen.beginPath();
+			pen.lineTo(220, 220);
+			pen.arc(220, 220, 110, 0.5 * Math.PI, 1 * Math.PI);
+			pen.lineTo(220, 220);
+			pen.stroke();
+			pen.fillStyle = "white";
+			pen.fill();
+			pen.closePath();
+
+			//设置字母
+			//字母M
+			pen.font = "normal 80px bold 宋体";
+			var txt = "M";
+			pen.fillStyle = "white";
+			pen.fillText(txt, 182, 96);
+			//字母W
+			pen.font = "normal 80px bold 宋体";
+			var txt = "W";
+			pen.rotate(Math.PI / 3);
+			pen.fillStyle = "white";
+			pen.fillText(txt, 250, -200);
+			//字母B
+			pen.font = "normal 80px bold 宋体";
+			var txt = "B";
+			pen.rotate(Math.PI / -1.55);
+			pen.fillStyle = "white";
+			pen.fillText(txt,-90, 180);
+		</script>
+	</body>
+
+</html>

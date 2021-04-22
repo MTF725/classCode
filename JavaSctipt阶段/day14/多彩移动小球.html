@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+    	*{
+    	     margin:0;
+    	     padding: 0;
+    		/*去除文字选中状态*/
+    		-webkit-user-select: none;
+    		-moz-user-select: none;
+    		-ms-user-select: none;
+    		user-select: none;
+    	}
+        .box {
+        	margin: 0;
+            width: 1000px;
+            height: 1000px;
+            border: 1px solid red;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input type="number" placeholder="请输入小球数量" id="kuang1">
+        <br>
+        <button>确定</button>
+        <br>
+        <input type="color">
+        <br>
+        <input type="number" placeholder="选择小球颜色r" id="kuang2">
+        <br>
+        <input type="number" placeholder="选择小球颜色g" id="kuang3">
+        <br>
+        <input type="number" placeholder="选择小球颜色b" id="kuang4">
+        <br>
+        <input type="text" placeholder="选定的小球编号" id="kuang5" disabled>
+    </div>
+    <script>
+        var boxV = document.querySelector(".box");
+        var inputs = document.querySelectorAll("input");
+        // console.log(inputs);
+        var btn = document.querySelector("button");
+        // var circleNumber = document
+        //设置随机数
+        function randomNunber(min, max) {
+            var ranNum = Math.floor(Math.random() * (max - min + 1) + min);
+            return ranNum;
+        }
+        // console.log(randomNunber(1,4));
+        //设置随机颜色
+        function randomColor() {
+            var r = randomNunber(0, 255);
+            var g = randomNunber(0, 255);
+            var b = randomNunber(0, 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        //创建小球：
+        btn.onclick = function () {
+            //确认数据正确：
+            if (inputs[0].value <= 0) {
+                alert("请输入正确数字");
+                return;
+            }
+            //获得小球数量
+            var circleNumber = inputs[0].value;
+            //获得需要更改的颜色数据:
+
+            for (i = 1; i <= circleNumber; i++) {
+                // var circles = [];
+                // while (i < circleNumber) {
+                //设置小球属性：
+                var divs = document.createElement("div");
+                divs.style.width = randomNunber(40, 140) + "px";
+                divs.style.height = divs.style.width;
+                divs.style.lineHeight = divs.style.width;
+                divs.style.borderRadius = "50%";
+                divs.style.backgroundColor = randomColor();
+                divs.style.textAlign = "center";
+                divs.innerHTML = i;
+                //确定小球位置：
+                divs.style.position = "absolute";
+                divs.style.left = randomNunber(0, 860) + "px";
+                divs.style.top = randomNunber(0, 860) + "px";
+                // //把所有的小球放进一个数组然后遍历：
+                // circles.push(divs);
+                // for(var x =0;x<circles.length)
+                // if () {}
+                //添加小球：
+                boxV.appendChild(divs);
+                //用闭包给小球设置点击事件： 
+                // divs.onclick = function (e) {
+                //     return function () {
+                //         inputs[4].value = i;
+                //         console.log("zaa");
+                //     }
+                // }(i)
+
+                // 给小球设置点击事件：
+                divs.onclick = function (e) {
+                    var even = e || event;
+                    inputs[5].value = this.innerHTML;
+                    thisCircle = this;
+
+                    //选色板换色
+                    inputs[1].onchange = function () {
+                        thisCircle.style.backgroundColor = inputs[1].value;
+                        // console.log(inputs[1].value)
+                    }
+                    //输入框换色
+                    inputs[2].onchange = function () {
+                        var newR = +inputs[2].value;
+                        var newG = +inputs[3].value;
+                        var newB = +inputs[4].value;
+                        if (newR < 0 || newR > 255) {
+                            alert("请输入0-255之间的数字");
+                            inputs[2].value = "";
+                        }
+                        thisCircle.style.backgroundColor = "rgb(" + newR + "," + newG + "," + newB + ")";
+                        // console.log(g);
+
+                    }
+                    inputs[3].onchange = function () {
+                        var newR = +inputs[2].value;
+                        var newG = +inputs[3].value;
+                        var newB = +inputs[4].value;
+                        if (newG < 0 || newG > 255) {
+                            alert("请输入0-255之间的数字");
+                            inputs[3].value = "";
+                        }
+                        thisCircle.style.backgroundColor = "rgb(" + newR + "," + newG + "," + newB + ")";
+
+                    }
+                    inputs[4].onchange = function () {
+                        var newR = +inputs[2].value;
+                        var newG = +inputs[3].value;
+                        var newB = +inputs[4].value;
+                        if (newB < 0 || newB > 255) {
+                            alert("请输入0-255之间的数字");
+                            inputs[4].value = "";
+                        }
+                        thisCircle.style.backgroundColor = "rgb(" + newR + "," + newG + "," + newB + ")";
+
+                    }
+                    //给小球添加键盘事件，能够操作键盘是小球移动
+                    window.onkeydown = function (e) {
+                        var even = e || event;
+                        if (even.keyCode == 37) {
+                            //阻止小球超过边界
+                            thisCircle.style.left = thisCircle.offsetLeft - 10 + "px";
+                            if (thisCircle.offsetLeft < 0) {
+                                thisCircle.style.left = 0 + "px";
+                                alert("已经到左边界啦！");
+                            }
+                            return;
+                        }
+                        if (even.keyCode == 38) {
+                            //阻止小球超过边界
+                            thisCircle.style.top = thisCircle.offsetTop - 10 + "px";
+                            if (thisCircle.offsetTop < 0) {
+                                thisCircle.style.top = 0 + "px";
+                                alert("已经到上边界啦！");
+                            }
+                            return;
+                        }
+                        if (even.keyCode == 39) {
+                            //阻止小球超过边界
+                            thisCircle.style.left = thisCircle.offsetLeft + 10 + "px";
+                            if ((thisCircle.offsetLeft + thisCircle.offsetWidth) > 1000) {
+                                thisCircle.style.right = 0 + "px";
+                                alert("已经到右边界啦！");
+                            }
+                            return;
+                        }
+                        if (even.keyCode == 40) {
+                            //阻止小球超过边界
+                            thisCircle.style.top = thisCircle.offsetTop + 10 + "px";
+                            if ((thisCircle.offsetLeft + thisCircle.offsetWidth) > 1000) {
+                                thisCircle.style.bottom = 0 + "px";
+                                alert("已经到右边界啦！");
+                            }
+                            return;
+                        }
+                        alert("请使用up,down,left,right移动小球");
+                    }
+                }
+                inputs[0].value = "";
+            }
+            // //阻止键盘默认移动页面事件发生：
+            // window.onkeydown = function (e) {
+            //     var even = e || event;
+            //     // return false;
+            //     preventDefault();
+            // }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+.storekind {
+    position: relative;
+}
+.storekind-empty{
+    width: 100%;
+    height: 1.875rem;
+}
+.header-empty{
+    width: 100%;
+    height: 2.3rem;
+}
+.storekind-dropdown {
+    position: fixed;
+    top: 2.3rem;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: white;
+    display: flex;
+    margin: 0 auto;
+    border-bottom: .025rem solid #f1f1f1;
+    padding: 0.5rem 0;
+}
+
+.storekind-dropdown > div {
+    box-sizing: border-box;
+    width: 33%;
+    font-size: 0.65rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: .025rem solid #f1f1f1;
+}
+
+.storekind-dropdown > div > div {
+    display: flex;
+}
+
+.storekind-dropdown-content1 {
+    box-sizing: border-box;
+    /*height: 20rem;*/
+    transition: .3s linear;
+    opacity: 0;
+    height: 0;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:4.17rem ;
+}
+
+.dropdown-content-left, .dropdown-content-right {
+    overflow: auto;
+    box-sizing: border-box;
+    width: 50%;
+}
+
+.dropdown-content-left li {
+   background-color:  #f5f5f5;
+    padding: 0.6rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-content-left li > div {
+    display: flex;
+}
+
+.dropdown-content-left li img {
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+.dropdown-content-left li div:nth-of-type(1) p {
+    margin-left: 0.4rem;
+    font-size: 0.65rem;
+    color: #666666;
+}
+
+.dropdown-content-left li div:nth-of-type(2) p {
+    line-height: 1.1rem;
+    background-color: #ccc;
+    font-size: 0.4rem;
+    color: #fff;
+    padding: 0 .1rem;
+    border: .025rem solid #ccc;
+    border-radius: .8rem;
+    margin-right: .25rem;
+}
+
+.dropdown-content-right {
+    background-color: white;
+}
+
+.dropdown-content-right li {
+    border-bottom: .025rem solid #e4e4e4;
+    color: #666666;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.64rem;
+    padding: 0.5rem 0.5rem;
+}
+/*****************************************************/
+/*enter是指入场动画进入前的瞬间(点击按钮时),appear指的是页面第一次加载前的瞬间*/
+.fade-enter, .fade-appear {
+    transform: rotate(0deg);
+}
+
+/*enter-active指的是入场动画开始后一直到结束的过程  appear-active指的是页面第一次加载时调用*/
+.rotate-enter-active, .rotate-appear-active {
+    transform: rotate(180deg);
+    transition: all 1s linear;
+}
+
+/*入场动画执行完毕后需要保持的状态*/
+.rotate-enter-done {
+    transform: rotate(180deg);
+}
+
+/*同理，出场动画执行前的瞬间*/
+.rotate-exit {
+    transform: rotate(180deg);
+}
+
+.rotate-exit-active {
+    transform: rotate(0deg);
+    transition: all 1s linear;
+}
+
+.rotate-exit-done {
+    transform: rotate(0deg);
+}
+/************************************************************************/
+.storekind-dropdown-content2{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:4.17rem ;
+    box-sizing: border-box;
+    /*height: 15.15rem;*/
+    transition: .3s linear;
+    opacity: 0;
+    height: 0;
+    background-color: white;
+    width: 100%;
+}
+.storekind-dropdown-content2 li{
+    display: flex;
+}
+.storekind-dropdown-content2 li>div{
+    text-align: center;
+    width: 10%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+.storekind-dropdown-content2 li img{
+    line-height: 2.5rem;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+.storekind-dropdown-content2 li p{
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-bottom: .025rem solid #e4e4e4;
+   font-size: 0.7rem;
+    color: #666666;
+}

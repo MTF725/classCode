@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>React App</title>
+</head>
+<body>
+
+<div id="root"></div>
+<!--
+    React里路由知识点：
+     React里路由所需的模块react-router-dom模块
+
+     1.BrowserRouter组件，这是react路由的接口实现，所有与路由有关的模块，组件，都需要被该组件包裹才可以实现效果
+     2.Route组件,  路由的展示组件，类似vue里的router-view,负责展示路由切换的组件
+       path属性：字符串，用来匹配路由
+       component属性，当匹配上对应路由时需要显示的组件
+       exact属性，指明该路由是否排他
+     3.Link组件   路由切换组件，类似vue里的router-link，负责切换路由
+        to属性：表示需要跳转的路由
+
+      路由传值：
+      1.params，直接将需要传递的值以/的形式继续拼接在url网址的后面,to属性的值是一个字符串
+       特点:
+         1.1 需要配置路由
+         1.2 刷新网页,值依然存在
+         1.3 不能直接传对象，除非把对象转成json数据格式
+      2.query,to属性的属性值就不再是一个字符串,而是一个对象
+        特点：
+          2.1 不需要配置路由
+          2.2 可以传对象
+          2.3刷新网页,值被销毁
+      3.state,传值方式与query类似(query传递的信息不会出现在链接上，但state会，注意：谷歌浏览器state刷新不会销毁数据，火狐浏览器state刷新会销毁数据)
+        特点：
+        3.1 不需要配置路由
+        3.2 可以传对象
+        3.3刷新网页,值被销毁
+    -->
+</body>
+</html>

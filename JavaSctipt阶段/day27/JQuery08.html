@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<h1>这是一个h1标签</h1>
+		<button>按钮</button>
+		<input type="button" value="点击移除h1的click事件" />
+		<script type="text/javascript">
+			/*
+			 * JQ绑定事件 on()
+			 */
+
+			/*
+			 * 1.一次绑定多个事件   jq对象.on("事件名1 事件名2 事件名3...",function(){})			
+			 */
+			//			$("h1").on("mouseenter mouseleave",function(){
+			//				alert(123);
+			//			})
+
+			/*
+			 * 2.多个事件各自绑定函数
+			 * jq对象.on({
+			 * 	事件名1:function(){},
+			 * 事件名2:function(){},
+			 * 事件名3:function(){},
+			 * ...
+			 * })
+			 */
+						$("h1").on({
+							mouseenter: function() {
+								$(this).css("background", "red");
+							},
+							mouseleave: function() {
+								$(this).css("background", "yellow");
+							},
+							click: function() {
+								$(this).css("background", "blue");
+							}
+						})
+
+			/*
+			 * 3、给动态创建的元素添加点击事件
+			 * on("事件名","选择器",触发函数)
+			 * 
+			 * 填写三个参数：
+			 * 作用：第二个参数用于指定真正触发事件的元素，而我们一般会先把事件先绑定给真正触发事件元素的父亲，保证事件能成功绑定。
+			 * 当动态元素触发事件时，通过事件冒泡触发父级绑定的事件，再将触发函数交由动态元素，让动态元素去真正触发事件。
+			 */
+			$("button").click(function() {
+				$("<div></div>").html("div标签").insertAfter("button");
+			});
+//			$("div").click(function() {
+//				$(this).slideUp(1000);
+//			});//这种方法给div创建点击事件时，此div还没有创建，即点击事件并没有添加上去
+			$("body").on("click", "div", function() {
+				$(this).slideUp(1000);
+				console.log(this);
+			});
+			
+			/*
+			 * 4.移除绑定的事件off("事件类型")
+			 */
+			
+			$("input").click(function(){
+				$("h1").off("click");
+			})
+		</script>
+	</body>
+
+</html>

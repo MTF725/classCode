@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5-组件间通信_兄弟传值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child1></child1>
+        <child2 ref="c2"></child2>
+    </div>
+     <template id="child1">
+         <fieldset>
+             <legend><h3>这是child1组件</h3></legend>
+             <button @click="sendMsgToChild2">点击按钮向child2传递数据</button>
+         </fieldset>
+     </template>
+    <template id="child2">
+        <fieldset>
+            <legend><h3>这是child2组件</h3></legend>
+            <p>接收从child1传来的数据:{{child2Msg}}</p>
+        </fieldset>
+    </template>
+    <script type="text/javascript">
+        let child1={
+            template:"#child1",
+            data(){
+                return{child1Msg:"child1数据"}
+            },
+            methods:{
+                sendMsgToChild2(){
+                     //获取到child1组件的父组件app，直接调用app方法
+                    this.$parent.appGetMsg(this.child1Msg);
+                }
+            }
+        };
+        let child2={
+            template:"#child2",
+            data(){
+                return{child2Msg:""}
+            }
+        }
+        let app = new Vue({
+            el:"#app",
+            components:{
+                child1,child2
+            },
+            methods:{
+                appGetMsg(v){
+                    console.log(v);
+                    //获取到child2组件给其数据源直接赋值
+                    this.$refs.c2.child2Msg=v;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

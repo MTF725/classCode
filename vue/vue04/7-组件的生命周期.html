@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7-组件的声明周期</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+         <h2 id="h2E">{{msg}}</h2>
+         <button @click="msg='修改后的APP数据'">update</button>
+     </div>
+     <script type="text/javascript">
+         /*
+             vue组件的生命周期：
+             描述了组件从创建到被销毁的整个过程
+             vue会在这个过程中的每个关键的节点自动触发回调函数，我们可以在这些回调函数里书写自己的逻辑，实现对应的要求
+          */
+
+       let app  =new Vue({
+             el:"#app",
+             data:{
+                 msg:"app数据"
+             },
+             beforeCreate(){
+                 //无法获取到data数据,DOM还没有真正创建好
+                 console.log("beforeCreate方法触发了！",this.msg,h2E);
+             },
+             created(){
+                 //可以获取data的数据,DOM还没有真正创建好
+                 console.log("created方法触发了！",this.msg,h2E);
+             },
+             beforeMount(){
+                 //DOM还没有真正创建好
+                 console.log("beforeMount方法触发了！",h2E);
+             },
+             mounted(){
+                 //DOM才真正创建完毕
+                 console.log("mounted方法触发了！",h2E);
+             },
+             beforeUpdate(){
+                 //data数据源已经修改，但此时dom元素的内容还未更新，表示页面还未更新
+                 console.log("beforeUpdate方法触发了！",this.msg,h2E.innerHTML);
+             },
+             updated(){
+                 //data数据源已经修改，此时dom元素的内容已更新，表示页面还未更新
+                 console.log("updated方法触发了！",this.msg,h2E.innerHTML);
+             },
+             beforeDestroy(){
+                 //this.msg和h2E.innerHTML获得的是初始时的数据：app数据
+                 console.log(" beforeDestroy方法触发了！",this.msg,h2E.innerHTML);
+             },
+             destroyed(){
+                 //this.msg和h2E.innerHTML获得的是初始时的数据：app数据
+                 console.log("destroyed方法触发了！",this.msg,h2E.innerHTML);
+             }
+         });
+
+       setTimeout(function () {
+           app.$destroy();
+       },2000);
+     </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style type="text/css">
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid red;
+		}
+		.bgc{
+			background-color: red;
+		}
+		.fontS{
+			font-size: 30px;
+		}
+		.fontC{
+			color: blue;
+		}
+	</style>
+	</head>
+
+	<body>
+		<div>这是div1标签</div>
+		<div>这是div2标签</div>
+		<script type="text/javascript">
+			/*
+			 * JQ操作class名;
+			 * 
+			 */
+			//1.添加class .addClass("class名");这里括号里是字符串
+			//$("div").addClass("bgc");//将class样式加到行间样式里了
+			
+			//2.一次添加多个class  addClass("class1 class2....");多个class用空格隔开
+			//$("div").addClass("bgc fontC fontS");
+			
+			//3.遍历JQ对象添加class addClass(函数声明)
+			var classArr = ["bgc","fontS","fontC"];
+			$("div").addClass(function(i){
+				console.log(i);
+				//该函数会在遍历JQ对象中的元素时，重复调用，每次调用return的值，就是被赋值的class名
+				return classArr[i];
+				//console.log(i);
+			});
+			
+			//注意:当数组里的class名多，JQ对象少时，多出来的class没有作用；如果数组里的class名少，JQ对象多时，多出来的JQ对象没有附上class效果，打印时会报undefined；（但是在js中，数组里有3个，但是要获取第四个时，会报错）；
+			
+			
+			//2、removeClass()  移除class
+			//removeClass的用法，与addClass一样
+			
+			//$("div:first").removeClass("bgc");
+			//$("div:first").removeClass("bgc fontC fontS");
+			
+//			var rClassArr = ["bgc","fontS"];
+//			$("div").removeClass(function(i){
+//				return rClassArr[i];
+//			})
+
+             //toggleClass()  切换class，如果有对应的class就移除，没有就添加
+             $("div:first")[0].onclick = function(){
+             	$("div:first").toggleClass("bgc");
+             }
+		</script>
+	</body>
+
+</html>

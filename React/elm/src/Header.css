@@ -1,0 +1,29 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.3rem;
+    background: #3190e8;
+    color: white;
+    display: flex;
+    line-height:2.3rem ;
+    text-align: center;
+}
+.left{
+    border: 1px solid red;
+    width:20%;
+    font-size: 0.8rem;
+}
+.mid{
+    border: 1px solid red;
+    width:60%;
+}
+.right{
+    border: 1px solid red;
+    width:20%;
+}
+.part2{
+    background: white;
+    margin-top: 0.6rem;
+}

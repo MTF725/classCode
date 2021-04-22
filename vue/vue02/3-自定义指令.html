@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-自定义指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2 v-enter-color="elColor">你好</h2>
+    <button @click="elColor='pink'">点击修改elColor的值</button>
+</div>
+<div id="app1">
+    <p v-enter-color="'blue'">世界</p>
+    <h3 v-unif="false">h3标签</h3>
+</div>
+<script type="text/javascript">
+    /*
+        自定义指令：
+
+        自定义指令分两种
+        1.全局自定义指令
+           在任何一个vue实例的作用域范围内都起效果
+        2.局部自定义指令
+            只在声明该指令的vue实例的作用域的范围内其效果，其他范围无效
+     */
+    /*
+         自定义全局自定义指令
+         语法：
+         Vue.directive("指令名",配置对象);
+         自定义指令的名字在以后使用的时候前面加v-
+         如果指令名写成了驼峰命名方式，以后在使用的时候所有单词小写，单词中间加-
+     */
+    // Vue.directive("enterColor", {
+    // //绑定鼠标移入事件，前提需要先获取到绑定了该指令的元素
+    // bind(el, binding) {
+    //     //el:绑定了该指令元素；
+    //     console.log("bind函数触发了！", el, binding);
+    //     el.onmouseenter = function () {
+    //         this.style.backgroundColor = binding.value;
+    //     }
+    // },
+    // update(el, binding) {
+    //     console.log("update方法触发了！", el, binding);
+    //     el.onmouseenter = function () {
+    //         this.style.backgroundColor = binding.value;
+    //     }
+    // }
+    // });
+
+    //如果在自定义指令时，发现配置对象里的所有函数内代码相同，可以用简写
+    Vue.directive("enterColor", function (el, binding) {
+        console.log("update方法触发了！", el, binding);
+        el.onmouseenter = function () {
+            this.style.backgroundColor = binding.value;
+        }
+    });
+    let app = new Vue({
+        el: "#app",
+        data: {
+            elColor: "red"
+        }
+    });
+    let app1 = new Vue({
+        el: "#app1",
+        //定义局部自定义指令
+        directives:{
+            //可以自定义任意数量的自定义指令
+            unif:{
+                //如果想要获取到绑定指令元素的父元素
+                inserted(el,binding){
+                    // console.log("inserted事件触发！",el.parentElement,binding);
+                    if(binding.value){
+                        //删除
+                        el.parentElement.removeChild(el);
+                    }else{
+                        //加上
+                        el.parentElement.appendChild(el);
+                    }
+                },
+                bind(el,binding){
+                    //console.log("bind事件触发！",el,binding);
+                }
+            },
+        }
+    });
+</script>
+</body>
+</html>

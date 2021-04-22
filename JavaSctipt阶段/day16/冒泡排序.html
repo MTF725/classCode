@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var arr = [9, 7, 5, 3, 1];
+			//外层控制趟数：
+			for(var i = 0; i < arr.length - 1; i++) {
+				//内层控制每一趟的次数：
+				for(var j = 0; j < arr.length - 1 - i; j++) {
+					//比较相邻的两个元素，自定义规则，觉得哪个是否交换
+			if(arr[j] > arr[j + 1]) {
+						//交换两个数
+						var t = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = t;
+					}
+				}
+			}
+			/*
+			 外层的-1和内层的-i可以不写，写的目的是提高运行效率；
+	         内层的-1不能不写，如果不写，造成数组越界
+			 */
+			console.log(arr);
+		</script>
+	</body>
+
+</html>

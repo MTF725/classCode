@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4-第三方动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <style type="text/css">
+        a{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="show=!show">按钮</button>
+        <transition enter-active-class="animated swing" leave-active-class="animated bounce">
+            <a href="###" v-show="show">百度首页</a>
+        </transition>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+             data:{
+                 show:true
+             }
+        }).$mount("#app")
+    </script>
+</body>
+</html>

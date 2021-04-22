@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #circle {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 5px solid red;
+            margin: 30px;
+            background: url(./img/325695.jpg) no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #numbers {
+            position: relative;
+            font-size: 25px;
+        }
+
+        #numbers p:nth-of-type(12),
+        #numbers p:nth-of-type(11),
+        #numbers p:nth-of-type(10),
+        #numbers p:nth-of-type(9),
+        #numbers p:nth-of-type(8),
+        #numbers p:nth-of-type(7),
+        #numbers p:nth-of-type(6),
+        #numbers p:nth-of-type(5),
+        #numbers p:nth-of-type(4),
+        #numbers p:nth-of-type(3),
+        #numbers p:nth-of-type(2),
+        #numbers p:nth-of-type(1) {
+            position: absolute;
+            top: 240px;
+            left: 0;
+            line-height: 20px;
+            text-align: left;
+            height: 20px;
+            width: 500px;
+        }
+
+        span {
+            display: inline-block;
+        }
+
+        #shizhen {
+            width: 130px;
+            height: 8px;
+            background: red;
+            position: absolute;
+            left: 120px;
+            top: 247.5px;
+            transform-origin: right center;
+        }
+
+        #fenzhen {
+            width: 160px;
+            height: 5px;
+            background: blue;
+            position: absolute;
+            left: 90px;
+            top: 247.5px;
+            transform-origin: right center;
+        }
+
+        #miaozhen {
+            width: 200px;
+            height: 2px;
+            background: yellow;
+            position: absolute;
+            left: 50px;
+            top: 247.5px;
+            transform-origin: right center;
+        }
+
+        .empty {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="circle">
+        <div id="numbers">
+            <p><span>9</span></p>
+            <p><span>10</span></p>
+            <p><span>11</span></p>
+            <p><span>12</span></p>
+            <p><span>1</span></p>
+            <p><span>2</span></p>
+            <p><span>3</span></p>
+            <p><span>4</span></p>
+            <p><span>5</span></p>
+            <p><span>6</span></p>
+            <p><span>7</span></p>
+            <p><span>8</span></p>
+            <div id="shizhen"></div>
+            <div id="fenzhen"></div>
+            <div id="miaozhen"></div>
+            <!-- <div class="empty"></div> -->
+        </div>
+        <script>
+            var num = document.querySelectorAll("p");
+            var sp = document.querySelectorAll("p > span");
+            var hour = document.getElementById("shizhen");
+            var min = document.getElementById("fenzhen");
+            var second = document.getElementById("miaozhen");
+            for (var i = 0; i < num.length; i++) {
+                num[i].style.transform = "rotateZ(" + i * 30 + "deg)";
+                sp[i].style.transform = "rotateZ(" + i * -30 + "deg)";
+            }
+
+            setInterval(function time() {
+                var time = new Date;
+                var x = time.getHours();
+                var y = time.getMinutes();
+                var z = time.getSeconds();
+                if (x >= 12) {
+                    x -= 12;
+                }
+                hour.style.transform = "rotateZ(" + (x * 30 + y / 60 * 30 + 90) + "deg)";
+                min.style.transform = "rotateZ(" + (6 * y + 90 + z / 60 * 6) + "deg)"
+                second.style.transform = "rotateZ(" + (6 * z + 90) + "deg)";
+                var a = 6 * y + (6 / 60 * z);
+                var b = 6 * z;
+                console.log(a);
+                // console.log(b);
+            }, 1000)
+        </script>
+    </div>
+</body>
+
+</html>

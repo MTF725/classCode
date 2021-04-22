@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#min {
+				width: 300px;
+				height: 300px;
+				border: 3px solid blue;
+				float: left;
+				position: relative;
+			}
+			
+			#min>img {
+				width: 300px;
+				height: 300px;
+			}
+			
+			#max {
+				width: 300px;
+				height: 300px;
+				border: 3px solid red;
+				float: left;
+				margin-left: 50px;
+				overflow: hidden;
+				display: none;
+			}
+			
+			#zoom {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: rgba(255, 255, 0, 0.5);
+				display: none;
+			}
+			#big{
+				width: 900px;
+				height: 900px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--原图区域-->
+		<div id="min">
+			<img src="img/min.jpg" />
+			<div id="zoom"></div>
+		</div>
+		<!--放大区域-->
+		<div id="max">
+			<img src="img/max.jpg" id="big" />
+		</div>
+		<script type="text/javascript">
+			//给minDiv添加鼠标移入移出事件
+			min.onmouseenter = function() {
+				//显示放大镜和maxDiv；
+				zoom.style.display = "block";
+				max.style.display = "block"
+			}
+			min.onmouseleave = function() {
+				//隐藏放大镜和maxDiv；
+				zoom.style.display = "none";
+				max.style.display = "none";
+			}
+
+			//minDiv添加鼠标移动事件
+			min.onmousemove = function(e) {
+				var even = e || event;
+				var left = even.clientX - this.offsetLeft - this.clientLeft - zoom.offsetWidth / 2;
+				var top = even.clientY - this.offsetTop - this.clientTop - zoom.offsetHeight / 2;
+
+				//区间判断
+				if(left < 0) {
+					left = 0;
+				}
+				if(left > min.clientWidth - zoom.offsetWidth) {
+					left = min.clientWidth - zoom.offsetWidth;
+				}
+				if(top < 0) {
+					top = 0;
+				}
+				if(top > min.clientHeight - zoom.offsetHeight) {
+					top = min.clientHeight - zoom.offsetHeight;
+				}
+				//给放大镜赋值位置
+				zoom.style.left = left + "px";
+				zoom.style.top = top + "px";
+
+//(zoom当前left/zoom水平可移动距离)=(大图当前位置/大图水平可移动距离)
+				var scollLeft = left / (min.clientWidth - zoom.offsetWidth) * (big.offsetWidth - max.clientWidth);
+				var scollTop = top/(min.clientHeight-zoom.offsetHeight)*(big.offsetHeight-max.clientHeight);
+				
+				max.scrollLeft = scollLeft;
+				max.scrollTop = scollTop;
+				
+			}
+		</script>
+	</body>
+
+</html>

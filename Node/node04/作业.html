@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<button>jsonp链接</button>
+<table border="1" cellspacing="0" width="500">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>age</th>
+        <th>sex</th>
+        <th>job</th>
+    </tr>
+
+</table>
+<script>
+    $("button").on("click", function () {
+        $.ajax({
+            type: "get",
+            url: "http://127.0.0.1:9112/jsonp",
+            dataType: "jsonp",
+            success: function (data) {
+                table(data);
+                console.log(data);
+            }
+        });
+    });
+
+    function table(data) {
+      for(let a =$("tr").length;a>1;a--){
+          $("tr:last").remove();
+      }
+        data.forEach(function (value) {
+            console.log(1);
+            var tr = $("<tr/>").appendTo("table");
+            for (var i in value) {
+                $("<td/>").html(value[i]).appendTo(tr);
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

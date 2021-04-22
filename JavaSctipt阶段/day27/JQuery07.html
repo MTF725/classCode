@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#div1 {
+				width: 400px;
+				height: 400px;
+				background: red;
+				padding: 50px;
+				position: absolute;
+				left: 200px;
+				top: 200px;
+			}
+			
+			#div2 {
+				width: 200px;
+				height: 200px;
+				background: yellow;
+				padding: 50px;
+				position: absolute;
+				left: 60px;
+				top: 60px;
+			}
+			
+			#div3 {
+				width: 100px;
+				height: 100px;
+				background-color: cyan;
+				padding: 10px;
+				border: 0 solid blue;
+				border-width: 1px 2px 3px 4px;
+				margin: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">
+			<div id="div2">
+				<div id="div3">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			console.log(div3.offsetLeft)
+		
+			/*
+			 * jq里如何获取元素的位置
+			 * 1.offset()  返回元素相对于文档的位置
+			 * 2.position()  返回元素相对于离得最近的设置了非static定位的祖先元素的距离，其中不包含自身margin值
+			 * 以上两个方法都是用来获取元素位置，包含两个属性：left和top，以像素计算，没有单位
+			 * 3.offsetParent() 返回的是最近的定位祖先元素
+			 */
+			console.log($("#div3").offset().left, $("#div3").offset().top); //这里的.offset()是jq的一种方法，.left是该方法的一种属性	
+
+			console.log($("#div3").position().left, $("#div3").position().top);
+
+			console.log($("#div3").offsetParent());
+
+			/*
+			 * JQ里获取元素尺寸
+			 * 1.width(),height() 返回元素的宽度和高度(不包含padding，border和margin)
+			 * 2.innerWidth(),innerHeight()  返回元素的宽的和高度（包含padding，不包含border和margin）
+			 * 3.outerWidth(),outerHeight()  返回元素的宽度和高度（包含padding和border，不包含margin）
+			 * 4.outerWidth(true),outerHeight(true)  返回元素的宽度和高度（包含padding，border，margin）
+			 */
+			
+			console.log($("#div3").width(), $("#div3").height());
+			console.log($("#div3").innerWidth(), $("#div3").innerHeight());
+			console.log($("#div3").outerWidth(), $("#div3").outerHeight());
+			console.log($("#div3").outerWidth(true), $("#div3").outerHeight(true));
+		</script>
+	</body>
+
+</html>

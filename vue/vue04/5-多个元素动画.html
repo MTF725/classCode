@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5-多个元素动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <style type="text/css">
+        #p1{
+            width: 150px;
+            background-color: red;
+        }
+        #p2{
+            width: 150px;
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+   <div id="app">
+       <button @click="show=!show">点击</button>
+       <transition enter-active-class="animated bounce inifite" leave-active-class="animated swing inifite" mode="out-in">
+           <!--当有相同标签名的元素切换时，需要通过 key 特性设置唯一的值来标记以让 Vue 区分它们，否则 Vue 为了效率只会替换相同标签内部的内容
+
+            同时生效的进入和离开的过渡不能满足所有要求，所以 Vue 提供了过渡模式:
+            mode="in-out"：新元素先进行过渡，完成之后当前元素过渡离开。
+            mode="out-in"：当前元素先进行过渡，完成之后新元素过渡进入。
+           -->
+           <p v-if="show" id="p1" key="0">第1个段落标签</p>
+           <p v-else id="p2" key="1">第2个段落标签</p>
+       </transition>
+   </div>
+   <script type="text/javascript">
+       new Vue({
+           data:{
+               show:true
+           }
+       }).$mount("#app")
+   </script>
+</body>
+</html>

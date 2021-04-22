@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 30px;
+            /* box-sizing: border-box; */
+            width: 400px;
+            height: 400px;
+            border: 1px solid red;
+            position: relative;
+        }
+
+        #list {
+
+            float: left;
+            height: 100px;
+            width: 180px;
+        }
+
+        li {
+            text-align: center;
+            height: 100px;
+            width: 180px;
+            line-height: 100px;
+            border: 1px solid pink;
+            box-sizing: border-box;
+        }
+
+        li:nth-of-type(1) {
+            background: yellow;
+        }
+
+
+        #name {
+            height: 400px;
+            width: 220px;
+            float: left;
+            background: pink;
+            font-size: 50px;
+            position: relative;
+        }
+
+        /* p:nth-of-type(1), */
+        p:nth-of-type(2),
+        p:nth-of-type(3),
+        p:nth-of-type(4) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        #button {
+            width: 0;
+            height: 0;
+            border-right: 20px solid pink;
+            border-left: 20px solid rgba(0, 0, 0, 0);
+            border-bottom: 20px solid rgba(0, 0, 0, 0);
+            border-top: 20px solid rgba(0, 0, 0, 0);
+            position: absolute;
+            left: 140px;
+            top: 30px;
+            transition: all 1s;
+        }
+
+        .empty {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul id="list">
+            <li>163邮箱</li>
+            <li>126邮箱</li>
+            <li>yeah.net</li>
+            <li>网易手机邮箱</li>
+        </ul>
+        <div id="name">
+            <p>163邮箱</p>
+            <p>126邮箱</p>
+            <p>yeah.net</p>
+            <p>网易手机邮箱</p>
+        </div>
+        <div id="button"></div>
+        <div class="empty"></div>
+    </div>
+    <script>
+        var lis = document.querySelectorAll("li");
+        var btn = document.getElementById("button");
+        var ps = document.querySelectorAll("p");
+        // console.log(lis);
+        var index = 0
+        lis[0].onclick = function () {
+            //console.log(this);
+            for (var a = 0; a < lis.length; a++) {
+                lis[a].style.background = "white";
+               console.log(this);
+                ps[a].style.opacity = 0;
+                if (a == 0) {
+                    lis[0].style.background = "yellow";
+                    btn.style.top = "30px";
+                    ps[0].style.opacity = 1;
+                }
+            }
+        }
+        lis[1].onclick = function () {
+            for (var a = 0; a < lis.length; a++) {
+                lis[a].style.background = "white";
+                ps[a].style.opacity = 0;
+                if (a == 1) {
+                    lis[1].style.background = "yellow";
+                    btn.style.top = "130px";
+                    ps[1].style.opacity = 1;
+                }
+            }
+        }
+        lis[2].onclick = function () {
+            for (var a = 0; a < lis.length; a++) {
+                lis[a].style.background = "white";
+                ps[a].style.opacity = 0;
+                if (a == 2) {
+                    lis[2].style.background = "yellow";
+                    btn.style.top = "230px";
+                    ps[2].style.opacity = 1;
+                }
+            }
+        }
+        lis[3].onclick = function () {
+            for (var a = 0; a < lis.length; a++) {
+                lis[a].style.background = "white";
+                ps[a].style.opacity = 0;
+                if (a == 3) {
+                    lis[3].style.background = "yellow";
+                    btn.style.top = "330px";
+                    ps[3].style.opacity = 1;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

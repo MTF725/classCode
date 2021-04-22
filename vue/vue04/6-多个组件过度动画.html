@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6-多个组件过度动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <style type="text/css">
+        @keyframes myC {
+            0%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+            }
+        }
+        .c-leave-active{
+            animation: myC 1s;
+        }
+        c-enter-active{
+            animation: myC 1s  reverse;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="view='child1'">显示child1组件</button>
+        <button @click="view='child2'">显示child2组件</button>
+        <hr>
+        <!--多个组件的过渡简单很多 - 我们不需要使用 key 特性。相反，我们只需要使用动态组件：-->
+        <!--此处动态组件是<component></component>,此处的view是child1，即需要做动画的组件是child1，我们可以动态改变view来实现child1动画和child2动画的切换-->
+        <transition mode="out-in" name="c">
+            <component :is="view"></component>
+        </transition>
+    </div>
+    <template id="child1">
+        <fieldset>
+            <legend><h3>这是child1组件</h3></legend>
+            <h2>child1组件标题</h2>
+            <ul>
+                <li>内容列表1</li>
+                <li>内容列表2</li>
+                <li>内容列表3</li>
+            </ul>
+        </fieldset>
+    </template>
+    <template id="child2">
+        <fieldset>
+            <legend><h3>这是child2组件</h3></legend>
+            <h2>这是child2组件标题</h2>
+            <input type="text">
+            <input type="text">
+            <input type="text">
+        </fieldset></template>
+    </template>
+    <script type="text/javascript">
+        let child1={
+            template:"#child1"
+        }
+        let child2={
+            template:"#child2"
+        }
+        new Vue ({
+            el:"#app",
+            components:{
+                child1,child2
+            },
+            data:{
+                view:"child1"
+            }
+        })
+    </script>
+</body>
+</html>

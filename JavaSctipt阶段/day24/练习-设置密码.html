@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+		* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#box {
+				position: relative;
+				margin: 30px auto;
+				border: 1px solid red;
+				padding: 50px;
+				width: 500px;
+			}
+			
+			input {
+				width: 400px;
+				height: 25px;
+			}
+			
+			input:nth-of-type(1) {
+				padding-left: 65px;
+			}
+			
+			input:nth-of-type(2) {
+				padding-left: 92px;
+			}
+			
+			#submit {
+				width: 40px;
+				margin: 10px 0;
+			}
+			
+			p {
+				font-size: 14px;
+			}
+			
+			#des {
+				margin: 10px 0;
+			}
+			
+			#new {
+				position: absolute;
+				top: 54px;
+				left: 60px;
+			}
+			
+			#newSure {
+				position: absolute;
+				top: 122px;
+				left: 60px;
+			}
+		}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<input type="text" placeholder="请输入密码" id="newPassWord" />
+			<p id="des">密码请使用数字、字母或下划线，6-20个字符</p>
+			<p id="new">新密码:</p>
+			<p id="newSure">确认新密码:</p>
+			<input type="text" placeholder="请再次输入密码" id="surePassWord" />
+			<button id="submit">提交</button>
+		</div>
+		<script type="text/javascript">
+			//给提交按钮添加点击事件
+			$("#submit").click(function() {
+				//判断输入密码是否符合规则
+				var ispassword1 = /^(?=.*[a-z])(?=.*_)(?=.*[0-9])[^]{6,20}$/;
+				var ispassword2 = /^(?=.*[a-z])(?=.*[A-Z]){6,20}$/;
+				var ispassword3 = /^(?=.*[a-z])(?=.*[0-9]){6,20}$/;
+				var ispassword4 = /^(?=.*[A-Z])(?=.*[0-9]){6,20}$/;
+				var ispassword5 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[^]{6}$/;
+				var ispassword6 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[^]{20,}$/;
+				var ispassword7 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\u4e00-\u9fa5]{6,20}$/;
+				var string = $("#newPassWord").val();
+				//				if(ispassword7.test(string)) {
+				//					alert("密码中不能包含汉字");
+				//					return;
+				//				} else 
+				//				if(ispassword2.test(string)) {
+				//					alert("密码请包含数字");
+				//					return;
+				//				} else if(ispassword3.test(string)) {
+				//					alert("密码请包含大写字母");
+				//					return;
+				//				} else if(ispassword4.test(string)) {
+				//					alert("密码请包含小写字母");
+				//					return;
+				//				} else if(ispassword5.test(string)) {
+				//					alert("密码位数请在6-20之间");
+				//					return;
+				//				} else if(ispassword6.test(string)) {
+				//					alert("密码位数请在6-20之间");
+				//					return;
+				//				} else
+
+				if(ispassword1.test(string)) {
+					if(ispassword1.test(string)) {
+						//判断两次输入是否相同
+						if(($("#newPassWord").val()) == ($("#surePassWord").val())) {
+							alert("密码更改成功！");
+						} else {
+							alert("两次输入必须相同！")
+						}
+					}
+				} else{
+					alert("请按规则书写密码");
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

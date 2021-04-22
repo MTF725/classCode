@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>飞机大战</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			#wrap {
+				position: relative;
+			}
+			#load {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				text-align: center;
+			}
+			#score {
+				position: absolute;
+				left: 10px;
+				top: 10px;
+			}
+			ul {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #999;
+				text-align: center;
+				border: 1px solid black;
+				border-radius: 5px;
+				display:none;
+			}
+			li:nth-child(2) {
+				border: 0 solid black;
+				border-width: 1px 0 1px 0;
+			}
+			li {
+				padding: 5px 15px;
+			}		
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<!--画布-->
+			<canvas id="Canvas"></canvas>
+			<!--loading效果-->
+			<div id="load">
+				<img src="img/loading.gif"/>
+				<p>游戏加载中...</p>
+			</div>
+			<!--分数-->
+			<div id="score">分数:0</div>
+			<!--游戏结束-->
+			<ul>
+				<li>飞机大战分数</li>
+				<li>0</li>
+				<li id="restart">重新开始</li>
+			</ul>
+		</div>
+		<script src="fly2.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

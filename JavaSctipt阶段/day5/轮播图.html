@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #ps {
+            height: 400px;
+            width: 800px;
+            overflow: hidden;
+        }
+
+        #p {
+            height: 400px;
+            width: 5600px;
+            /* overflow: hidden; */
+
+
+        }
+
+        #p1 {
+            background: url(./img/1.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p2 {
+            background: url(./img/2.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p3 {
+            background: url(./img/3.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p4 {
+            background: url(./img/4.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p5 {
+            background: url(./img/5.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p6 {
+            background: url(./img/6.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #p7 {
+            background: url(./img/7.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 800px;
+            height: 400px;
+            float: left;
+        }
+
+        #btns {
+
+            width: 800px;
+            height: 20px;
+            margin: 0 auto;
+            text-align: center;
+            position: absolute;
+            top: 360px;
+            left: 0;
+        }
+
+        #btn1 {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: red;
+            margin-left: 20px;
+        }
+
+        #btn2,
+        #btn3,
+        #btn4,
+        #btn5,
+        #btn6,
+        #btn7 {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: blue;
+            margin-left: 20px;
+        }
+
+        .empty {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="ps">
+            <div id="p">
+                <div id="p1"></div>
+                <div id="p2"></div>
+                <div id="p3"></div>
+                <div id="p4"></div>
+                <div id="p5"></div>
+                <div id="p6"></div>
+                <div id="p7"></div>
+                <div class="empty"></div>
+            </div>
+        </div>
+        <div id="btns">
+            <a href="#" id="btn1" onclick="dianji1()"></a>
+            <a href="#" id="btn2" onclick="dianji2()"></a>
+            <a href="#" id="btn3" onclick="dianji3()"></a>
+            <a href="#" id="btn4" onclick="dianji4()"></a>
+            <a href="#" id="btn5" onclick="dianji5()"></a>
+            <a href="#" id="btn6" onclick="dianji6()"></a>
+            <a href="#" id="btn7" onclick="dianji7()"></a>
+        </div>
+        <!-- <button onclick="dianji1()">dianji</button> -->
+    </div>
+    <script>
+        var b1 = true,
+            b2 = true,
+            b3 = true,
+            b4 = true,
+            b5 = true,
+            b6 = true,
+            b7 = true;
+
+        function dianji1() {
+            p.style.transform = "translateX(0)";
+            p.style.transition = "1s";
+            if (b1 == true && b2 == false && b3 == false && b4 == false && b5 == false && b6 == false && b7 == false) {
+                btn1.style.background = "red";
+            } else {
+                btn2.style.background = "blue";
+                btn3.style.background = "blue";
+                btn4.style.background = "blue";
+                btn5.style.background = "blue";
+                btn6.style.background = "blue";
+                btn7.style.background = "blue";
+            }
+            b1 = !b1;
+        }
+
+        function dianji2() {
+            p.style.transform = "translateX(-800px)";
+            p.style.transition = "1s";
+            if (b1 == false && b2 == true && b3 == false && b4 == false && b5 == false && b6 == false && b7 == false) {
+                btn2.style.background = "red";
+            } else {
+                btn1.style.background = "blue";
+                btn3.style.background = "blue";
+                btn4.style.background = "blue";
+                btn5.style.background = "blue";
+                btn6.style.background = "blue";
+                btn7.style.background = "blue";
+            }
+            b2 = !b2;
+        }
+
+        function dianji3() {
+            p.style.transform = "translateX(-1600px)";
+            p.style.transition = "1s";
+            if (b1 == false && b2 == false && b3 == true && b4 == false && b5 == false && b6 == false && b7 == false) {
+                btn3.style.background = "red";
+            } else {
+                btn1.style.background = "blue";
+                btn2.style.background = "blue";
+                btn4.style.background = "blue";
+                btn5.style.background = "blue";
+                btn6.style.background = "blue";
+                btn7.style.background = "blue";
+            }
+            b3 = !b3;
+        }
+
+        function dianji4() {
+            p.style.transform = "translateX(-2400px)";
+            p.style.transition = "1s";
+        }
+
+        function dianji5() {
+            p.style.transform = "translateX(-3200px)";
+            p.style.transition = "1s";
+        }
+
+        function dianji6() {
+            p.style.transform = "translateX(-4000px)";
+            p.style.transition = "1s";
+        }
+
+        function dianji7() {
+            p.style.transform = "translateX(-4800px)";
+            p.style.transition = "1s";
+        }
+    </script>
+</body>
+
+</html>

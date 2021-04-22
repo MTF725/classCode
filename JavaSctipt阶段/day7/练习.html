@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <p id="ele1">修改样式</p>
+    <input type="text" placeholder="此处添加样式" id="ele2">
+    <input type="text" placeholder="此处添加数值" id="ele3">
+    <button id="ele4">确定修改</button> -->
+
+
+    <script>
+        /*  //题目1：羽毛球拍15元，球3元，水2元。200元每种至少一个，有多少种可能？
+        var x = 0;
+        for (var a = 1; a < 200 / 15; a++) {
+            for (var b = 1; b < 200 / 3; b++) {
+                for (var c = 1; c < 200 / 2; c++) {
+                    if ((15 * a + 3 * b + 2 * c) == 200) {
+                        x++;
+                    }
+                }
+            }
+        }
+        console.log(x);
+
+        // 题目2： 凑钱， 1， 2， 5 凑20元有多少种可能？
+
+        var person = {
+            name: "zz",
+            age: 18,
+            hobby: "eat"
+        }
+        for (var x in person) {
+            console.log(x);
+            console.log(person[x])
+        }
+        // console.log(person.hobby);
+
+        var a = document.getElementById("ele1");
+        // var b = document.getElementById("ele2");
+        // var c = document.getElementById("ele3");
+        var d = document.getElementById("ele4");
+        d.onclick = function () {
+            a.style[ele2.value] = ele3.value;
+        }*/
+        //封装金字塔结构函数
+        // var x = 15;
+
+        function jinzita(x) {
+            for (var n = 1; n <= x; n++) {
+                for (var j = 1; j <= x - n; j++) {
+                    document.write(1);
+                }
+                for (var i = 1; i <= 2 * n - 1; i++) {
+                    document.write("○")
+                }
+                document.write("<br />")
+            }
+        }
+        jinzita(15);
+    </script>
+</body>
+
+</html>

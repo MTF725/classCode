@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+       Redux 是JavaScript 的状态容器，提供可预测的状态管理
+       明确一点，Redux是一个有用的框架，但并不是非用不可的
+
+       以下情况，不推荐使用redux
+       1.用户的使用方式非常简单
+       2.用户之间没有数据需要共享
+       3.不需要大量与服务器交互，也没有使用websocket
+       4.view层只从单一的数据源获取数据
+
+       以下情况可以考虑使用redux
+       1.用户使用方式复杂
+       2.不同身份的用户有不同的使用方式（普通用户，管理员）
+       3.多个用户之间需要协作
+       4.与服务器大量交互
+       5.view层需要从多个数据源获取数据
+
+       从组件的角度上看，以下情况，可以考虑使用redux
+       1.某个组件的状态需要共享
+       2.某个组件的值需要再任何地方被拿到
+       3.一个组件值得改变会影响全局的状态
+       4.一个组件的状态改变需要影响到另一个组件
+
+       Redux的核心概念
+       1.Store  对象,整个redux的东西全部存储在store里,是redux的核心
+       2.Reducer  函数(纯函数),接收两个参数,要修改state对象和action对象,函数会根据action对象的type值决定如何处理数据
+       3.Action  对象,必须包含一个type属性,一个action对象描述一种处理模式,Reducer会根据action对象的type值决定如何处理数据.改变 数据的唯一办法，就是使用 Action,它会运送数据到 Store。
+
+       Redux 的工作流程:
+       1.用户发出 Action
+          store.dispatch(action);
+       2.Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action。 Reducer 会返回新的 State 。
+         let nextState = todoApp(previousState, action);
+       3.State 一旦有变化，Store 就会调用监听函数。
+          store.subscribe(listener)
+       4.listener可以通过store.getState()得到当前状态。如果使用的是 React，这时可以触发重新渲染 View。
+          function listerner() {
+               let newState = store.getState();
+                component.setState(newState);
+                }
+    -->
+  </body>
+</html>

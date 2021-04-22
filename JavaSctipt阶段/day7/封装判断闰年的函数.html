@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // for (var a = 2000; a <= 2004; a++) {
+        //     if (runnian(a)) {
+        //         document.write("是闰年");
+        //         document.write("<br>");
+        //     } else {
+        //         document.write("不是闰年");
+        //         document.write("<br>");
+        //     }
+        // }
+
+        // 题1：封装一个函数， 参数给一个年份， 假如是闰年， 返回true， 不是返回false
+        function runnian(num) {
+            var year = num;
+            if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    
+    </script>
+</body>
+
+</html>

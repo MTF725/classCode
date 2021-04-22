@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-组件间通信_子向父</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>接收从child1传来的数据：{{appMsg}}</h2>
+    <!-- 自定义事件触发时，调用了父的事件appGetMsg，并传送了子的数据child1Msg-->
+    <child1 @child1-event="appGetMsg" ref="c1"></child1>
+    <button @click="callChildFun">点击调用child1组件内的方法</button>
+    <p>接收到的随机数是：{{appRandomNum}}</p>
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h2>这是child1组件</h2></legend>
+        <button @click="sendMsgToApp">点击按钮向app发送数据</button>
+    </fieldset>
+</template>
+<script type="text/javascript">
+    /*
+         子向父：
+         由于prop是单向数据传递的，为了防止子组件无意修改了父组件的状态，所以子组件想要给父组件传递数据，vue是不允许的。
+        子向父传递数据，使用的是自定义事件
+        本质：子组件触发自己的自定义事件（事件监听和事件发送），在自定义事件里调用父组件的方法将数据传递到父组件里
+     */
+    let child1 = {
+        template: "#child1",
+        data() {//data数据里需要是函数
+            return {
+                child1Msg: "这是child1的msg数据"
+            }
+        },
+        methods: {
+            sendMsgToApp() {
+                //触发child1的自定义事件
+                //注意：此时的自定义事件名字不能用驼峰形式child1Event
+                this.$emit("child1-event", this.child1Msg);
+                //此处的child1-event就相当于click，,this.child1Msg是点击事件触发时要发送的数据，即子的信息
+            },
+            child1RandomNumber(x,y){
+                return Math.floor(Math.random()*(y-x+1)+x);
+            }
+        }
+    };
+    let app = new Vue({
+        el: "#app",
+        components: {
+            child1
+        },
+        data: {
+            appMsg: "",
+            appRandomNum:0
+        },
+        methods: {
+            appGetMsg(v) {//这里的形参v，是子的自定义事件触发时，发送的子的数据child1Msg
+                console.log("接收到的数据是：", v);
+                this.appMsg = v;
+            },
+            callChildFun(){
+                /*
+                   父组件里如何调用子组件的方法？？？
+                   本质：如何在父组件里获取子组件的实例？？？
+                   使用ref属性给子组件设置唯一标识，父组件通过$refs获取对应标识的子组件
+                 */
+                console.log(this.$refs.c1);
+                this.appRandomNum=this.$refs.c1.child1RandomNumber(10,100);
+            }
+        }
+    })
+</script>
+</body>
+</html>

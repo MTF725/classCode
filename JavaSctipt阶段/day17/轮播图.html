@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			
+			#box {
+				width: 300px;
+				height: 450px;
+				margin: 50px auto;
+				border: 3px solid red;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			#content {
+				width: 2100px;
+				height: 450px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#content img {
+				width: 300px;
+				height: 450px;
+				float: left;
+			}
+			
+			ul {
+				position: absolute;
+				width: 200px;
+				bottom: 20px;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-between;
+			}
+			
+			li {
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 18px;
+				color: black;
+				background-color: white;
+				border: 1px solid black;
+			}
+			
+			#left,
+			#right {
+				opacity: 0;
+				width: 20px;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				background-color: lightgrey;
+				position: absolute;
+				top: 50%;
+				margin-top: -25px;
+				font-size: 18px;
+			}
+			
+			#right {
+				right: 0;
+			}
+			
+			.choose {
+				background-color: red;
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--轮播的div-->
+			<div id="content">
+				<img src="img/1.png" alt="" />
+				<img src="img/2.jpeg" alt="" />
+				<img src="img/3.jpeg" alt="" />
+				<img src="img/4.png" alt="" />
+				<img src="img/5.jpeg" alt="" />
+				<img src="img/6.png" alt="" />
+				<img src="img/1.png" alt="" />
+			</div>
+			<!--分页器-->
+			<ul>
+				<li class="choose">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+			</ul>
+			<!--左右按钮-->
+			<div id="left">
+				<</div>
+					<div id="right">></div>
+			</div>
+			<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				/*
+				 * 轮播图
+				 * 点击鼠标按钮：切图，切分页器；
+				 * 鼠标移入到分页器：切图，切分页器；
+				 * 鼠标不在轮播图区域：自动切图，切分页器；
+				 * 鼠标移入轮播图区域：自动轮播停止；
+				 * 
+				 * 重点：图片的切换与分页器的切换  相互影响！！！
+				 */
+				//左右按钮：
+				var leftBtn = document.getElementById("left");
+				var rightBtn = document.getElementById("right");
+				//contentDiv
+				var contentDiv = document.getElementById("content");
+				//每个分页器：
+				var lis = document.querySelectorAll("li");
+				//盒子：
+				var boxDiv = document.getElementById("box");
+
+				//声明一个变量同时记录图片和分页器的位置：
+				var index = 0;
+
+				//把切换图片和切换分页器分别分装成两个函数：
+				function changeImage() {
+					var t = 0;
+					var b = contentDiv.offsetLeft; //初始值
+					var c = index * -300 - b; //该变量=结束值(index*-300)-初始值
+					var d = 200;
+					//执行动画
+					var timer = setInterval(function() {
+						t++;
+						contentDiv.style.left = Tween.Linear(t, b, c, d) + "px";
+						if(t == d) {
+							clearInterval(timer);
+							leftBtn.onclick = previous;
+							rightBtn.onclick = next;
+						}
+					}, 2)
+				}
+
+				function changePiont() {
+					//给小球添加红色
+					for(var i = 0; i < lis.length; i++) {
+						if(index == i) {
+							//添加choose class
+							lis[i].className = "choose";
+						} else {
+							//去掉choose class
+							lis[i].className = "";
+						}
+					}
+					if(index == 6) {
+						lis[0].className = "choose";
+					}
+				}
+				//左按钮点击事件：
+				leftBtn.onclick = previous;
+
+				function previous() {
+					//取出左键点击效果：
+					leftBtn.onclick = null;
+					if(index == 0) {
+						index = 6;
+						//迅速把content切换到最后一张假图：
+						contentDiv.style.left = index * -300 + "px";
+					}
+					index--;
+					//换图：
+					changeImage();
+					//换分页器：
+					changePiont();
+					//还原左键点击效果
+//					
+				}
+
+				//右按钮点击事件：
+				rightBtn.onclick = next;
+
+				function next() {
+					//取消右键点击效果
+					this.onclick = null;
+					if(index == 6) {
+						index = 0;
+						//迅速把content切换到最后一张假图：
+						contentDiv.style.left = index * -300 + "px";
+					}
+					index++;
+					//换图：
+					changeImage();
+					//换分页器：
+					changePiont();
+					//还原右键点击效果
+				
+				}
+
+				//添加自动轮播效果：
+				var timerV = setInterval(rightBtn.onclick, 1000);
+				//鼠标移入轮播区域，清除自动轮播,左右按钮显示,移出，添加自动轮播,左右按钮透明化;
+				boxDiv.onmouseenter = function() {
+					clearInterval(timerV);
+					leftBtn.style.opacity = 1;
+					rightBtn.style.opacity = 1;
+				}
+				boxDiv.onmouseleave = function() {
+					timerV = setInterval(rightBtn.onclick, 1000);
+					leftBtn.style.opacity = 0;
+					rightBtn.style.opacity = 0;
+				}
+
+				//移入分页器，切换图片和分页器
+				for(var i = 0; i < lis.length; i++) {
+					lis[i].onmouseenter = (function(index1) {
+						return function() {
+							contentDiv.style.left = index1 * -300 + "px";
+							index=index1;
+							changePiont();
+						}
+					})(i);
+
+				}
+
+				/*
+				 * 1、实现移入分页器，切换图片和分页器
+				 * 2、自动轮播
+				 * 3、鼠标移入轮播区域，清除自动轮播，移出，添加自动轮播
+				 * 4、实现鼠标移出轮播图区域，左右按钮透明化；鼠标移入，左右按钮显示；
+				 */
+			</script>
+	</body>
+
+</html>

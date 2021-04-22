@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*
+			 * localStorage  HTML5提供的新的数据持久化解决方案
+			 * 
+			 * 存储的数据也是存储在本地，但是不会跟随网络请求传递到服务器
+			 * 相比于cookie
+			 * 容量更大，大约5M
+			 * 只要存储，就存在
+			 * 操作比cookie方便
+			 * 
+			 * localStorage存储的类型都是字符串
+			 * localStorage是一个对象
+			 */
+
+			//console.log(localStorage);
+
+			//增，改，查
+			//写法1：
+			localStorage.age = "18"; //点后边是key值，等号后边是value值，注意value是字符串，用引号包围
+			//写法2：
+			//添加键值对 setItem(key,value);
+			//获取键值对 getItem(key);
+			localStorage.setItem("name", "张三");
+			//			console.log(localStorage);
+			//			console.log(localStorage.getItem("name"));
+
+			localStorage.removeItem("name");
+
+			//清空所有键值对clear();
+			localStorage.clear();
+			console.log(localStorage);
+			
+			 
+			//可以自己决定key值
+			var a = "school";
+			var b = "郑州大学"
+			localStorage.clear();
+//			localStorage.a = b; //a: "郑州大学";a在这里被当做key
+			localStorage.setItem(a, b);//school: "郑州大学"
+			console.log(localStorage)
+		</script>
+	</body>
+
+</html>

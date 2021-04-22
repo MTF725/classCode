@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<button onclick="addCookie()">添加cookie</button>
+		<button onclick="getCookie()">获取cookie</button>
+		<button onclick="setLife()">设置cookie的生命周期</button>
+		<button onclick="deleteCookie()">删除cookie</button>
+		<script src="js/cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/*
+			 * Cookie的概念：
+			 * 
+			 * Cookie的本质是一段文本，存储在本地终端上。每当发起网络请求，cookie都会跟随网络请求传递到服务器，服务器拿到cookie之后可以做对应的逻辑处理
+			 * 
+			 * 适用场景
+			 * 1.保存用户的登录状态
+			 * 2.跟踪用户的行为
+			 * 3.个性定制网站内容
+			 * 
+			 * cookie缺点
+			 * 1.可以被删除（非代码删除）
+			 * 2.容量比较小，大约4kb
+			 * 3.默认情况下生命周期非常短 
+			 */
+
+			console.log(document.cookie);
+			//添加cookie函数
+			function addCookie() {
+				/*
+				 * cookie是以键值对的形式存储的（每个键对应一个值,键和值是一一对应的）
+				 * key=value
+				 * （在数组里边，下标是唯一对应的，所以用下标识别元素）
+				 */
+				document.cookie = "name = zhangsan"; //cookie后要存字符串
+			}
+			//获取cookie函数
+			function getCookie() {
+				console.log(document.cookie);
+			}
+			//设置cookie的声明周期 
+			function setLife() {
+				/*
+				 * 延长cookie的生命周期
+				 * 写法1：
+				 * 设置失效时刻
+				 * 语法："key=value;expires = 时刻日期"
+				 * 
+				 * 写法2：
+				 * 设置存活秒数
+				 * 语法："key = value;max-age =秒数"
+				 */
+				var fDate = new Date(2019, 7, 20, 12, 0, 0);
+				//把时刻对象转化成字符串
+				var dateString = fDate.toString();
+				//添加新cookie并延长此cookie的声明周期 
+				document.cookie = "age =20,name=zhangsan;expires=" + dateString;
+				//				document.cookie = "school = zhengda;max-age =20";
+			}
+
+			function deleteCookie() {
+				//删除的cookie的本质是重新添加已存在的键值对并让其立刻失效。将max-age的值设置成-1；
+				document.cookie = "age=;max-age = -1"; //此处age是否设置值没有意义，因为立刻失效；
+				if(haskey("age")) {
+					console.log("存在");
+				} else {
+					console.log("不存在");
+				}
+			}
+
+			var a = null;
+			var b = -1;
+			console.log(a+b);
+//			if(a < b) {
+//				console.log("zhen");
+//			}else{
+//				console.log("jia");
+//			}
+		</script>
+	</body>
+
+</html>

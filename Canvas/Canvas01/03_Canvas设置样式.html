@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			/*
+			 * 3.样式设置
+			 * 绘制图形分两步
+			 * 3.1. 绘制路径
+			 * 3.2. 绘制图像
+			 *     a.描边图形   带有stroke的属性或者用法
+			 *     b.填充图形   带有fill的属性或者用法
+			 * 
+			 */
+
+			/*
+			 * 1.设置描边图形的样式strokeStyle属性
+			 * 可以填颜色值：单词， rgb， rgba，十六进制
+			 * 2.描边图形的方法stroke()
+			 * 
+			 */
+			
+			/*
+			 * 1.填充图形的样式fillStyle属性
+			 * 可以填颜色值：单词， rgb， rgba，十六进制
+			 * 2.填充的方法fill()
+			 */
+			
+			/*
+			 * 设置线宽 lineWidth
+			 */
+			
+			//绘制一个五角星
+			context.beginPath();
+			context.moveTo(220, 20);
+			context.lineTo(350, 200);
+			context.lineTo(50, 100);
+			context.lineTo(400, 100);
+			context.lineTo(100, 200);
+			context.closePath();
+			context.strokeStyle = "rgb(255,255,0)";
+			context.fillStyle = "red";
+			context.lineWidth = 10;
+			context.stroke();
+			context.fill();
+			
+			/*
+			 * 所有的样式一旦设置，只会影响接下来绘制的图像，不会影响已经绘制的图像
+			 * 描边和填充的默认颜色都是黑色
+			 */
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1 @@
+exports.name = "这是一个index1文件"

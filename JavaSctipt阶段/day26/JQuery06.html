@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<ul>
+			<li>一串标签</li>
+			<li>一串标签</li>
+			<li>一串标签</li>
+		</ul>
+
+		<fieldset id="">
+			<legend>测试remove和detach方法</legend>
+			<button id="btn1">remove按钮</button>
+			<button id="btn2">detach按钮</button>
+		</fieldset>
+
+		<script type="text/javascript">
+			/*1.jq对象.append(新创建的元素);是在jq对象里面的最后面添加新元素，元素类型可以是DOM元素，HTML元素，jq对象
+			 * 注意：如果jq对象包含多个DOM元素，是给每个DOM元素都添加新元素。
+			 * 
+			 */
+			var h1E = document.createElement("h1");
+			h1E.innerHTML = "这是h1标签"
+			$("body").append(h1E);
+
+			//HTML字符串添加
+			$("body").append("<h2>这是h2标签</h2>");
+
+			//JQ对象
+			//$("body").append();
+			//$("body").append("<p>这是段落标签</p>")
+			//$("body").append($("<p></p>").html("这是一个p标签").css("background", "red").attr("id", "p1")); //另一种写法
+			//这里$("<p>这是段落标签</p>")  把字符串转化成jq对象
+
+			/*
+			 *$("#div1")   查找jq对象
+			 *$(div1)      转化jq对象
+			 *$("<p>这是段落标签</p>")   把字符串转化成jq对象  
+			 */
+
+			/*
+			 * 2.jq对象.prepend(新创建的元素);在jq对象里的最上边添加元素，元素的类型可以是：DOM元素，元素数组，HTML字符串，JQ对象
+			 */
+			//DOM元素
+			var button = document.createElement("button");
+			button.innerHTML = "按钮";
+			$("body").prepend(button);
+
+			//HTML字符串
+			$("body").prepend("<a href='###'>超链接</a>");
+
+			//jq对象
+			$("body").prepend($("<div/>").css({
+				width: "200px",
+				height: "200px",
+				background: "blue",
+				borderRadius: "40%"
+			}))
+
+			//元素数组
+			//1.DOM元素数组
+			var input1 = document.createElement("input");
+			var input2 = document.createElement("input");
+			var arr1 = [input1, input2];
+			$("body").prepend(arr1);
+
+			//2.HTML字符串数组
+			var arr2 = ["<input type = 'radio'>", "<input type = 'radio'>"];
+			$("body").prepend(arr2);
+
+			//3.JQ对象数组
+			var arr3 = [$("<input type = 'checkbox'>"), $("<input type = 'checkbox'>")];
+			$("body").prepend(arr3);
+
+			/*
+			 * 3.jq对象.appendTo(父元素);在父元素里的最后面添加jq对象(jq对象是新元素)；
+			 * 
+			 * 父元素类型可以是选择器，元素，jq对象
+			 * 
+			 */
+			//选择器写法
+			//$("<button/>").html("登录按钮").appendTo("body");
+
+			//元素写法
+			//var bodyE = document.querySelector("body");
+			//$("<button/>").html("注册按钮").appendTo(bodyE);
+
+			//JQ对象
+			//$("<button/>").html("重置按钮").appendTo($("body"));
+
+			/*
+			 * 4.jq对象.prependTo(父元素)  在父元素里的最前面添加jq对象(jq对象是新元素)；
+			 */
+
+			//选择器写法
+			//$("<button/>").html("登录按钮").prependTo("body");
+
+			//元素写法
+			//var bodyE = document.querySelector("body");
+			//$("<button/>").html("注册按钮").prependTo(bodyE);
+
+			//JQ对象
+			//$("<button/>").html("重置按钮").prependTo($("body"));
+
+			/*
+			 * 5.jq对象.after(新创建的元素)  在JQ对象的后面添加新元素，新元素与JQ对象时兄弟关系;新元素的类型可以试试：DOM元素，HTML字符串，JQ对象
+			 * 
+			 */
+
+			//HTML字符串
+			//$("ul").after("<hr/>");
+
+			//DOM元素
+			//var button = document.createElement("button");
+			//button.innerHTML = "新注册用户";
+			//$("h1").after(button);
+
+			//JQ对象
+			//$("h2").after($("<button/>").html("注册邮箱"));
+
+			/*
+			 * 6.jq对象.before(新创建的元素)  在JQ对象的前面添加新元素，新元素与JQ对象时兄弟关系;新元素的类型可以试试：DOM元素，HTML字符串，JQ对象
+			 * 
+			 */
+
+			//HTML字符串
+			//$("ul").before("<hr/>");
+
+			//DOM元素
+			//var button = document.createElement("button");
+			//button.innerHTML = "新注册用户";
+			//$("h1").before(button);
+
+			//JQ对象
+			//$("h2").before($("<button/>").html("注册邮箱"));
+
+			//元素包裹？？？
+
+			/*
+			 * 删除元素
+			 * 要删除的jq对象.remove()
+			 * 要删除的jq对象.detach()
+			 * 
+			 * 以上两个方法都有返回值
+			 * 返回值是  被删除的元素
+			 * 
+			 * 注意：如果jq对象里有多个元素，remove和detach是把所有的元素都删除
+			 * 
+			 * remove()和detach()的区别
+			 * 1.remove方法不止删除元素，也会删除与元素绑定的事件
+			 * 2.detach方法只删除元素，不会删除与元素绑定的事件
+			 */
+			//$("ul").remove();
+			//$("ul").detach();
+
+			//先给两个按钮添加点击事件
+			//			$("#btn1").click(function() {
+			//				alert("remove按钮触发")
+			//			})
+			//			$("#btn2").click(function() {
+			//				alert("detach按钮触发")
+			//			})
+			//
+			//			var rBtn = $("#btn1").remove();
+			//			$("fieldset").append(rBtn);
+			//			var dBtn = $("#btn2").detach();
+			//			console.log(rBtn);
+			//			
+			//			$("fieldset").append(dBtn);
+
+			//遍历集合()
+			//for循环遍历，通过人为设置循环次数
+			//for...in遍历
+			
+			var arr = [1,2,3,4,5];
+			var obj = {
+				name:"小土豆",
+				age:18,
+				sex:"男"
+			};
+			/*
+			 * for....in遍历数组
+			 * for(变量 in 数组){
+			 * 	
+			 * }
+			 * 注意：遍历数组，得到的是数组的下标，而不是数组的值！！！
+			 * 
+			 * 
+			 */
+			
+			for(var a in arr){
+				console.log(a);
+			}
+//			
+			/*
+			 * for...in遍历对象
+			 * for(变量 in 对象){
+			 * 	
+			 * }
+			 * 注意：遍历对象，得到的是对象的key
+			 */
+			
+//			for(var b in obj){
+//				console.log(b);
+//				console.log(obj[b]);
+//			}
+//			
+			//var lis = $("li");
+			
+			
+			/*
+			 * 遍历jq对象的时候，不建议用for...in，因为for... in会把jq对象的所有属性都遍历出来
+			 * 建议使用jq对象的each方法进行遍历
+			 */
+			
+			//回调函数：一个函数作为实参传入到另一个函数里
+//			$("li").each(function(i,v){
+//			console.log(i,v);//i和v是key和value
+//			})
+		</script>
+	</body>
+
+</html>

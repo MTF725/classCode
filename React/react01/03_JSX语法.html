@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03_JSX语法</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+</head>
+<body>
+<div id="box"></div>
+<!--让浏览器支持jsx语法，需要将script的type类型改成text/babel-->
+<script type="text/babel">
+    /*
+      ReactDOM.render()
+      react会检索第一个参数里的<></>,在底层自动调用React.creatElement()
+
+      JSX语法的注意点：
+      1.标签写到小括号里，小括号可以不加
+      2.标签的内容部分可以用大括号包裹表达式的形式灵活展示
+      3.如果是单标签，必须以/结尾
+      4.一个标签结构有且只允许有个一根标签
+     */
+    let box = document.getElementById("box");
+    let t = "p标签";
+    let n = 5;
+    ReactDOM.render(
+        (<div>
+            <p>这是第1个p标签</p>
+            <p>这是第2个p标签</p>
+            <p>这是第3个{t}</p>
+            <p>{n > 5 ? 10 : 100}</p>
+            <input type="text"/>
+        </div>), box
+    );
+
+    //列表渲染
+    let cities=["郑州","洛阳","开封","商丘","驻马店","嵖岈山"];
+    ReactDOM.render(
+        <ul>
+            {
+                cities.map((v,i)=>{
+                    return<li key={i}>{v}--{i}</li>
+                })
+            }
+        </ul>,
+        box
+    )
+
+    let  newCities=[<li>郑州</li>,<li>焦作</li>,<li>信阳</li>,<li>开封</li>]
+    //可以直接在大括号里填数组
+    ReactDOM.render(<ul>{cities}</ul>,box)
+
+    //大括号里不允许直接填对象
+    let obj={name:"张三",age:20,sex:"男"};
+    ReactDOM.render(<ul>{obj.name}</ul>,box)
+</script>
+</body>
+</html>

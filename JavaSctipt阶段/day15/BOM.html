@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">新建3个窗口</button>
+    <button id="btn2">关闭所有窗口</button>
+    <a href="http://www.sina.com.cn" target="w1">点击跳转新浪</a>
+    <button id="btn3">移动窗口1</button>
+    <button id="btn4">移动窗口2</button>
+    <script>
+        /*
+         BOM Browser Object Model 浏览器对象模型
+
+         BOM是由一系列的对象组成的，每个对象负责一类与浏览器有关的功能
+
+         window是BOM里的和新对象，也是顶层对象，其他所有的对象都是从window延伸出来的。
+
+         从window延伸出来的对象有:
+         1.document
+         2.history
+         3.location
+         4.navigator
+         5.screen
+        */
+
+        /*
+         window对象 指的是运行当前文档的浏览器窗口（document指的是文件）
+
+         文档里所有的全局变量和全局方法都是window的属性。（系统和自定义的都包括）；
+        */
+        var arr = []
+        btn1.onclick = function () {
+            //点击一次创建3个网页：
+            for (var i = 0; i < 3; i++) {
+
+                var win = window.open("http://www.baidu.com", "", "width=300,height = 300,left = 50,top = 50");
+                arr.push(win);
+            };
+            console.log(arr);
+        }
+        btn2.onclick = function () {
+            //循环窗口数组，关闭每个窗口
+            //方法一：
+            // for (var i = arr.length - 1; i >= 0; i--) {
+            //     arr[i].close();
+            //     arr.pop();
+            // }
+            // 方法二：
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].close();
+                arr.shift();
+                i--; //若不添加，每次删除一个元素，新元素下标会变，不能完全删除
+            }
+            console.log(arr);
+        }
+    </script>
+</body>
+
+</html>

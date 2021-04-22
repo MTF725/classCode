@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #pictures {
+            height: 400px;
+            width: 300px;
+            font-size: 0;
+            margin: 30px;
+            position: relative;
+            border: 1px solid red;
+        }
+
+        img {
+            display: inline-block;
+            width: 300px;
+            height: 400px;
+            transition: all 1s;
+        }
+
+
+        img:nth-of-type(5),
+        img:nth-of-type(4),
+        img:nth-of-type(3),
+        img:nth-of-type(2),
+        img:nth-of-type(6) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        #buttons {
+            position: absolute;
+            left: 50px;
+            top: 450px;
+        }
+
+        #zuojian {
+            width: 0;
+            height: 0;
+            border-right: 20px solid pink;
+            border-top: 30px solid rgba(0, 0, 0, 0);
+            border-left: 30px solid rgba(0, 0, 0, 0);
+            border-bottom: 30px solid rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 170px;
+            left: -18px;
+        }
+
+        #youjian {
+            width: 0;
+            height: 0;
+            border-left: 20px solid pink;
+            border-top: 30px solid rgba(0, 0, 0, 0);
+            border-right: 30px solid rgba(0, 0, 0, 0);
+            border-bottom: 30px solid rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 170px;
+            left: 270px;
+        }
+
+        #anniu {
+            margin-left: 55px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+        }
+
+        #anniu span {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            background: red;
+            border-radius: 50px;
+            margin-right: 15px;
+        }
+
+        #anniu span:nth-of-type(1) {
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pictures">
+        <img src="./img/1.png" alt="">
+        <img src="./img/2.jpeg" alt="">
+        <img src="./img/3.jpeg" alt="">
+        <img src="./img/4.png" alt="">
+        <img src="./img/5.jpeg" alt="">
+        <img src="./img/6.png" alt="">
+        <div id="zuojian"></div>
+        <div id="youjian"></div>
+        <div id="anniu">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+    <div id="buttons">
+        <button>上一张</button>
+        <button>下一张</button>
+    </div>
+    <script>
+        var you = document.getElementById("youjian");
+        var zuo = document.getElementById("zuojian");
+        var buts = document.querySelectorAll("button");
+        var imgs = document.querySelectorAll("img");
+        var an = document.querySelectorAll("span");
+        var index = 0; //代表第几张
+        buts[0].onclick = function () {
+            clearInterval(x);
+            if (index == 0) {
+                index = 5;
+            } else {
+                index--;
+            }
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].style.opacity = 0;
+                if (index == i) {
+                    an[index].style.background = "blue";
+                    imgs[index].style.opacity = 1;
+                }
+            }
+
+            x = setInterval(buts[1].onclick, 2000);
+        }
+
+        buts[1].onclick = function () {
+            clearInterval(x);
+            if (index == 5) {
+                index = 0;
+            } else {
+                index++;
+            }
+            for (var i = 0; i < imgs.length; i++) {
+                an[i].style.background = "red";
+                imgs[i].style.opacity = 0;
+                if (index == i) {
+                    an[index].style.background = "blue";
+                    console.log(index);
+                    imgs[index].style.opacity = 1;
+                }
+            }
+
+            // console.log(index);
+            x = setInterval(buts[1].onclick, 2000);
+        }
+
+        var x = setInterval(buts[1].onclick, 2000);
+
+        zuo.onclick = buts[0].onclick;
+        you.onclick = buts[1].onclick;
+
+
+        for (var i = 0; i < an.length; i++) {
+            an[i].onclick = function () {
+                for (var n = 0; n < an.length; n++) {
+                    an[n].style.background = "red";
+                    if (this == an[n]) {
+                        an[n].style.background = "blue";
+                        index = n;
+                        imgs[n].style.opacity = 0;
+                    }
+                }
+            }
+        }
+
+        // 加入鼠标移入事件:
+        pictures.onmouseenter = function () {
+            clearInterval(x);
+        }
+        //加入鼠标移出事件：
+        pictures.onmouseleave = function () {
+            x = setInterval(buts[1].onclick, 2000);
+        }
+    </script>
+</body>
+
+</html>

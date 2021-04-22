@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件间通信_父向子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child1 :childmsg="appMsg" :child-array="appArray" :child-obj="appObj" :child-input="appInput"></child1>
+    <hr>
+    <input type="text" v-model="appInput">
+</div>
+<template id="child1">
+    <fieldset>
+        <legend><h2>这是child组件</h2></legend>
+        <p>接收从app传入的数据:{{childmsg}}</p>
+        <ul><li v-for="(v,i) in childArray" :key="i">{{v}}</li></ul>
+        <ul><li v-for="(v,k) in childObj">{{k}}是{{v}}</li></ul>
+        <hr>
+        <p>这里是从app传来的数据:{{childInput}}</p>
+        <hr>
+        <button @click="callParentFun">点击调用父组件的方法</button>
+        <div :style="{width:'100px',height:'100px',background:rColor}"></div>
+    </fieldset>
+</template>
+<script type="text/javascript">
+    /*
+        父向子：
+        由于组件实例的作用域是孤立的。这意味着不能 (也不应该) 在子组件的模板内直接引用父组件的数据。
+       父向子传递数据时，使用的是子模板的props属性，该属性用于接收从外界传入的值，即实现接收从父传入的值
+       1.let app 里的data里写入要传递的数据 appMsg:"这里是app里的msg数据"；
+       2. 在组件的props里再写入一个属性名 childmsg，设置数据传递出去时的数据类型 type:String；
+       3.在组件里写入props的属性名，并加上要传递的数据，即app里data中的appMsg  :childmsg="appMsg"；
+       4.在组建的模型里写入标签并插入props里的属性名{{childmsg}}   <p>接收从app传入的数据:{{childmsg}}</p>
+     */
+    let child1 = {
+        template: "#child1",
+        //props字段，输入属性，用来接收从外界传入的值
+        props:{
+            childmsg:{
+                //对本输入属性做配置
+                type:String,
+                //当组件里什么都不写的时候<child1></child1>,<p></p>就会出现“childMsg默认值”
+                default:'childMsg默认值'
+            },
+            childArray:{
+                type:Array
+            },
+            childObj:{
+                type:Object
+            },
+            childInput:{
+                type:String
+            }
+        },
+        data(){
+            return {
+                rColor:""
+            }
+        },
+        methods:{
+            callParentFun(){
+                /*
+                    如何在组件里调用父组件的方法？？？
+                    本质：如何在子组件里调用父组件的实例？？？
+                    //1.this.$parent  找到当前组件的父组件
+                    //2.this.$root  找到当前组件的根组件
+                 */
+                console.log(this.$parent,this.$root);
+               this.rColor = this.$parent.randomColor();
+               console.log(this.rColor);
+            }
+        }
+    };
+
+    let app = new Vue({
+        el: "#app",
+        components: {
+            child1
+        },
+        data: {
+            appMsg:"这里是app里的msg数据",
+            appArray:[1,2,3,4,5],
+            appObj:{name:"张三",age:20,school:"郑州大学"},
+            appInput:""
+        },
+        methods:{
+            randomColor(){
+                let red = Math.floor(Math.random()*256);
+                let green = Math.floor(Math.random()*256);
+                let blue = Math.floor(Math.random()*256);
+                return "rgb("+red+","+green+","+blue+")";
+            }
+        }
+    })
+</script>
+</body>
+</html>

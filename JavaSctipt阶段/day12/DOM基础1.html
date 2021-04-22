@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //一：特殊节点获取方式：
+        //1、文档节点：
+        console.log(document);
+        //2、html节点：
+        console.log(document.documentElement);
+        //3、body节点：
+        console.log(document.body);
+        //4、head节点：
+        console.log(document.head);
+        //5、声明节点：
+        console.log(document.doctype);
+
+        //二、通过节点之间的关系，获取节点：
+        //1.childNodes获取节点的所有子节点
+        console.log(document.head.childNodes);
+    </script>
+</body>
+
+</html>

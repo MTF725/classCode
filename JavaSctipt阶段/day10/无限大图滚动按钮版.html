@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            font-size: 0;
+        }
+
+        #box {
+            width: 600px;
+            height: 350px;
+            overflow: hidden;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        #pictures {
+            width: 4800px;
+            height: 350px;
+            position: relative;
+        }
+
+        #pictures img {
+            width: 600px;
+            height: 350px;
+        }
+
+        #zuojian {
+            width: 0;
+            height: 0;
+            border-right: 20px solid pink;
+            border-top: 30px solid rgba(0, 0, 0, 0);
+            border-bottom: 30px solid rgba(0, 0, 0, 0);
+            border-left: 20px solid rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 140px;
+            left: -10px;
+        }
+
+        #youjian {
+            width: 0;
+            height: 0;
+            border-left: 20px solid pink;
+            border-top: 30px solid rgba(0, 0, 0, 0);
+            border-bottom: 30px solid rgba(0, 0, 0, 0);
+            border-right: 20px solid rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 140px;
+            left: 570px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="pictures">
+            <img src="./img/p1.jpg" alt="">
+            <img src="./img/p2.jpg" alt="">
+            <img src="./img/p3.jpg" alt="">
+            <img src="./img/p4.jpg" alt="">
+            <img src="./img/p5.jpg" alt="">
+            <img src="./img/p6.jpg" alt="">
+            <img src="./img/p7.jpg" alt="">
+            <img src="./img/p1.jpg" alt="">
+        </div>
+        <div id="zuojian"></div>
+        <div id="youjian"></div>
+    </div>
+
+    <script>
+        var picture = document.getElementById("pictures");
+        var zuo = document.getElementById("zuojian");
+        var you = document.getElementById("youjian");
+        var index = 0;
+
+        zuo.onclick = previous;
+
+        function previous() {
+            this.onclick = null;
+            clearInterval(gTimer);
+            if (index == 0) {
+                index = 7;
+            }
+            var tx = 0;
+            var timer = setInterval(function () {
+                tx += 2;
+                var trans = index * -600 + tx;
+                picture.style.transform = "translateX(" + trans + "px)";
+                if (tx == 600) {
+                    clearInterval(timer);
+                    index--;
+                    console.log(index);
+                    this.onclick = previous;
+                    gTimer = setInterval(next, 3000);
+                }
+            }, 5)
+        }
+
+        you.onclick = next;
+
+        function next() {
+           
+            this.onclick = null;
+            clearInterval(gTimer);
+            if (index == 7) {
+                index = 0;
+            }
+            console.log(index);
+            var tx = 0;
+            var timer = setInterval(function () {
+                tx -= 2;
+                var trans = index * -600 + tx;
+                picture.style.transform = "translateX(" + trans + "px)";
+                if (tx == -600) {
+                    clearInterval(timer);
+                    index++;
+                    // console.log(index);
+                    this.onclick = next;
+                    gTimer = setInterval(next, 3000);
+                }
+            }, 5)
+        }
+        var gTimer = setInterval(next, 3000);
+    </script>
+</body>
+
+</html>

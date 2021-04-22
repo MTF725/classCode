@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="700"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			console.log(CanvasE);
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			//3.变形
+			/*
+			 * 1.平移 translate(x,y)
+			 * 2.缩放 scale(水平方向缩放倍数，竖直方向缩放倍数)
+			 * 3.旋转 rotate(画布的旋转弧度)
+			 */
+			//平移
+			context.fillStyle = "orange";
+			context.fillRect(100, 100, 200, 200);
+			/*
+			 * 平移
+			 * translate(x,y)
+			 * x:画布的坐标原点在水平方向上的平移值(正值向右，负值向左)
+			 * y:画布的坐标原点在竖直方向上的平移值(正值向下，负值向上)
+			 */
+			context.translate(500, 0);//把画布的坐标向右平移了500;
+			context.fillRect(100, 100, 200, 200);
+			
+			//重置画布
+			CanvasE.width=1000;
+			CanvasE.height=700;
+			
+			/*
+			 * 2.缩放
+			 * scale(x,y)
+			 * x:画布的x轴的单位长度
+			 * y:画布的y轴的单位长度
+			 * 
+			 */
+			context.fillStyle = "pink";
+			context.fillRect(100,100,200,200);
+			
+			context.scale(2,2);
+			context.fillStyle = "cyan";
+			context.fillRect(100,100,200,200);
+			
+			//重置画布
+			CanvasE.width=1000;
+			CanvasE.height=700;
+			
+			/*
+			 * 3.旋转
+			 * rotate(弧度)
+			 * 让坐标轴绕原点旋转(正值顺时针，负值逆时针)
+			 */
+			context.fillStyle="red";
+			context.fillRect(400,250,200,200);
+			
+			context.rotate(Math.PI/6);
+			
+			context.fillStyle="red";
+			context.fillRect(400,250,200,200);
+			
+			/*
+			 * 注意：canvas里的变形，全部影响的是画布的坐标轴，一旦画布坐标轴发生改变，接下来绘制的所有图像都会相对已经改变的坐标轴计算数据并绘制。
+			 */
+			
+		</script>
+	</body>
+
+</html>

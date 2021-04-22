@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				display: block;
+				margin: 30px auto;
+				border: 1px solid red;
+				box-shadow: 0px 0px 10px 3px #888888;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("Canvas");
+			var cantext = canvas.getContext("2d");
+			//开始
+			var begin = new Ball;
+			begin.ballNum();
+			console.log(ballAll.length)
+			function  ff() {
+				//清除画布
+				canvas.width = 1000;
+				canvas.height = 500;
+				for(var i = 0; i < ballAll.length; i++) {
+					cantext.beginPath();
+					
+					ballAll[i].exeSpeed();
+					ballAll[i].crash(ballAll);
+					cantext.fillStyle = ballAll[i].ballColor;
+					//花园
+					cantext.arc(ballAll[i].x, ballAll[i].y, ballAll[i].ballSize, 0, Math.PI * 2);
+					cantext.fill();
+					cantext.closePath();
+					 window.requestAnimationFrame( handler );
+				}
+
+			//小球构造函数
+			function Ball(x, y, speed, max, min, color) {
+				//小球的位置
+				this.x = x;
+				this.y = y;
+				//小球的运动速度
+				this.speed = speed;
+				//小球xy轴运动的方向
+				this.ballX = this.speed;
+				this.ballY = this.speed;
+				//小球的半径
+				this.ballSize = randomNumber(max, min);
+				//小球的颜色
+				this.ballColor = color;
+				//存储创建的小球量
+				this.ballAll = [];
+				//随机生成小球
+				this.ballNum = function() {
+					var num = +prompt("输入创建的数量最大值100");
+					ballAll = [];
+					for(let i = 0; i < num; i++) {
+						var q = true;
+						var a = new Ball(randomNumber(940, 60), randomNumber(440, 60), randomNumber(2,1), 30, 10, randomColor());
+						ballAll.push(a);
+						while(q) {
+							var e = 0;
+							for(let w = 0; w < ballAll.length; w++) {
+								//两个小球的半径相加
+								let a = ballAll[ballAll.length - 1].ballSize + ballAll[w].ballSize;
+								//两个小球的圆心距离 勾股定理
+								let b = Math.floor(Math.sqrt(Math.pow(ballAll[ballAll.length - 1].x - ballAll[w].x, 2) + Math.pow(ballAll[ballAll.length - 1].y - ballAll[w].y, 2)));
+								if(b != 0) {
+									if(b > a) {
+										e++
+									} else {
+										ballAll.pop();
+										a = new Ball(randomNumber(900, 100), randomNumber(400, 100), randomNumber(2,1), 50, 10, randomColor());
+										ballAll.push(a);
+									}
+								}
+							}
+							if(e == ballAll.length - 1) {
+								q = false;
+								break;
+							}
+						}
+					}
+				}
+				//小球的运动
+				this.exeSpeed = function() {
+					this.x += this.ballX;
+					this.y += this.ballY;
+				}
+			}
+			//小球碰撞检测
+			Ball.prototype.crash = function() {
+				//小球与小球碰撞
+				for(let i = 0; i < ballAll.length; i++) {
+					//两个小球的半径相加
+					let a = this.ballSize + ballAll[i].ballSize
+					//两个小球的圆心距离 勾股定理
+					let b = Math.ceil(Math.sqrt(Math.pow(this.x - ballAll[i].x, 2) + Math.pow(this.y - ballAll[i].y, 2)));
+					if(b != 0&&a!=this.ballSize*2) {
+						if(a>b) {
+							this.ballX = -this.ballX;
+							this.ballY = -this.ballY;
+						}
+					}
+				}
+				//右壁,左壁
+				if(this.x + this.ballSize > canvas.width || this.x < this.ballSize) {
+					this.ballX = -this.ballX;
+				}
+				//上壁，下壁
+				if(this.y < this.ballSize || this.y + this.ballSize > canvas.height) {
+					this.ballY = -this.ballY;
+				}
+			}
+
+			//随机数
+			function randomNumber(max, min) {
+				return Math.floor(Math.random() * (max - min + 1) + min);
+			}
+			//随机色
+			function randomColor() {
+				return "rgb(" + randomNumber(0, 255) + "," + randomNumber(0, 255) + "," + randomNumber(0, 255) + ")";
+			}
+		</script>
+	</body>
+
+</html>

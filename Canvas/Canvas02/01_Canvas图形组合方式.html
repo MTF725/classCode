@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="700"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			console.log(CanvasE);
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			//3.圆形的组合方式
+			/*
+			 * 源图像(source):新绘制的图像
+			 * 目的图像(destination):已经绘制的图像
+			 * 
+			 * globalCompositeOperation的值
+			 * 1.source-over  默认值，源图像在目的图像上；
+			 * 2.destination-over  目的图像在源图像上
+			 * 3.source-atop  绘制目的及源与目的重合部分，其余部分透明(源在目的上)
+			 * 4.destination-atop  绘制源及目的与源重合的部分，其余部分透明(目的在源上)
+			 * 5.source-in  绘制重合部分的源
+			 * 6.destination-in  绘制重合部分的目的
+			 * 7.source-out  绘制不与目的重合的源
+			 * 8.destination-out  绘制不与源重合的目的
+			 * 9.lighter  源与目的都绘制，重合部分颜色叠加，大于255时取255；
+			 * 10.copy  只绘制源
+			 * 11.xor  只绘制不重合部分的目的和源，重合部分透明
+			 */
+			
+			context.beginPath();
+			context.arc(350,250,100,0,2*Math.PI);
+			context.closePath();
+			context.fillStyle = "red";
+			context.fill();
+			context.stroke();
+			
+			context.globalCompositeOperation = "lighter"
+			
+			context.beginPath();
+			context.arc(500,250,100,0,2*Math.PI);
+			context.closePath();
+			context.fillStyle = "blue";
+			context.fill();
+			context.stroke();
+		</script>
+	</body>
+
+</html>

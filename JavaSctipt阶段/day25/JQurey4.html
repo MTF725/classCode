@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#a {
+				width: 200px;
+				height: 200px;
+				background: red;
+				float: left;
+			}
+			
+			#b {
+				width: 200px;
+				height: 200px;
+				background: blue;
+				float: left;
+			}
+			
+			#c {
+				width: 200px;
+				height: 200px;
+				background: yellow;
+				float: left;
+			}
+			
+			#div1 {
+				width: 200px;
+				height: 200px;
+				border: 1px solid red;
+				margin-top: 30px;
+			}
+			
+			.empty {
+				clear: both;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="a"></div>
+		<div id="b"></div>
+		<div id="c"></div>
+		<div class="empty"></div>
+		<button onclick="show()">显示动画</button>
+		<button onclick="hide()">隐藏动画</button>
+		<button onclick="special1()">特殊效果1</button>
+		<br />
+		<button onclick="dr()">淡入动画</button>
+		<button onclick="dc()">淡出动画</button>
+		<button onclick="dcd()">淡出到</button>
+		<button onclick="special2()">特殊效果2</button>
+		<br />
+		<button onclick="sl()">上拉效果</button>
+		<button onclick="xl()">下拉效果</button>
+		<button onclick="special3()">特殊效果3</button>
+		<br />
+		<div id="div1">
+
+		</div>
+		<button onclick="DIY()">自定义动画</button>
+		<script type="text/javascript">
+			/*
+			 * JQ动画
+			 * 1.显示隐藏动画
+			 * 2.淡入淡出动画
+			 * 3.上拉下拉动画
+			 * 4.自定义动画
+			 * 5.动画组
+			 */
+
+			function show() {
+				$("#a").show(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").show("slow");
+				$("#c").show(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+
+			function hide() {
+				$("#a").hide(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").hide("slow");
+				$("#c").hide(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+
+			function special1() {
+				$("#a").toggle(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").toggle("slow");
+				$("#c").toggle(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+
+			//淡入
+			function dr() {
+				$("#a").fadeIn(1000);
+				$("#b").fadeIn("slow");
+				$("#c").fadeIn(2000, function() {
+					alert("完毕");
+				});
+			}
+			//淡出
+			function dc() {
+				$("#a").fadeOut(1000);
+				$("#b").fadeOut("slow");
+				$("#c").fadeOut(2000, function() {
+					alert("完毕");
+				});
+			}
+			//淡出到
+			function dcd() {
+				$("#a").fadeTo(1000, 0.5);
+				$("#b").fadeTo("slow", 0.5);
+				$("#c").fadeTo(2000, 0.5, function() {
+					alert("完毕");
+				});
+			}
+			//特殊效果2
+			function special2() {
+				$("#a").fadeToggle(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").fadeToggle("slow");
+				$("#c").fadeToggle(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+
+			//上拉动画
+			function sl() {
+				$("#a").slideUp(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").slideUp("slow");
+				$("#c").slideUp(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+			//下拉动画
+			function xl() {
+				$("#a").slideDown(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").slideDown("slow");
+				$("#c").slideDown(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+			//特殊效果3
+			function special3() {
+				$("#a").slideToggle(1000);
+				//可以填写单词控制动画的运动时间fast slow normal
+				$("#b").slideToggle("slow");
+				$("#c").slideToggle(2000, function() { //在隐藏动画结束后触发函数
+					alert("完毕");
+				})
+			}
+
+			//自定义动画
+			//function DIY() {
+			/*
+			 * jq对象.animate({需要做动画的样式},动画运动时间，执行完毕触发函数)
+			 * 只有数字值可创建动画（比如 "margin:30px"）。字符串值无法创建动画（比如 "background-color:red"）
+
+			 */
+			//				$("#div1").animate({
+			//					width: "500px",
+			//					height: "500px",
+			//					borderRadius: "250px",
+			//					margin:"30px"
+			//				}, 1000, function() {
+			//					//alert("完毕")
+			//				})
+			//			}
+
+			//动画组
+			$("#div1").animate({
+				width: "500px"
+			}, 1000);
+			
+			$("#div1").animate({
+				height: "500px"
+			}, 1000, function() {
+				alert("动画执行完毕");
+			});
+
+			//回调函数
+			//			setInterval(function() {});
+			//			[1, 2].sort(function() {});
+		</script>
+	</body>
+
+</html>

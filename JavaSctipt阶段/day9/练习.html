@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #bianse {
+            width: 300px;
+            height: 300px;
+            margin: 30px;
+            border: 1px solid red;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bianse"></div>
+    <button id="btn" onclick="suijise()">确定</button>
+
+    <script>
+        //随机色：
+        var bianseDiv = document.getElementById("bianse");
+
+        function randomColor() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        function suijise() {
+            bianseDiv.style.background = randomColor();
+        }
+        //最大公约数：
+        function maxGY(n1, n2) {
+            var temp = 0;
+            if (n1 < n2) {
+                temp = n1;
+                n1 = n2;
+                n2 = temp;
+            }
+            while (n2 != 0) {
+                var yu = n1 % n2;
+                n1 = n2;
+                n2 = yu;
+            }
+            console.log(n1);
+        }
+        maxGY(75, 100);
+    </script>
+</body>
+
+</html>

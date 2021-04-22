@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#box {
+				padding-top: 40px;
+				padding-left: 50px;
+				margin: 40px auto;
+				width: 400px;
+				background-color: pink;
+			}
+			
+			#messageArea p,
+			#qqArea p {
+				font-size: 25px;
+			}
+			
+			#qqArea input {
+				margin-top: 10px;
+				padding-left: 5px;
+				height: 40px;
+				width: 350px;
+			}
+			
+			#messageArea textarea {
+				padding-left: 5px;
+				padding-top: 5px;
+				width: 350px;
+				height: 150px;
+			}
+			
+			#messageShow {
+				font-size: 25px;
+			}
+			
+			#messageShow button {
+				font-size: 20px;
+				padding: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="qqArea">
+				<p>QQ</p>
+				<input type="text" id="qq" />
+			</div>
+			<div id="messageArea">
+				<p>留言</p>
+				<textarea rows="" cols="" id="message"></textarea>
+			</div>
+			<div id="messageShow">
+				<button id="submit" id="yes">提交</button>
+				<p>显示留言</p>
+			</div>
+			<div id="content"></div>
+		</div>
+		<script type="text/javascript">
+			$("#submit").click(function() {
+				 $("#content").append($("<div></div>").attr("id", "kuang"));
+				 console.log("kuang")
+				//创建qq号码板块
+				$("div:last").append($("<textarea></textarea>").html($("#qq").val()).attr({
+					"id": "qqWord",
+					"disabled": "disabled"
+				}).css({
+					"width": "350px",
+					"padding-left": "5px",
+					"padding-top": "5px"
+				}));
+
+				//创建留言信息板块
+				$("div:last").append($("<textarea></textarea>").html($("#message").val()).attr({
+					"id": "messageWord",
+					"disabled": "disabled"
+				}).css({
+					"width": "350px",
+					"padding-left": "5px",
+					"padding-top": "5px"
+				}));
+
+				//创建删除按钮板块
+				$("div:last").append($("<button></button>").html("删除").attr("id", "delete").css("display", "block").click(function(){
+					$(this).parent().fadeOut(500,function(){
+						$(this).remove();
+					})
+				}));
+
+			//点击提交删除qq框及留言框中的文本
+				$("#qq").val("");
+				$("#message").val("");		
+			})
+
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="div1">这是一个div1标签</div>
+		<ul id="ul1">
+			<li>这是列表项1</li>
+			<li>这是列表项2</li>
+			<li>这是列表项3</li>
+			<li>这是列表项4</li>
+			<li>这是列表项5</li>
+			<li>这是列表项6</li>
+			<li>这是列表项7</li>
+			<li>这是列表项8</li>
+			<li>这是列表项9</li>
+			<li>这是列表项10</li>
+		</ul>
+		<script type="text/javascript">
+			/*
+			 * JQuery是对JavaScript的封装库，可以让书写JS更加高效和快速。
+			 *JQ和JS代码可以混编 
+			 */
+
+			/*
+			 * JQ如何获取DOM元素
+			 * JQ如何操作DOM元素
+			 * JQ动画
+			 */
+
+			//一、JQ如何获取DOM元素
+			/*
+			 * JQ里最重要的一个方法
+			 * $(参数)
+			 * 
+			 * 返回值:JQ对象
+			 * 
+			 * 牢记：只要$()返回值一定是JQ 对象，该对象是一个装了DOM元素的数组  ，而不是DOM元素
+			 * 
+			 * 用法一：
+			 * $("选择器");括号里是字符串    该写法用于获取DOM元素  JQ对象只能调用JQ自己的方法，DOM元素也只能调用自己的属性或者方法！！！
+			 * 
+			 */
+
+			var div1 = document.getElementById("div1");
+			console.log(div1);
+			div1.style.background = "red";
+
+			var div1 = $("#div1"); //返回的div1是个JQ对象
+			console.log(div1);
+			div1.css("background-color", "red");
+
+			var lis = $("ul>li");
+			console.log(lis);
+
+			//JQ对象  向  DOM元素的转化
+			//lis[0].sytle.backgroundColor = "blue";
+
+			//DOM元素  向  JQ对象的转化，直接把DOM元素放进$()方法里，得到的就是JQ对象
+			var div1 = document.getElementById("div1"); //这里var 的 div1是一个DOM元素,而引号里的div1是一个标签名
+			var jqDiv1 = $(div1); //这里的div1是 var的div这个DOM元素,而不是引号里的div1这个标签名!!!
+
+			//二、css()方法   操作JQ对象的样式
+			/*
+			 * css方法，既可以设置样式，也可以获取样式
+			 * 
+			 * 设置样式：
+			 * 写法1：设置一个样式
+			 * JQ对象.css("样式名","样式值") 
+			 * 
+			 * 写法2：设置多个样式
+			 * JQ对象.css({
+			 * 	样式名1:"样式值1",
+			 *  样式名2:"样式值2",
+			 * //样式值用引号括起，每个样式后边加逗号
+			 * })
+			 * 
+			 * 获取样式:获取的是非行间样式，同getComputedStyle($("#div1")[0])
+			 * JQ对象.css("样式名")；
+			 * 返回值：样式值
+			 * 
+			 * 注意：如果JQ对象里包含多个DOM元素，获取样式时，只返回第一个元素的样式
+			 */
+			$("#div1").css("background", "green");
+			$("ul>li").css("background", "green");
+
+			$("#div1").css({
+				width: "200px",
+				height: "200px",
+				background: "red",
+				borderRadius: "50%"
+			})
+
+			//三、JQ常用的伪类选择器
+			//1     :fisrt  找到JQ对象里第一个元素
+			//			$("li:first").css("background-color","red");
+			//2     :last   找到JQ对象里最后一个元素
+			//			$("li:last").css("background-color","green");
+			//3     :even  找到JQ对象里下标是偶数的元素
+			//			$("li:even").css("background-color","yellow");
+			//4     :odd   找到JQ对象里下标是奇数数的元素
+			//			$("li:odd").css("background-color","yellow");
+
+			//5     :eq(index)  找到JQ对象里下标为index的元素
+			//          $("li:eq(5)").css("background-color","cyan");
+			//          $("li").eq(5).css("background-color", "pink");
+
+			//如果下标是一个变量
+			var index = 5;
+			//$("li").eq(index).css("background-color", "pink");
+			//或者第一种方法做字符串拼接
+			//$("li:eq(" + index + ")").css("background-color", "cyan");
+
+			//6     :gt(index) 找到JQ对象里下标大于index的元素
+			//$("li:gt(5)").css("background-color", "cyan");
+			//7     :lt(index) 找到JQ对象里下标小于index的元素
+			//$("li:lt(5)").css("background-color", "cyan");
+
+			//$("li:gt(1):lt(5)").css("background-color", "cyan");
+			//:gt(1)是基于li里的10个元素排序，并选择2-10的那8个li,:lt(5)是基于:gt(1)的8个li在重新排序，并选择前4个li。
+
+			//四、JQ里与表单有关的伪类选择器
+
+			//:text
+			//:password
+			//:radio
+			//:checkbox
+			//:submit
+			//:reset
+			//以上伪类找到的是type是对应的伪类名的input控件
+
+			//:enabled  找到JQ对象里可用的控件
+			//:disenabled  找到JQ对象里不可用的控件
+			//:checked  
+			console.log($(":text").css("background-color", "blue"));
+		</script>
+	</body>
+
+</html>

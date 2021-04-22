@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #div1 {
+            /* margin: 20px; */
+            width: 150px;
+            height: 150px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="div1"></div>
+    <script>
+        div1.onmousedown = function down(e) {
+            var even = e || event;
+            if (even.button == 0) {
+                mousex = even.pageX - div1.offsetLeft;
+                mousey = even.pageY - div1.offsetTop;
+				console.log(even.pageX,div1.offsetLeft)
+                document.body.onmousemove = function move(e) {
+                    var even = e || event;
+                    div1.style.left = even.pageX - mousex + "px";
+                    div1.style.top = even.pageY - mousey + "px";
+                }
+            }
+        }
+        div1.onmouseup = function (e) {
+            document.body.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

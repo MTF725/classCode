@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="600"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			console.log(CanvasE);
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			//3.绘制图片
+			//需要创建一个图片对象，保存图片的所有像素信息
+			var img = new Image();
+			img.src = "img/325695.jpg"
+
+			//保证图片对象完全加载图片数据之后，再进行绘制
+			img.onload = function() {
+				/*
+				 * 绘制图片
+				 * drawImage()
+				 * 
+				 * 写法1：三个参数
+				 * drawImage(image,x,y)
+				 * 三个参数
+				 * image:图片对象
+				 * x，y：绘制到画布上的开始位置
+				 * 
+				 * 写法2
+				 * drawImage(image，x，y，width，height)
+				 * 五个参数
+				 * image：图片对象
+				 * x，y：绘制到画布上的开始位置
+				 * width，height：要绘制成的图像的大小
+				 * 
+				 * 写法3
+				 * drawImage(image,sx,sy,sWidth,sHeight,x,y,width,height)
+				 * 九个参数
+				 * image：图片对象
+				 * sx，sy，：原图开始剪裁的位置
+				 * sWidth，sHeight:原图剪裁大小
+				 * x，y：在画布上绘制的位置
+				 * width，height：在画布上绘制的大小
+				 */
+				//context.drawImage(img,0,0);
+				
+				//context.drawImage(img, 0, 0, 1000, 563);
+				
+				context.drawImage(img,180,800,450,650,0,0,300,500);
+
+			}
+			//设置橡皮擦效果
+			CanvasE.onmousedown = function() {
+				window.onmousemove = function(e) {
+					even = e || event;
+					var mousex = even.pageX - CanvasE.offsetLeft;
+					var mousey = even.pageY - CanvasE.offsetTop;
+					context.clearRect(mousex, mousey, 50, 50);
+				}
+			}
+			CanvasE.onmouseup = function() {
+				window.onmousemove = null;
+			}
+		</script>
+	</body>
+
+</html>

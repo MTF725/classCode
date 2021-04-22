@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05_props</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+</head>
+<body>
+    <div id="box"></div>
+    <script type="text/babel">
+        let box=document.getElementById("box");
+
+        let Child1=React.createClass({
+            render(){
+                return<ul>
+                    {
+                        this.props.lists.map((v,i)=>{
+                            return<li key={i}>值是：{v}--下标是：{i}</li>
+                        })
+                    }
+                </ul>
+            }
+        });
+        let dataArr=[100,200,300,400,500];
+        ReactDOM.render(
+            <Child1 lists={dataArr}/>,box
+        );
+        /*
+           如何获取组件里的内容
+           写到组件里的内容存储到了props对象的children属性里，该值是一个数组，里面存放组件里的所有内容
+         */
+        let Child2=React.createClass({
+            render(){
+                return<ul>
+                    {
+                        this.props.children.map((v,i)=>{
+                            return<li key={i}>{v}</li>
+                        })
+                    }
+                </ul>
+            }
+        });
+        ReactDOM.render(
+            <Child2>
+                这是child2，
+                <p>这是child2里的段落</p>
+                <span>这是child2里的span标签</span>
+            </Child2>,
+            box);
+
+        //设置props的默认值
+        let Chlid3=React.createClass({
+            //设置组件的默认props值
+            getDefaultProps(){
+                return{
+                    age:18,
+                    name:"无名"
+                }
+            },
+            render(){
+                return<div>
+                    <p>人员的姓名是：{this.props.name}</p>
+                    <p>人员的年龄是：{this.props.age}</p>
+                </div>
+            }
+        });
+        ReactDOM.render(
+            <Chlid3 name="张三" />,box
+        )
+    </script>
+</body>
+</html>

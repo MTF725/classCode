@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            width: 800px;
+            height: 400px;
+            border: 1px solid red;
+            margin: 20px;
+            position: relative;
+        }
+
+        #kuai {
+            width: 15px;
+            height: 15px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="kuai"></div>
+    </div>
+    <script>
+        var boxV = document.querySelector("box");
+        var kuaiV = document.querySelector("kuai");
+        var chupengX = true;//检测是否触碰
+        var chupengY = true;//检测是否触碰
+        var topV = 0;
+        var leftV = 0;
+
+        function moveX() {
+            if (chupengX) {
+                leftV += 15;
+                if (leftV == 785) {
+                    chupengX = !chupengX;
+                }
+            } else {
+                leftV -= 15;
+                if (leftV == 0) {
+                    chupengX = !chupengX;
+                }
+            }
+            //超出临界值时：
+            if (leftV > 785) {
+                leftV = 785;
+                chupengX = !chupengX;
+            }
+            if (leftV < 0) {
+                leftV = 0;
+                chupengX = !chupengX;
+            }
+            kuai.style.left = leftV + "px";
+        }
+        var timer = setInterval(moveX, 30);
+
+        function moveY() {
+            if (chupengY) {
+                topV++;
+                if (topV == 385) {
+                    chupengY = !chupengY;
+                }
+            } else {
+                topV--;
+                if (topV == 0) {
+                    chupengY = !chupengY;
+                }
+            }
+            kuai.style.top = topV + "px";
+        }
+        var timer = setInterval(moveY, 20);
+    </script>
+</body>
+
+</html>

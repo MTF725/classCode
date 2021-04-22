@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04_组件</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <style type="text/css">
+        .bgc{
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/babel">
+    /*
+         React里创建组件的语法：
+         let组件名(首字母大写)=React.createClass({
+         render:function(){
+              return 组件的jsx结构
+         },
+         })
+     */
+    let box=document.getElementById("box")
+    let FirstC=React.createClass({
+        render:function () {
+            return <div>
+                <h2>这是FirstC组件的标题</h2>
+                <p>这是FirstC组件的内容</p>
+                <button>按钮</button>
+            </div>
+        }
+    });
+    ReactDOM.render(<FirstC/>,box)
+    //封装一个组件，该组件里有4给超链接
+    let SecondC=React.createClass({
+        render () {
+            return  <div id="linkC">
+                <a href="http://www.baidu.com">百度</a>
+                <a href="http://www.y80s.com">80s电影网</a>
+                <a href="http://www.cctv.com">cctv</a>
+                <a href="http://www.mi.com">小米</a>
+            </div>
+        }
+    });
+    ReactDOM.render(<SecondC/>,box);
+
+    /*
+      如何向组件里传值？？？
+      组件如何接收外部的值？？？
+
+      使用props对象，每个组件自带一个props对象
+      该对象是只读的，props负责定义输入属性的名和值
+     */
+
+    let Child1=React.createClass({
+        render(){
+            return<div>
+                <h2>hello,我叫{this.props.name}！！！</h2>
+            </div>
+        },
+    });
+    ReactDOM.render(
+       <div>
+           <Child1 name="张三"/>
+           <Child1 name="李四"/>
+       </div>,box
+    )
+
+    //练习，封装一个组件，要求：组件包含form标签，控件有两个输入框，一个按钮，使用该组建的人可以从外部控制输入框的placehoder和按钮的名字
+    let Child2=React.createClass({
+        render(){
+            return<form>
+                <input type="text" placeholder={this.props.inp1}/>
+                <input type="text" placeholder={this.props.inp2}/>
+                <button>{this.props.bup}</button>
+            </form>
+        }
+    });
+    let lip=2222
+    ReactDOM.render(
+        <div>
+            <Child2 inp1={lip} inp2="3333" bup="4444"/>
+        </div>,box
+    )
+
+    /*
+      如何设置组件里的样式？？
+      注意：样式移动是设置给真正的dom元素，而不是组件
+      1.设置样式通过class属性,属性名不再是calss，而是calssName
+      2.行间css样式
+        2.1 style属性设置样式时，值是{{}}，里面写对应的样式
+     */
+    let pStyle={backgroundColor:"yellow"}
+    let StyleC=React.createClass({
+        render(){
+            return <div className="bgc">
+                <h2 style={{fontSize:'30px',color:'blue'}}>这是h2标签</h2>
+                <p style={pStyle}>这是段落标签</p>
+            </div>
+        }
+    });
+    ReactDOM.render(
+        <StyleC/>,box
+    )
+</script>
+</body>
+</html>

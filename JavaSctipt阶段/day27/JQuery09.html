@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+		<div id="div1"></div>
+		<script type="text/javascript">
+			/*
+			 *          
+			 * 
+			 * 我们要求，在写script标签时，要写到body的最后面
+			 * 原因是：为了让系统先执行html代码，再去执行js。保证先有元素，再获取元素。
+			 * 文档加载事件       
+			 * onLoad  该事件会在对应文件加载完毕之后触发
+			 * ready  该事件会在对应文件加载完毕之后触发，该方法是jq对象独有的
+			 * 
+			 */
+
+			//			window.onload = function() {
+			//				var div1 = document.getElementById("div1");
+			//				console.log(div1);
+			//			}
+
+			//ready写法
+//			$(document).ready(function() {
+//				var div1 = document.getElementById("div1");
+//				console.log(div1);
+//			})
+
+			//ready简写
+			$(function() {
+				var div1 = document.getElementById("div1");
+				console.log(div1);
+			})
+			
+			/*
+			 * 面试题：onLoad与ready的区别
+			 * ready方法，会等到当前文档里的html元素加载完毕后就触发
+			 * onLoad方法，不但要等到html元素加载完毕，还要等到其他资源，如图片，音视频，外部链接等所有资源加载完毕之后才会触发！
+			 */
+		</script>
+	</body>
+
+</html>

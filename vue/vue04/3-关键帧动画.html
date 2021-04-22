@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-关键帧动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        @keyframes pengpengpeng {
+            0% {
+                opacity: 1;
+                transform: scale(1, 1);
+            }
+            25% {
+                transform: scale(1.5, 1.5);
+            }
+            50% {
+                transform: scale(1, 1);
+            }
+            75% {
+                transform: scale(0.5, 0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1, 1);
+            }
+        }
+        .heart-leave-active{
+            animation:pengpengpeng 2s;
+        }
+        .heart-enter-active{
+            animation:pengpengpeng 2s reverse;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show=!show">点击</button>
+    <hr>
+    <transition name="heart">
+        <img src="./xin2.png" alt="" width="150" v-if="show">
+    </transition>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        data:{
+            show:true
+        }
+    }).$mount("#app");
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象02</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*
+			 * 使用构造函数创建对象
+			 * ES6 之前, JS是没有类的概念的, 对象是怎么创建的???
+			 * 
+			 * JS里, 构造函数行使的功能与类基本一致.
+			 * 
+			 * 构造函数的函数首字母大写
+			 * 构造函数在调用时 需要使用new关键字
+			 */
+
+			/*
+			 * new 关键字在JS里的作用:
+			 * 1. 创建了一个空对象
+			 * 2. 设置原型链(将空对象的__proto__设置成构造函数的原型对象)
+			 * 3. 调用构造函数给空对象赋值(在调用构造函数的同时改变this的指向为空对象)
+			 * 4. 将创建好的对象返回
+			 */
+			function Student(name, age, sex) {
+				this.name = name; //这里左边的name是属性名，右边的name是属性值，即形参中三个值里的name
+				this.age = age;
+				this.sex = sex;
+				this.sayHi = function() {
+					console.log("你好, 我是" + this.name);
+				//这里的5个this均为new第一步所创建的空对象，也是构造函数 Student的原型对象
+				}
+			}
+			//Student("三",30,"男");
+			/*
+			 * 概念一: 原型对象
+			 * 原型对象是对象, 它属于构造函数. 通过prototype属性可以获取构造函数的原型对象
+			 * 原型对象的属性和方法可以被其所属的构造函数new的每一个实例对象共同拥有!!!!!!
+			 */
+			
+			console.log(Student.prototype);
+			Student.prototype.nation = "中国"; //给Student的原型对象设置一个属性叫nation，属性值是"中国"
+			Student.prototype.sayHi = function() { //给Student的原型对象设置一个方法叫sayHi，也可以写到构造函数里面
+				console.log("你好, 我是" + this.name);
+			}
+
+			var stu1 = new Student("张三", 20, "男");
+			console.log(stu1)
+			var stu2 = new Student("李四", 30, "女");
+			var stu3 = new Student("王五", 21, "不详");
+			console.log(stu1, stu2, stu3); //此时打印stu1, stu2, stu3并不能打印到nation
+			console.log(stu1.nation, stu2.nation, stu3.nation); //现在可以访问到nation属性
+			//			
+//			stu1.sayHi();
+//			stu2.sayHi();
+//			stu3.sayHi();//现在sayHi方法被调用了
+
+			/*
+			 * 2. constructor 属性,  原型对象的属性, 指向原型对象所属的构造函数
+			 */
+						//console.log(Student.prototype.constructor);
+
+			/*
+			 * 3. __proto__属性, 实例对象都有这个属性, 指向创建该实例对象的构造函数的原型对象 
+			 */
+						console.log(stu1);
+
+						console.log(stu1.__proto__.__proto__.__proto__);
+
+			/*
+			 * 面向对象里, 系统是如何查找对象的属性或者方法的???
+			 * 1. 先到自己的对象里查找, 如果找到, 直接返回
+			 * 2. 如果没找到, 再到自己构造函数的原型对象里去找, 如果找到, 返回
+			 * 3. 如果自身的构造函数的原型对象里也没有, 去自己的原型对象的原型对象里继续查找. 如果找到, 返回
+			 * 4. 一直找到Object()构造函数所属的原型对象, 如果还没有, 属性返回undefined, 方法报错.
+			 * 
+			 * 这样通过各自的原型对象查找内容, 形成的一个链式的查找途径, 称之为原型链!
+			 * 
+			 */
+						console.log(stu1);
+						console.log(Student.prototype);
+						console.log(stu1.name);
+						console.log(stu1.age);
+						console.log(stu1.nation);
+						console.log(stu1.abc);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="500"></canvas>
+		<script type="text/javascript">
+			
+			//1.获取Canvas DOM元素
+			var CanvasE=document.getElementById("Canvas");
+			
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+			
+			//3.绘制直线
+             /*
+              * 描边矩形  strokeRect(x,y,width,height)
+              * 填充矩形  fillRect(x,y,width,height)
+              */
+		    context.strokeStyle = "green";
+		    context.strokeRect(100,100,400,200);
+		    context.fillStyle = "red";
+		    context.fillRect(550,100,400,200);
+		    
+		</script>
+	</body>
+
+</html>

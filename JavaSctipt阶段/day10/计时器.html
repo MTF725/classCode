@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="img/1.jpg" alt="">
+    <button>上一张</button>
+    <button>下一张</button>
+    <button>开始</button>
+    <button>结束</button>
+
+    <script>
+        var btns = document.querySelectorAll("button");
+        var img = document.querySelector("img");
+        var index = 1; //函数外声明一个全局变量，使其他函数都可以使用，表示这是第几张图片。
+        btns[0].onclick = function () {
+            if (index == 1) {
+                index = 8;
+            } else {
+                index--;
+            }
+            img.src = "img/" + index + ".jpg";
+            console.log(img.src);
+        }
+        btns[1].onclick = function () {
+            if (index == 8) {
+                index = 1;
+            } else {
+                index++;
+            }
+            img.src = "img/" + index + ".jpg";
+            console.log(img.src);
+        }
+        var time;
+        // var isUse = false;
+        btns[2].onclick = function () {
+
+            // 计时器 设置时间间隔
+            // setInterval(需要执行的函数, 时间间隔: 单位, 毫秒);
+
+            // 运行原理:
+            //     系统会每隔对应的毫秒数自动调用第一个函数
+
+            // 返回值: 创建的计时器的序号
+
+            // if (isUse == false) {
+            //     isUse = true;
+            //     time = setInterval(btns[1].onclick, 1000);
+            // }
+            clearInterval(time);
+            time = setInterval(btns[1].onclick, 1000);
+        }
+        btns[3].onclick = function () {
+            /*
+               销毁计时器
+               clearInterval(计时器的序号);
+            */
+            clearInterval(time);
+            /*
+                系统里有若干个计时器, 请你用最快的方法清除所有计时器
+            */
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div1 {
+				width: 500px;
+				height: 500px;
+				background-color: red;
+			}
+			
+			#div2 {
+				width: 400px;
+				height: 400px;
+				background-color: yellow;
+			}
+			
+			#div3 {
+				width: 300px;
+				height: 300px;
+				background-color: pink;
+			}
+			
+			#div4 {
+				width: 200px;
+				height: 200px;
+				background-color: blue;
+			}
+			
+			#div5 {
+				width: 100px;
+				height: 100px;
+				background-color: green;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">
+			<div id="div2">
+				<div id="div3">
+					<div id="div4">
+						<div id="div5"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			/*
+			 * 事件源：真正触发对应事件的源头对象
+			 * 事件对象.target
+			 * 
+			 * 面试题：事件代理(event delegate)
+			 * 
+			 */
+
+			div1.onclick = function(e) {
+				var even = e || event;
+				console.log("这是div1，触发该事件的事件源是:",even.target);//此处用,(逗号)而不是用+(加号)进行字符串拼接，因为字符串和对象不能用+(加号)进行拼接
+			}
+			div2.onclick = function(e) {
+				var even = e || event;
+				console.log("这是div2，触发该事件的事件源是:",even.target);
+			}
+			div3.onclick = function(e) {
+				var even = e || event;
+				console.log("这是div3，触发该事件的事件源是:",even.target);
+			}
+			div4.onclick = function(e) {
+				var even = e || event;
+				console.log("这是div4，触发该事件的事件源是:",even.target);
+			}
+			div5.onclick = function(e) {
+				var even = e || event;
+				console.log("这是div5，触发该事件的事件源是:",even.target);
+			}
+		</script>
+	</body>
+
+</html>

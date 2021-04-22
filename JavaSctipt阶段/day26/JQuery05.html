@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			div {
+				padding: 10px;
+				border: 1px solid red;
+				font-size: 30px;
+				background: white;
+			}
+			
+			p {
+				background: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">
+			这是一个div1标签
+			<div id="div2">这是div2标签</div>
+			<p>这是一个p标签</p>
+			<div id="div3">这是div3标签</div>
+			<p>这是一个p标签</p>
+			<div id="div4">这是div4标签
+				<div id="div5">这是div5标签</div>
+				<div id="div6">这是div6标签
+					<div id="div7">
+						这是div7标签
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//一、利用节点的关系查找元素
+			//1、查找jq对象表示的元素的父元素parent()
+			//$("#div1").parent().css("background-color","red");
+
+			//2、查找jq对象表示的元素的直系祖先元素parents(选择器) 通过选择器可以进一步对找到的祖先元素做限定：
+			//$("#div7").parents("#div1").css("background-color", "red");
+
+			//3、查找元素的直系祖先元素，直到某个位置停止，不包括指定位置的元素，可以通过第二个参数，进一步对找到的祖先元素做限定  parentsUntil("查询停止位置"，"过滤器")
+			//$("#div7").parentsUntil("#div1", "#div4").css("background-color", "red");
+
+			//4、找到jq对象表示的元素的所有子元素 children(选择器)，可以通过填选择器进一步对找到的子元素做限定
+			//$("#div1").children("#div3").css("background", "blue");
+
+			//5、找到jq对象表示的元素的满足参数选择器的所有后代元素
+			//$("#div1").find("*").css("background", "yellow");
+
+			//6、查找jq对象表示的元素的上一个兄弟元素
+			//$("#div3").prev().css("background", "yellow");
+
+			//7、查找jq对象表示的元素的上面所有的兄弟元素,可以通过填写选择器进一步对找到的兄弟元素做限定
+			//$("#div4").prevAll("p").css("background", "yellow");
+
+			//8、查找jq对象表示的元素上面所有的兄弟元素直到某个元素位置，不包括指定位置上的元素prevUntil("查询停止位置","过滤器");
+			//$("#div4").prevUntil("#div2","#div3").css("background", "yellow");
+
+			//9、查找jq对象表示的元素的下一个兄弟元素
+			//$("#div3").next().css("background", "yellow");
+
+			//10、查找jq对象表示的元素的下面所有的兄弟元素,可以通过填写选择器进一步对找到的兄弟元素做限定
+			//$("#div4").nextAll("p").css("background", "yellow");
+
+			//11、查找jq对象表示的元素下面所有的兄弟元素直到某个元素位置，不包括指定位置上的元素prevUntil("查询停止位置","过滤器");
+			//$("#div4").nextUntil("p","#div2").css("background", "yellow");
+
+			//12、查找jq对象表示的所有的兄弟元素
+			//$("#div3").siblings("p").css("background", "yellow")
+			
+		</script>
+	</body>
+
+</html>

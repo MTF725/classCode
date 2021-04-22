@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//			1.sort(),js提供的数组的方法,作用是排序;
+			//			2.冒泡排序,通过自己的逻辑实现的排序算法;
+
+			/*
+			 sort方法
+			 直接修改原数组
+			 排出的结果是升序(两个数相比较，前边的数比后边的数大时，交换两个数的位置)；
+			 排序的标准是按照字符串的排序标准排序
+			 */
+			var arr = [3, 100, 5, 7, 2];
+			arr.sort();
+			console.log(arr); //100 2 3 5 7;
+			/*
+			 * 如果sort方法的默认排序原则不满足我们的需求，我们可以自定义排序规则：
+			 * 
+			 * 调用sort方法是，传入一个函数。在函数内书写自己的排序规则；	 
+			 * 
+			 * return的值>0,交换两个变量的值；
+			 * return的值<=0,不交换两个变量的值；
+			 * 
+			 * 总结：
+			 * 保证传入函数的参数，第一个参数是a，第二个参数是b
+			 * 升序 return a-b；
+			 * 降序 return b-a；
+			 * 乱序 return Math.random()-0.5;
+			 */
+			arr.sort(function(a, b) {
+				//书写排序规则：
+				return a - b; //升序
+				console.log(a, b);
+				return b - a; //降序
+				console.log(b - a);
+			});
+			console.log(arr);
+		</script>
+	</body>
+
+</html>

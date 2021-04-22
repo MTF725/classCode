@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#Canvas {
+				border: 1px solid red;
+				display: block;
+				margin: 50px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="Canvas" width="1000" height="600"></canvas>
+		<script type="text/javascript">
+			//1.获取Canvas DOM元素
+			var CanvasE = document.getElementById("Canvas");
+			console.log(CanvasE);
+
+			//2.获取画笔对象(核心)
+			var context = CanvasE.getContext("2d");
+
+			//3.绘制图片
+			//需要创建一个图片对象，保存图片的所有像素信息
+			var img = new Image();
+			img.src = "img/325695.jpg"
+
+			//保证图片对象完全加载图片数据之后，再进行绘制
+			img.onload = function() {
+				context.drawImage(img, 0, 0, 1000, 600);
+			}
+			//绑定鼠标按下事件
+			CanvasE.onmousedown = function() {
+				//绑定鼠标移动事件
+				this.onmousemove = function(e) {
+					var even = e || event;
+					//清空画布
+					context.clearRect(0, 0, CanvasE.width, CanvasE.height);
+					//重新绘制
+					context.drawImage(img, 0, 0, 1000, 600);
+					//绘制圆形
+					/*
+					 * offsetX  offsetY
+					 * 发生事件的地点在事件源元素的坐标系统中的x坐标和y坐标
+					 */
+					//设置图形的组合方式
+					context.globalCompositeOperation = "destination-out";//新创建的画布是目的，圆形是源，destination-out绘制不与源重合的部分，即绘制圆形（放大镜区域）以外的部分
+					//圆形
+					var x = even.offsetX;
+					var y = even.offsetY;
+					context.beginPath();
+					context.arc(x, y, 100, 0, Math.PI * 2, false);
+					context.closePath();
+					context.fill();
+
+					//设置图形的组合方式
+					context.globalCompositeOperation = "destination-over";//使得目的在源上，即圆形在正方形上方；
+					//绘制放大的图像
+					context.drawImage(img, 2.56 * x - 100, 2.4 * y - 100, 200, 200, x - 100, y - 100, 200, 200); //原图图像本来就比画布图像大，所以原图的200*200的图像放在画布上就是一个大的图像；
+				}
+			}
+			CanvasE.onmouseup = function() {
+				this.onmousemove = null;
+				//清空画布
+				context.clearRect(0, 0, CanvasE.width, CanvasE.height);
+				//重新绘制
+				context.drawImage(img, 0, 0, 1000, 600);
+			}
+		</script>
+	</body>
+
+</html>
